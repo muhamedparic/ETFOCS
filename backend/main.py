@@ -1,4 +1,4 @@
-from flask import Flask, request, abort
+from flask import Flask, request, abort, render_template
 
 import json
 
@@ -21,6 +21,15 @@ def api_login():
 @app.route('/api/token_valid')
 def api_token_valid():
     return 'token' in request.form and db.token_valid(request.form.get('token'))
+
+@app.route('/')
+@app.route('/main')
+def index():
+	return render_template('main.html')
+
+@app.route('/home')
+def home():
+	return render_template('homepage.html')
 
 if __name__ == '__main__':
     app.run(port=8000)

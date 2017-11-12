@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>Online Competition System</title>
+        <link rel="stylesheet" href="{{ url_for('static', filename='homepage.css') }}">
+    </head>
+    <body>
+
+
+        <div class="homepage_info">
+            <h2 id="a">Welcome, username!</h2>
+            <form action="/logout_handler.php">
+                <input type="submit" value="Log out" onclick="Lo()">
+            </form>
+        </div>
+
+
+
+<script>
+var txt=localStorage.getItem("username")
+if(txt==null)txt="guest"
+document.getElementById("a").innerHTML = "Welcome, "+txt;
+</script>
+
+
+
+
+<script>
+function Lo()
+{localStorage.clear();
+setTimeout(function() {window.location = "/" });
+}
+</script>
+
+
+
+
+
+    </body>
+</html>
