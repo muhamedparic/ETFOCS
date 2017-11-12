@@ -9,18 +9,52 @@
         <div class="login_info">
             <h1>ETF Online Competition System</h1>
 
-            <form action="/login_handler.php">
+            <form action="/homepage.html" >
                 <p><b>Username:</b></p><br><br>
-                <input type="text" name="username" value="">
+                <input type="text" name="username" id="textbox" value="">
                 <br><br>
                 <p><b>Password:</b></p><br><br>
-                <input type="password" name="password" value="">
+                <input type="password" name="password" id="textbox2" value="">
                 <br><br>
                 <div class="buttons">
-                    <input type="submit" value="Log in">
-                    <input type="submit" value="Log in as guest">
+                    <input type="submit"  value="Log in" onclick="checkLength()">
+                    <input type="submit"   value="Log in as guest" onclick="rdr()">
                 </div>
             </form> 
+<script>
+function checkLength(){
+localStorage.clear();
+    var textbox = document.getElementById("textbox");
+    var TCode = document.getElementById('textbox').value;
+var textbox2 = document.getElementById("textbox2");
+    if((textbox2.value.length <= 25 && textbox2.value.length >= 5)&&(textbox.value.length <= 25 && textbox.value.length >= 5)&&((! /[^a-zA-Z0-9\-\/]/.test( TCode ) ) )){
+       
+localStorage.setItem("username",TCode);
+
+
+setTimeout(function() {window.location = "homepage.html" });
+return true;
+    }
+    else{
+        alert("Username i password treba biti izmedju 5 i 25 karaktera,i username ne smije imati specijalne znakove")
+return false;
+    }
+
+}
+
+
+function rdr()
+{localStorage.clear();
+setTimeout(function() {window.location = "homepage.html" });
+
+
+
+}
+
+
+
+</script>
+
         </div>
     </body>
 </html>
