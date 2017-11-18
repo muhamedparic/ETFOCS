@@ -31,5 +31,9 @@ def index():
 def home():
 	return render_template('homepage.html')
 
+@app.route('/profile')
+def profile():
+	return render_template('profile-dashboard.html')
+
 if __name__ == '__main__':
     app.run(port=8000)
