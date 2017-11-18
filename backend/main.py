@@ -3,6 +3,7 @@ from flask import Flask, request, abort, render_template
 import json
 
 import dbfunctions as db
+import oracle_test
 
 app = Flask(__name__)
 
@@ -18,7 +19,7 @@ def api_login():
     else:
         return json.dumps({'success': False, 'reason': 'Invalid username or password'})
 
-@app.route('/api/token_valid')
+@app.route('/api/token_valid', methods=['POST'])
 def api_token_valid():
     return 'token' in request.form and db.token_valid(request.form.get('token'))
 
@@ -35,5 +36,9 @@ def home():
 def profile():
 	return render_template('profile-dashboard.html')
 
+@app.route('/test_db')
+def test_db():
+	return str(oracle_test.oracle_test('users'))
+
 if __name__ == '__main__':
-    app.run(port=8000)
+    app.run(port=8000, host='192.168.0.20')
