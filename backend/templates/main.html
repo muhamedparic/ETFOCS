@@ -129,12 +129,11 @@ http.onreadystatechange = function() {//Call a function when the state changes.
                 var myObj = JSON.parse(this.responseText);
 
                 var a = myObj.success;
-                var b = myObj.token;
+                var b = myObj.token.hash;
 alert("aa");
-alert(myObj);
-alert(a);
-
 alert(b);
+
+
 
                 
 
