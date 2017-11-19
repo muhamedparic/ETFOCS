@@ -136,8 +136,9 @@ http.onreadystatechange = function() {//Call a function when the state changes.
 
 if(a)
 {
-var b = myObj.token.hash;
-alert("Uspjesno")
+var b = myObj.token;
+var d=ProvjeriToken(a,b);
+alert(d);
 localStorage.setItem("token",b);
 setTimeout(function() {window.location = "/home" });
 }
@@ -166,15 +167,19 @@ return false;
 
 function ProvjeriToken(a,b)
 {var http = new XMLHttpRequest();
-var url = "/api/token_valid";
-http.open("POST", url, true);
+var url2 = "/api/token_valid";
+
+var params2 = "token="+b;
+alert("aha");
+http.open("POST", url2, true);
 http.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
 
 http.onreadystatechange = function() {//Call a function when the state changes.
     if(http.readyState == 4 && http.status == 200) {
 
             var vrijednost =this.responseText;
-            if(vrijednost=="true")return true;
+alert(this.responseText);
+            if(vrijednost)return true;
 //ako token nije dobar vraca se false
 return false;
           
@@ -182,7 +187,7 @@ return false;
 
     }
 }
-http.send(params);
+http.send(params2);
 
 
 
