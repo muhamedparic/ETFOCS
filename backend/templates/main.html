@@ -168,7 +168,7 @@ return false;
 function ProvjeriToken(a,b)
 {var http = new XMLHttpRequest();
 var url2 = "/api/token_valid";
-alert("a");
+
 var params2 = "token="+b;
 alert("aha");
 http.open("POST", url2, true);
@@ -178,7 +178,7 @@ http.onreadystatechange = function() {//Call a function when the state changes.
     if(http.readyState == 4 && http.status == 200) {
 
             var vrijednost =this.responseText;
-alert("aha");
+alert(this.responseText);
             if(vrijednost)return true;
 //ako token nije dobar vraca se false
 return false;
