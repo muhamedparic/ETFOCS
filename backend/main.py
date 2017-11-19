@@ -49,19 +49,26 @@ def admin_profile():
 def test_db():
 	return str(oracle_test.oracle_test('users'))
 
-@app.route('/api/add_competition')
+@app.route('/api/add_competition', methods=['POST'])
 def api_add_competition():
-	if 'token' not in request.form or not utils.valid_json(request.form.get('token')) or not db.token_valid(request.form.get('token')):
-		return json.dumps({'success': False, 'reason': 'Invalid token'})
+	#if 'token' not in request.form or not utils.valid_json(request.form.get('token')) or not db.token_valid(request.form.get('token')): POPRAVI
+	#	return json.dumps({'success': False, 'reason': 'Invalid token'}) POPRAVI
 	if not 'name' in request.form or not 'type' in request.form or not 'subject' in request.form:
 		return json.dumps({'success': False, 'reason': 'Missing competition info'})
 	comp_name = request.form.get('name')
 	comp_type = request.form.get('type')
 	comp_subject = request.form.get('subject')
-	token = json.loads(request.form.get('token'))
-	username, _ = token['token'].split('.')
-	dbfunctions.add_competition(comp_name, comp_type, comp_subject, username)
+	#token = json.loads(request.form.get('token')) POPRAVI
+	#username, _ = token['token'].split('.')
+	username = 'muhamed' # POPRAVI
+	# Dodaj da mora biti admin
+	db.add_competition(comp_name, comp_type, comp_subject, username)
 	return json.dumps({'success': True})
+
+@app.route('/api/competition_list', methods=['POST'])
+def api_competition_list():
+	# Dodaj provjeru tokena
+	return db.competition_list()
 
 if __name__ == '__main__':
     app.run(host='192.168.0.20', port=8000, processes=4)

@@ -9,7 +9,7 @@ import json
 conn = MySQLdb.connect(host='localhost', user='admin', password='root', db='ETFOCS')
 char_set = string.ascii_letters + string.digits + string.punctuation
 #secret_key = ''.join([random.choice(char_set) for _ in range(64)])
-secret_key = '123456789'
+secret_key = '7725b1b3d5aa1b7af2f102463e12740519c50112a370e74fce3340c96e54b979'
 
 def login(username, password):
     global conn
@@ -58,6 +58,12 @@ def token_valid(token):
 def add_competition(comp_name, comp_type, comp_subject, username):
 	global conn
 	with conn.cursor() as cur:
-		cur.execute('INSERT INTO competitions(name, type, subject, user) VALUES (%s, %s, %s,\
+		cur.execute('INSERT INTO competitions(name, type, subject, created_by_fk) VALUES (%s, %s, %s,\
 		(SELECT id FROM users WHERE username=%s))', (comp_name, comp_type, comp_subject, username))
 		conn.commit()
+
+def competition_list():
+	global conn
+	with conn.cursor() as cur:
+		cur.execute('SELECT name, type, subject FROM competitions')
+		return json.dumps(cur.fetchall())
