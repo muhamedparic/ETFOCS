@@ -129,9 +129,8 @@ http.onreadystatechange = function() {//Call a function when the state changes.
                 var myObj = JSON.parse(this.responseText);
 
                 var a = myObj.success;
-                var b = myObj.token.hash;
-alert("aa");
-alert(b);
+                
+
 
 
 
@@ -140,9 +139,10 @@ alert(b);
 
 
 if(a)
-{
-
-
+{var b = myObj.token.hash;
+alert("aa");
+alert(b);
+var c=ProvjeriToken(a,b);
 localStorage.setItem("token",b);
 setTimeout(function() {window.location = "/home" });
 }
