@@ -138,7 +138,6 @@ if(a)
 {
 var b = myObj.token;
 var d=ProvjeriToken(a,b);
-alert(d);
 localStorage.setItem("token",b);
 setTimeout(function() {window.location = "/home" });
 }
@@ -170,7 +169,7 @@ function ProvjeriToken(a,b)
 var url2 = "/api/token_valid";
 
 var params2 = "token="+b;
-alert("aha");
+alert(b);
 http.open("POST", url2, true);
 http.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
 
