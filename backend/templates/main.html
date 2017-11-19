@@ -125,7 +125,9 @@ http.onreadystatechange = function() {//Call a function when the state changes.
     if(http.readyState == 4 && http.status == 200) {
 //Uzimanje JSona
 alert("a");
- 
+            var myObj = JSON.parse(request.responseText);
+alert(myObj.success);
+alert(myObj.token);
 alert("d");
 var c="true";
 if(c=="true")
