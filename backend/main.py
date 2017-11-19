@@ -41,6 +41,10 @@ def home():
 def profile():
 	return render_template('profile-dashboard.html')
 
+@app.route('/admin_profile')
+def admin_profile():
+	return render_template('admin-profile-dashboard.html')
+
 @app.route('/test_db')
 def test_db():
 	return str(oracle_test.oracle_test('users'))
