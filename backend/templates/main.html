@@ -128,21 +128,21 @@ http.onreadystatechange = function() {//Call a function when the state changes.
             
                 var myObj = JSON.parse(this.responseText);
                 var a = myObj.success;
-                var b = myObj.token.hash;
+                
 
                 
 
-alert(a);
-alert(b);
+
 
 if(a)
 {
-alert("radi")
+var b = myObj.token.hash;
+alert("Uspjesno")
 localStorage.setItem("token",b);
 setTimeout(function() {window.location = "/home" });
 }
 else
-{alert("Pogresna sifra ili username");
+{alert("Pogresna sifra ili username ili oboje");
 }
 
 
