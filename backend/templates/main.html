@@ -174,8 +174,8 @@ return false;
 function ProvjeriToken(a,b)
 {var http2 = new XMLHttpRequest();
 var url2 = "/api/token_valid";
-
-params2 = "token="+b;
+alert(JSON.stringify(b));
+var params2 = "token="+ JSON.stringify(b);
 alert(b.hash);
 alert(params2);
 http2.open("POST", url2, true);
