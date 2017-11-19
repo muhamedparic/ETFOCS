@@ -124,11 +124,14 @@ http.open("POST", url, true);
 http.onreadystatechange = function() {//Call a function when the state changes.
     if(http.readyState == 4 && http.status == 200) {
 //Uzimanje JSona
-alert("a");
-            
-alert(this.responseText);
 
-alert("d");
+            
+                var myObj = JSON.parse(this.responseText);
+                var a = myObj.success;
+                var b = myObj.token;
+
+alert(a);
+alert(b);
 var c="true";
 if(c=="true")
 {
