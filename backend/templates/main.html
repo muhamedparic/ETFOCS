@@ -135,13 +135,18 @@ http.onreadystatechange = function() {//Call a function when the state changes.
 alert(a);
 alert(b);
 
+if(a=="false")
+{alert("Nisu ispravni podaci");
+
+}
+
 if(a=="true")
 {
 
 localStorage.setItem("token",b);
 
 
-setTimeout(function() {window.location = "home.html" });
+setTimeout(function() {window.location = "/home" });
 }
 
 
