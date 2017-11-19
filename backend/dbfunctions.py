@@ -4,11 +4,12 @@ import hashlib
 import time
 import random
 import string
+import json
 
 conn = MySQLdb.connect(host='localhost', user='admin', password='root', db='ETFOCS')
 char_set = string.ascii_letters + string.digits + string.punctuation
 #secret_key = ''.join([random.choice(char_set) for _ in range(64)])
-secret_key = ''
+secret_key = '123456789'
 
 def login(username, password):
     global conn
@@ -30,13 +31,20 @@ def register(username, password):
     conn.commit()
     return 'yos'
 
-def user_exist(username):
+def user_exists(username):
     global conn
     with conn.cursor() as cur:
         cur.execute('SELECT id FROM users WHERE username=%s', (username,))
         return cur.fetchone() is not None
 
+def is_admin_user(username):
+	global conn
+	with conn.cursor() as cur:
+		cur.execute('SELECT id FROM users WHERE username=%s AND admin=1', (username,))
+		return cur.fetchone() is not None
+
 def token_valid(token):
+    token = json.loads(token)
     token_string = token['token']
     token_hash = token['hash']
     if hashlib.sha256((token_string + secret_key).encode('utf-8')).hexdigest() != token_hash:
@@ -46,3 +54,10 @@ def token_valid(token):
     if not user_exists(user):
         return False
     return exp_at < time.time()
+
+def add_competition(comp_name, comp_type, comp_subject, username):
+	global conn
+	with conn.cursor() as cur:
+		cur.execute('INSERT INTO competitions(name, type, subject, user) VALUES (%s, %s, %s,\
+		(SELECT id FROM users WHERE username=%s))', (comp_name, comp_type, comp_subject, username))
+		conn.commit()
