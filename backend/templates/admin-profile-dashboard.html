@@ -143,8 +143,9 @@ http2.onreadystatechange = function() {//Call a function when the state changes.
 //Uzimanje JSona
 
               myObj = JSON.parse(this.responseText);
-
-for(i=0;i<5;i++)
+var ok=myObj.length;
+alert(ok);
+for(i=0;i<ok;i++)
 {
   var row = table.insertRow(i+2);
     var cell1 = row.insertCell(0);
