@@ -113,14 +113,14 @@
 
 <script>
 function Primitakmicenje()
-{alert("aaa");
+{
 var t1= document.getElementById("name");
     var T1 = document.getElementById("name").value;
 var t2 = document.getElementById("type");
 var T2 = document.getElementById("type").value;
 var t3 = document.getElementById("subject");
 var T3 = document.getElementById("subject").value;
-alert("bbbb");
+
 var http = new XMLHttpRequest();
 var url = "/api/add_competition";
 var params = "name="+T1+"&type="+T2+"&subject="+T3;
