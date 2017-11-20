@@ -148,16 +148,16 @@ http.send(params);
 function Ucitajtakicenje()
 {alert("pocinje");
 var http2 = new XMLHttpRequest();
-var url = "/api/competition_list";
+var url2 = "/api/competition_list";
 
-http2.open("POST", url, true);
+http2.open("POST", url2, true);
        http2.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
 http2.onreadystatechange = function() {//Call a function when the state changes.
     if(http2.readyState == 4 && http2.status == 200) {
 //Uzimanje JSona
 
             
-               alert("uspjesno");
+               alert("uspjesni");
     }
 }
 http2.send();
