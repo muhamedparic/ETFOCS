@@ -34,7 +34,7 @@
         <div id="navbar" class="navbar-collapse collapse">
           <ul class="nav navbar-nav navbar-right">
             <li><a href="#">Home</a></li>
-            <li><a href="#" onclick="bup();return false;">Help</a></li>
+            <li><a href="#">Help</a></li>
           </ul>
           <form class="navbar-form navbar-right">
             <input type="text" class="form-control" placeholder="Search...">
@@ -113,13 +113,14 @@
 
 <script>
 function Primitakmicenje()
-{
+{alert("aaa");
 var t1= document.getElementById("name");
     var T1 = document.getElementById("name").value;
 var t2 = document.getElementById("type");
 var T2 = document.getElementById("type").value;
 var t3 = document.getElementById("subject");
 var T3 = document.getElementById("subject").value;
+alert("bbbb");
 var http = new XMLHttpRequest();
 var url = "/api/add_competition";
 var params = "name="+T1+"&type="+T2+"&subject="+T3;
@@ -138,29 +139,6 @@ http.send(params);
 }
 
 
-
-
-function bup()
-{alert("pocinje");
-var http = new XMLHttpRequest();
-var url = "/api/competition_list";
-
-http.open("POST", url, true);
-       http.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-http.onreadystatechange = function() {//Call a function when the state changes.
-    if(http.readyState == 4 && http.status == 200) {
-//Uzimanje JSona
-alert(JSON.parse(this.responseText););
-            
-               alert("uspjesno");
-    }
-}
-http.send();
-
-
-
-
-}
 
 
 
