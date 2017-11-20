@@ -156,8 +156,9 @@ http2.onreadystatechange = function() {//Call a function when the state changes.
     if(http2.readyState == 4 && http2.status == 200) {
 //Uzimanje JSona
 
-            
-               alert(JSON.parse(this.responseText));
+              myObj = JSON.parse(this.responseText);
+            alert(myObj[0][0]);
+   alert(JSON.parse(this.responseText));
     }
 }
 http2.send();
