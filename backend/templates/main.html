@@ -120,7 +120,7 @@ http.onreadystatechange = function() {//Call a function when the state changes.
            
                 var myObj = JSON.parse(this.responseText);
                 var a = myObj.success;
-ProvjeriToken(myObj);
+if(a)ProvjeriToken(myObj);
                 
 
 
@@ -152,9 +152,7 @@ return false;
 function ProvjeriToken(myObj)
 {var http2 = new XMLHttpRequest();
 var url2 = "/api/token_valid";
-alert(myObj.token.hash);
-alert(myObj.token.role);
-alert(myObj.token.token);
+
 var obj = { "hash":myObj.token.hash, "role":myObj.token.role, "token":myObj.token.token};
 var params2 = "token="+ JSON.stringify(obj);
 
@@ -165,7 +163,7 @@ http2.onreadystatechange = function() {//Call a function when the state changes.
     if(http.readyState == 4 && http.status == 200) {
 
             var vrijednost =JSON.parse(this.responseText);
-alert(vrijednost);
+
             return true;
 
           
