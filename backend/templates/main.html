@@ -129,7 +129,7 @@ http.onreadystatechange = function() {//Call a function when the state changes.
                 var myObj = JSON.parse(this.responseText);
 
                 var a = myObj.success;
-                
+                var uloga=myObj.role;
 
 
 
@@ -146,7 +146,14 @@ if(a)
 var c=ProvjeriToken(a,b);
 
 localStorage.setItem("token",b);
-setTimeout(function() {window.location = "/home" });
+alert(uloga);
+if(uloga=="admin")
+{
+setTimeout(function() {window.location = "/admin_profile" });
+}
+else{setTimeout(function() {window.location = "/profile" });
+}
+
 }
 else
 {alert("Pogresna sifra ili username ili oboje");
