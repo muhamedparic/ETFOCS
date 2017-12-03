@@ -24,7 +24,7 @@
         <nav>
           <ul class="nav nav-pills pull-right">
             <li role="presentation" class="active"><a href="#">Home</a></li>
-            <li role="presentation"><a href="#">Profile</a></li>
+            <li role="presentation"  onclick="b()"><a href="#">Profile</a></li>
             <li role="presentation" onclick="a()"><a href="#">Log out</a></li>
           </ul>
         </nav>
@@ -56,8 +56,19 @@
 <script>
 function a() {
 	localStorage.clear();
-	setTimeout(function() { window.location = "main.html"; });
+	setTimeout(function() { window.location = "/main"; });
 }
+
+function b() {
+	var b=localStorage.getItem("uloga");
+alert(b);
+	if(b=="admin"){setTimeout(function() { window.location = "/admin"; })}
+else {window.location = "/user";};
+}
+
+
+
+
 
 </script>
 
