@@ -71,4 +71,4 @@ def api_competition_list():
 	return db.competition_list()
 
 if __name__ == '__main__':
-    app.run(host='192.168.0.20', port=8000, processes=4)
+    app.run(host='localhost', port=8000, processes=4)
