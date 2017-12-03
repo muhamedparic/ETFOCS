@@ -120,7 +120,7 @@ http.onreadystatechange = function() {//Call a function when the state changes.
            
                 var myObj = JSON.parse(this.responseText);
                 var a = myObj.success;
-if(a)ProvjeriToken(myObj);
+
                 
 
 
@@ -128,8 +128,9 @@ if(a)ProvjeriToken(myObj);
 if(a)
 {var b = myObj.token;
  var ul=myObj.token.role;
-localStorage.setItem("token",b);
+localStorage.setItem("token",myObj.token.token);
 localStorage.setItem("uloga",ul);
+localStorage.setItem("hash",myObj.token.hash);
 setTimeout(function() {window.location = "/home" });
 }
 else
@@ -149,37 +150,7 @@ return false;
 
 
 
-function ProvjeriToken(myObj)
-{var http2 = new XMLHttpRequest();
-var url2 = "/api/token_valid";
 
-var obj = { "hash":myObj.token.hash, "role":myObj.token.role, "token":myObj.token.token};
-var params2 = "token="+ JSON.stringify(obj);
-
-http2.open("POST", url2, true);
-http2.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-
-http2.onreadystatechange = function() {//Call a function when the state changes.
-    if(http.readyState == 4 && http.status == 200) {
-
-            var vrijednost =JSON.parse(this.responseText);
-
-            return true;
-
-          
-
-
-    }
-}
-http2.send(params2);
-
-
-
-
-
-
-
-}
 </script>
 
 

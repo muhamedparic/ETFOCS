@@ -103,6 +103,10 @@ var T2 = document.getElementById("type").value;
 var t3 = document.getElementById("subject");
 var T3 = document.getElementById("subject").value;
 
+var d=ProvjeriToken(localStorage.getItem("hash"),localStorage.getItem("uloga"),localStorage.getItem("token");
+if(!d)alert("ilegalna akcija");
+if(d){
+alert("dobro je smijes");
 var http = new XMLHttpRequest();
 var url = "/api/add_competition";
 var params = "name="+T1+"&type="+T2+"&subject="+T3;
@@ -119,6 +123,7 @@ http.onreadystatechange = function() {//Call a function when the state changes.
 }
 http.send(params);
 location.reload();
+}
 }
 
 
@@ -199,6 +204,46 @@ function myCreateFunction() {
 function myDeleteFunction() {
     document.getElementById("myTable").deleteRow(0);
 }
+
+
+
+function ProvjeriToken(a,b,c)
+{var http2 = new XMLHttpRequest();
+var url2 = "/api/token_valid";
+
+var obj = { "hash":a, "role":b, "token":c};
+var params2 = "token="+ JSON.stringify(obj);
+
+http2.open("POST", url2, true);
+http2.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+
+http2.onreadystatechange = function() {//Call a function when the state changes.
+    if(http.readyState == 4 && http.status == 200) {
+
+            var vrijednost =JSON.parse(this.responseText);
+
+            return vrijednost;
+
+          
+
+
+    }
+}
+http2.send(params2);
+
+
+
+
+
+
+
+}
+
+
+
+
+
+
 </script>
 
 
