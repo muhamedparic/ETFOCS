@@ -121,10 +121,10 @@ http.onreadystatechange = function() {//Call a function when the state changes.
                 var myObj = JSON.parse(this.responseText);
                 var a = myObj.success;
                  var ul=myObj.token.role;
-                
-if(a)
+               alert(a);
+if(a=="true")
 {b = myObj.token;
-
+alert("sffs");
 localStorage.setItem("token",b);
 localStorage.setItem("uloga",ul);
 setTimeout(function() {window.location = "/home" });
