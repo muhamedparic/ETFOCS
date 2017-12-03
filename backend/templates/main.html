@@ -123,15 +123,16 @@ http.onreadystatechange = function() {//Call a function when the state changes.
                 var myObj = JSON.parse(this.responseText);
 
                 var a = myObj.success;
-                var uloga=myObj.role;
+
+                var ul=myObj.token.role;
 
 
 
 
                 
-alert(myObj);
+alert(myObj.token);
 alert(a);
-alert(uloga);
+alert(ul);
 
 
 if(a)
@@ -143,7 +144,7 @@ var c=ProvjeriToken(a,b);
 
 localStorage.setItem("token",b);
 alert(uloga);
-if(uloga=="admin")
+if(ul=="admin")
 {
 setTimeout(function() {window.location = "/admin_profile" });
 }
