@@ -131,7 +131,7 @@ http.onreadystatechange = function() {//Call a function when the state changes.
 
                 
 
-if(!a){alert("alert("Pogresna sifra ili username ili oboje"");};
+
 if(a)
 {b = myObj.token;
 
@@ -140,16 +140,9 @@ if(a)
 var c=ProvjeriToken(a,b);
 
 localStorage.setItem("token",b);
-
-if(ul=="admin")
-    {
 localStorage.setItem("uloga",ul);
 setTimeout(function() {window.location = "/home" });
-    }
-else
-   {localStorage.setItem("uloga","neadmin");
-setTimeout(function() {window.location = "/home" });
-    };
+
 
 }
 else
