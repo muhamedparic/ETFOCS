@@ -12,9 +12,8 @@ char_set = string.ascii_letters + string.digits + string.punctuation
 secret_key = '7725b1b3d5aa1b7af2f102463e12740519c50112a370e74fce3340c96e54b979'
 
 def login(username, password):
-    global conn
     with conn.cursor() as cur:
-        cur.execute('SELECT id FROM users WHERE username=%s AND password_hash=%s', (username, hashlib.sha256(password.encode('utf-8')).hexdigest()))
+        cur.execute('SELECT is_admin FROM users WHERE username=%s AND password_hash=%s', (username, hashlib.sha256(password.encode('utf-8')).hexdigest()))
         result = cur.fetchone()
         if result is None:
             return None, False
@@ -22,7 +21,8 @@ def login(username, password):
             exp_at = str(int(time.time()) + 3600)
             token = username + '.' + exp_at
             token_hash = hashlib.sha256((token + secret_key).encode('utf-8')).hexdigest()
-            return {'token': token, 'hash': token_hash}, True
+            role = 'admin' if result[0] == 1 else 'user'
+            return {'token': token, 'role': role, 'hash': token_hash}, True
 
 def register(username, password):
     global conn

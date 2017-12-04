@@ -14,9 +14,9 @@ def api_login():
         return json.dumps({'success': False, 'reason': 'Username or password not provided'})
     username = request.form.get('username')
     password = request.form.get('password')
-    result, success = db.login(username, password)
+    token, success = db.login(username, password)
     if success:
-        return json.dumps({'success': True, 'token': result})
+        return json.dumps({'success': True, 'token': token})
     else:
         return json.dumps({'success': False, 'reason': 'Invalid username or password'})
 
@@ -25,7 +25,6 @@ def api_token_valid():
     if 'token' not in request.form or not utils.valid_json(request.form.get('token')):
     	return 'false'
     return_value = db.token_valid(request.form.get('token'))
-    print(request.form.get('token'), return_value)
     return 'true' if return_value else 'false'
 
 @app.route('/')
@@ -71,4 +70,7 @@ def api_competition_list():
 	return db.competition_list()
 
 if __name__ == '__main__':
-    app.run(host='192.168.0.19', port=8000, processes=4)
+    try:
+    	app.run(host='192.168.0.19', port=8000, processes=4)
+    except OSError:
+    	app.run(host='localhost', port=8000, processes=4)
