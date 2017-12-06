@@ -18,7 +18,7 @@ def login(username, password):
         if result is None:
             return None, False
         else:
-            exp_at = str(int(time.time()) + 3600)
+            exp_at = str(int(time.time()) + 24 * 60 * 60)
             token = username + '.' + exp_at
             token_hash = hashlib.sha256((token + secret_key).encode('utf-8')).hexdigest()
             role = 'admin' if result[0] == 1 else 'user'
@@ -54,7 +54,7 @@ def token_valid(token):
 
 # Returns valid (bool), user (str), role (str, "admin" or "user")
 def token_info(token):
-    if type(token) != str:
+    if type(token) == str:
         try:
             token = json.loads(token)
         except:

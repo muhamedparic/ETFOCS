@@ -48,6 +48,7 @@ def admin_profile():
 def test_db():
 	return str(oracle_test.oracle_test('users'))
 
+// FIX
 @app.route('/api/add_competition', methods=['POST'])
 def api_add_competition():
 	#if 'token' not in request.form or not utils.valid_json(request.form.get('token')) or not db.token_valid(request.form.get('token')): POPRAVI
@@ -66,8 +67,37 @@ def api_add_competition():
 
 @app.route('/api/competition_list', methods=['POST'])
 def api_competition_list():
-	# Dodaj provjeru tokena
+	if not 'token' in request.form or db.token_info(request.form.get('token'))[2] != 'admin':
+        return 'Invalid token!'
 	return db.competition_list()
+
+@app.route('/api/add_questions', methods=['POST'])
+def api_add_questions():
+    pass
+
+@app.route('/api/add_file', methods=['POST'])
+def api_add_file():
+    pass
+
+@app.route('/api/remove_question', methods=['POST'])
+def api_remove_question():
+    pass
+
+@app.route('/api/submit_solution', methods=['POST'])
+def api_submit_solution():
+    pass
+
+@app.route('/api/submit_answers', methods=['POST'])
+def api_submit_answers():
+    pass
+
+@app.route('/api/competition_questions', methods=['POST'])
+def api_competition_questions():
+    pass
+
+@app.route('/api/competition_info', methods=['POST'])
+def api_competition_info():
+    pass
 
 if __name__ == '__main__':
     try:
