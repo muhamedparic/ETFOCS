@@ -25,20 +25,17 @@ def login(username, password):
             return {'token': token, 'role': role, 'hash': token_hash}, True
 
 def register(username, password):
-    global conn
     with conn.cursor() as cur:
         cur.execute('INSERT INTO users(username, password_hash) VALUES (%s, %s)', (username, hashlib.sha256(password.encode('utf-8')).hexdigest()))
     conn.commit()
     return 'yos'
 
 def user_exists(username):
-    global conn
     with conn.cursor() as cur:
         cur.execute('SELECT id FROM users WHERE username=%s', (username,))
         return cur.fetchone() is not None
 
 def is_admin_user(username):
-	global conn
 	with conn.cursor() as cur:
 		cur.execute('SELECT id FROM users WHERE username=%s AND admin=1', (username,))
 		return cur.fetchone() is not None
@@ -53,17 +50,43 @@ def token_valid(token):
     exp_at = int(exp_at)
     if not user_exists(user):
         return False
-    return exp_at < time.time()
+    return exp_at > time.time()
+
+# Returns valid (bool), user (str), role (str, "admin" or "user")
+def token_info(token):
+    if type(token) != str:
+        try:
+            token = json.loads(token)
+        except:
+            return False, None, None
+    if type(token) != dict:
+        return False, None, None
+    if not all(key in token for key in ('token', 'hash', 'role')):
+        return False, None, None
+    token_string = token['token']
+    token_hash = token['hash']
+    token_role = token['role']
+    if token_role not in ('user', 'admin'):
+        return False, None, None
+    if hashlib.sha256((token_string + secret_key).encode('utf-8')).hexdigest() != token_hash:
+        return False, None, None
+    user, exp_at = None, None
+    try:
+        user, exp_at = token_string.split('.')
+        exp_at = int(exp_at)
+    except:
+        return False, None, None
+    if not user_exists(user) or exp_at <= time.time():
+        return False, None, None
+    return True, user, token_role
 
 def add_competition(comp_name, comp_type, comp_subject, username):
-	global conn
 	with conn.cursor() as cur:
 		cur.execute('INSERT INTO competitions(name, type, subject, created_by_fk) VALUES (%s, %s, %s,\
 		(SELECT id FROM users WHERE username=%s))', (comp_name, comp_type, comp_subject, username))
 		conn.commit()
 
 def competition_list():
-	global conn
 	with conn.cursor() as cur:
 		cur.execute('SELECT name, type, subject FROM competitions')
 		return json.dumps(cur.fetchall())
