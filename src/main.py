@@ -3,7 +3,6 @@ from flask import Flask, request, abort, render_template
 import json
 
 import dbfunctions as db
-import oracle_test
 import utils
 
 app = Flask(__name__)
@@ -44,7 +43,7 @@ def profile():
 def admin_profile():
 	return render_template('admin-profile-dashboard.html')
 
-@app.route('/test_db')
+#@app.route('/test_db')
 def test_db():
 	return str(oracle_test.oracle_test('users'))
 

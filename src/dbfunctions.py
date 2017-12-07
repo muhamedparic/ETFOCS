@@ -40,6 +40,11 @@ def is_admin_user(username):
 		cur.execute('SELECT id FROM users WHERE username=%s AND admin=1', (username,))
 		return cur.fetchone() is not None
 
+def get_role(username):
+    with conn.cursor() as cur:
+        cur.execute('SELECT role FROM users WHERE username=%s', (username,))
+        return cur.fetchone()[0]
+
 def token_valid(token):
     token = json.loads(token)
     token_string = token['token']
@@ -65,9 +70,6 @@ def token_info(token):
         return False, None, None
     token_string = token['token']
     token_hash = token['hash']
-    token_role = token['role']
-    if token_role not in ('user', 'admin'):
-        return False, None, None
     if hashlib.sha256((token_string + secret_key).encode('utf-8')).hexdigest() != token_hash:
         return False, None, None
     user, exp_at = None, None
@@ -75,6 +77,9 @@ def token_info(token):
         user, exp_at = token_string.split('.')
         exp_at = int(exp_at)
     except:
+        return False, None, None
+    token_role = get_role(user)
+    if token_role not in ('user', 'admin'):
         return False, None, None
     if not user_exists(user) or exp_at <= time.time():
         return False, None, None
