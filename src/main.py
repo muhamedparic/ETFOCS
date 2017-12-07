@@ -66,9 +66,9 @@ def api_add_competition():
 
 @app.route('/api/competition_list', methods=['POST'])
 def api_competition_list():
-	if not 'token' in request.form or db.token_info(request.form.get('token'))[2] != 'admin':
+    if not 'token' in request.form or db.token_info(request.form.get('token'))[2] != 'admin':
         return 'Invalid token!'
-	return db.competition_list()
+    return db.competition_list()
 
 @app.route('/api/add_questions', methods=['POST'])
 def api_add_questions():
