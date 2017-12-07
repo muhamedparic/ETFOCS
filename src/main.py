@@ -43,9 +43,23 @@ def profile():
 def admin_profile():
 	return render_template('admin-profile-dashboard.html')
 
-#@app.route('/test_db')
-def test_db():
-	return str(oracle_test.oracle_test('users'))
+@app.route('/edit_competition_code')
+def edit_competition_code():
+    return render_template('edit-competition-code.html')
+
+@app.route('/edit_competition_fill')
+def edit_competition_fill():
+    return render_template('edit-competition-fill.html')
+
+@app.route('/edit_competition_multiple_choice')
+def edit_competition_multiple_choice():
+    return render_template('edit-competition-multiple-choice.html')
+
+@app.route('/secret/gitpull', methods=['GET'])
+def secret_gitpull():
+    import os
+    os.system('./gitpull.sh')
+    return ""
 
 # FIX
 @app.route('/api/add_competition', methods=['POST'])
