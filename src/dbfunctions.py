@@ -1,10 +1,12 @@
-import MySQLdb
-
 import hashlib
 import time
 import random
 import string
 import json
+
+import MySQLdb
+
+import utils
 
 conn = MySQLdb.connect(host='localhost', user='admin', password='root', db='ETFOCS')
 char_set = string.ascii_letters + string.digits + string.punctuation
@@ -13,15 +15,15 @@ secret_key = '7725b1b3d5aa1b7af2f102463e12740519c50112a370e74fce3340c96e54b979'
 
 def login(username, password):
     with conn.cursor() as cur:
-        cur.execute('SELECT is_admin FROM users WHERE username=%s AND password_hash=%s', (username, hashlib.sha256(password.encode('utf-8')).hexdigest()))
+        cur.execute('SELECT role FROM users WHERE username=%s AND password_hash=%s', (username, hashlib.sha256(password.encode('utf-8')).hexdigest()))
         result = cur.fetchone()
         if result is None:
             return None, False
         else:
+            role = result[0]
             exp_at = str(int(time.time()) + 24 * 60 * 60)
             token = username + '.' + exp_at
             token_hash = hashlib.sha256((token + secret_key).encode('utf-8')).hexdigest()
-            role = 'admin' if result[0] == 1 else 'user'
             return {'token': token, 'role': role, 'hash': token_hash}, True
 
 def register(username, password):
@@ -58,7 +60,7 @@ def token_valid(token):
     return exp_at > time.time()
 
 # Returns valid (bool), user (str), role (str, "admin" or "user")
-def token_info(token):
+def get_token_info(token):
     if type(token) == str:
         try:
             token = json.loads(token)
@@ -85,11 +87,38 @@ def token_info(token):
         return False, None, None
     return True, user, token_role
 
-def add_competition(comp_name, comp_type, comp_subject, username):
-	with conn.cursor() as cur:
-		cur.execute('INSERT INTO competitions(name, type, subject, created_by_fk) VALUES (%s, %s, %s,\
-		(SELECT id FROM users WHERE username=%s))', (comp_name, comp_type, comp_subject, username))
-		conn.commit()
+def valid_competition(comp_type, comp_name):
+    with conn.cursor() as cur:
+        cur.execute("""SELECT COUNT(*) FROM competition_types AS ct
+                       INNER JOIN competitions AS c ON ct.id=c.type_fk
+                       WHERE ct.description=%s and c.name=%s""", (comp_type, comp_name))
+        result = cur.fetchone()[0]
+        return result == 1
+
+def add_question(token, comp_type, comp_name, question_data, answer_data):
+    token_info = get_token_info(token)
+    if token_info[2] != 'admin':
+        return json.dumps({'success': False, 'reason': 'Invalid token'})
+    if comp_type not in ('fill', 'multiple_choice'):
+        return json.dumps({'success': False, 'reason': 'Invalid competition type'})
+    if not valid_competition(comp_type, comp_name):
+        return json.dumps({'success': False, 'reason': 'Invalid competition'})
+    if not utils.valid_question_answer_data(comp_type, question_data, answer_data):
+        return json.dumps({'success': False, 'reason': 'Invalid question or answer data'})
+    user = token_info[1]
+    with conn.cursor() as cur:
+        cur.execute("""INSERT INTO
+                       questions(competition_fk, created_by_fk, question_data, answer_data)
+                       VALUES
+                       ((SELECT id FROM competitions WHERE name=%s),
+                       (SELECT id FROM users WHERE username=%s),
+                       %s,
+                       %s)""", (comp_name, user, question_data, answer_data))
+        conn.commit()
+        if cur.rowcount != 1:
+            raise Exception('Problem with INSERT')
+    return json.dumps({'success': True})
+
 
 def competition_list():
 	with conn.cursor() as cur:

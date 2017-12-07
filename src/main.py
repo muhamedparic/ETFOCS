@@ -66,13 +66,18 @@ def api_add_competition():
 
 @app.route('/api/competition_list', methods=['POST'])
 def api_competition_list():
-    if not 'token' in request.form or db.token_info(request.form.get('token'))[2] != 'admin':
+    if not 'token' in request.form or db.get_token_info(request.form.get('token'))[2] != 'admin':
         return 'Invalid token!'
     return db.competition_list()
 
-@app.route('/api/add_questions', methods=['POST'])
-def api_add_questions():
-    pass
+@app.route('/api/add_question', methods=['POST'])
+def api_add_question():
+    required_fields = ('token', 'type', 'competition', 'question_data', 'answer_data')
+    if not all(field in request.form for field in required_fields):
+        return {'success': False, 'reason': 'Missing one or more fields'}
+    return db.add_question(request.form.get('token'), request.form.get('type'),
+                           request.form.get('competition'), request.form.get('question_data'),
+                           request.form.get('answer_data'))
 
 @app.route('/api/add_file', methods=['POST'])
 def api_add_file():
