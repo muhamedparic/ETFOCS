@@ -1,0 +1,43 @@
+/*!
+ * Start Bootstrap - Blog Home (https://startbootstrap.com/template-overviews/blog-home)
+ * Copyright 2013-2017 Start Bootstrap
+ * Licensed under MIT (https://github.com/BlackrockDigital/startbootstrap-blog-home/blob/master/LICENSE)
+ */
+
+body {
+  padding-top: 54px;
+}
+
+@media (min-width: 992px) {
+  body {
+    padding-top: 56px;
+  }
+}
+
+.input-field {
+  
+  display: block;
+}
+
+.input-field p {
+  
+  display: inline;
+  margin-right: 10px;
+}
+
+.input-field input {
+  
+  margin-top: 10px;
+  width: 100%;
+}
+
+.input-field select {
+  
+  margin-top: 10px;
+}
+
+#subby {
+
+  float: right;  
+  margin-top: 10px;
+}
