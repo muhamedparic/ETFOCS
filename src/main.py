@@ -47,7 +47,7 @@ def admin_profile():
 def test_db():
 	return str(oracle_test.oracle_test('users'))
 
-// FIX
+# FIX
 @app.route('/api/add_competition', methods=['POST'])
 def api_add_competition():
 	#if 'token' not in request.form or not utils.valid_json(request.form.get('token')) or not db.token_valid(request.form.get('token')): POPRAVI

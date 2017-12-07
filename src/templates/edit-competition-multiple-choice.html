@@ -11,10 +11,10 @@
     <title>Edit Competition</title>
 
     <!-- Latest compiled and minified CSS -->
-    <link href="bootstrap.min.css" rel="stylesheet">
+    <link href="{{ url_for('static', filename='bootstrap.min.css') }}" rel="stylesheet">
 
     <!-- Custom styles for this template -->
-    <link href="edit-competition.css" rel="stylesheet">
+    <link href="{{ url_for('static', filename='edit-competition.css') }}" rel="stylesheet">
 
   </head>
 
@@ -47,7 +47,7 @@
                 </div>
                 <div class="input-field">
                     <p>Ponuđeni odgovor 2:</p><input type="text" name="odgovor2">
-                </div>    
+                </div>
                 <div class="input-field">
                     <p>Ponuđeni odgovor 3:</p><input type="text" name="odgovor3">
                 </div>
@@ -64,7 +64,7 @@
                     </select>
                 </div>
                 <input id="subby" type="submit" value="Dodaj pitanje" class="btn btn-primary">
-              </form>    
+              </form>
             </div>
           </div>
         </div>
@@ -91,7 +91,7 @@
                 </div>
                 <div class="col-lg-6">
                   <ul class="list-unstyled mb-0">
-                    
+
                   </ul>
                 </div>
               </div>

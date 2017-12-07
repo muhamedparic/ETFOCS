@@ -11,10 +11,10 @@
     <title>Edit Competition</title>
 
     <!-- Latest compiled and minified CSS -->
-    <link href="bootstrap.min.css" rel="stylesheet">
+    <link href="{{ url_for('static', filename='bootstrap.min.css') }}" rel="stylesheet">
 
     <!-- Custom styles for this template -->
-    <link href="edit-competition.css" rel="stylesheet">
+    <link href="{{ url_for('static', filename='edit-competition.css') }}" rel="stylesheet">
 
   </head>
 
@@ -46,7 +46,7 @@
                     <p>Tekst koji treba dodati: </p><input type="text" name="odgovor">
                 </div>
                 <input id="subby" type="submit" value="Dodaj pitanje" class="btn btn-primary">
-              </form>    
+              </form>
             </div>
           </div>
         </div>
@@ -73,7 +73,7 @@
                 </div>
                 <div class="col-lg-6">
                   <ul class="list-unstyled mb-0">
-                    
+
                   </ul>
                 </div>
               </div>
