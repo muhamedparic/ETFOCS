@@ -144,17 +144,17 @@ var url2 = "/api/competition_list";
   var table = document.getElementById("myTable");
   
 
-
+alert("a");
 
 http2.open("POST", url2, true);
        http2.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
 http2.onreadystatechange = function() {//Call a function when the state changes.
     if(http2.readyState == 4 && http2.status == 200) {
 //Uzimanje JSona
-
+alert("b");
               myObj = JSON.parse(this.responseText);
 var ok=myObj.length;
-
+alert("c");
 for(i=0;i<ok;i++)
 {
   var row = table.insertRow(i+2);
