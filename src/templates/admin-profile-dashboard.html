@@ -182,8 +182,8 @@ var cell3 = row.insertCell(2);
     cell2.innerHTML = myObj[i][1];
 
 var myelement3 = document.createElement("BUTTON");
-myelement3.value = "Zadaci";
-myelement3.name = "Zadaci";
+var t = document.createTextNode("Zadaci");  
+myelement3.appendChild(t);
  myelement3.onclick = function() { 
  alert("ja");
 };
