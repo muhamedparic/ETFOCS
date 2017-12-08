@@ -16,9 +16,32 @@
 
     <!-- Custom styles for this template -->
     <link href="{{ url_for('static', filename='dashboard.css') }}" rel="stylesheet">
-  </head>
+  
+
+<style>
+
+
+ul#myList li {
+   
+  
+  display:inline;
+}
+
+
+</style>
+
+
+
+</head>
 
   <body onload="Ucitajtakicenje()">
+<ul hidden  id="myList" style="list-style-type:none">
+  <li><button onclick="myZadaci()">Zadaci</button></li>
+
+  <li><button onclick="myClanovi()">Clanovi</button></li>
+</ul>
+
+
 
     <nav class="navbar navbar-inverse navbar-fixed-top">
       <div class="container-fluid">
@@ -76,7 +99,7 @@
                 </tr>
                 <tr>
                   <td><input type="text" id="name" /></td>
-                  <td><select name="cars">
+                  <td><select name="cars" id="type">
                           <option value="multiple-choice">Odabir odgovora</option>
                           <option value="fill">Dopuna rečenica</option>
                           <option value="code">Pisanje koda</option>
@@ -161,10 +184,11 @@ for(i=0;i<ok;i++)
     var cell1 = row.insertCell(0);
     var cell2 = row.insertCell(1);
 var cell3 = row.insertCell(2);
+var cell4 = row.insertCell(3);
     cell1.innerHTML = myObj[i][0];
     cell2.innerHTML = myObj[i][1];
- cell3.innerHTML = myObj[i][2]
-
+ cell3.innerHTML = myObj[i][2];
+cell4.innerHTML = document.getElementById("myList").innerHTML;
 }
 
 
