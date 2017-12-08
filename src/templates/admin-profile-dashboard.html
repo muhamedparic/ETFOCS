@@ -142,9 +142,12 @@ function Ucitajtakicenje()
 var http2 = new XMLHttpRequest();
 var url2 = "/api/competition_list";
   var table = document.getElementById("myTable");
-  
+var toke=localStorage.getItem("token");
+var ul=localStorage.getItem("uloga");  
+var has=localStorage.getItem("hash");
+var obj = { "hash":has, "role":ul, "token":toke};
+var params3 = "token="+ JSON.stringify(obj);
 
-alert("a");
 
 http2.open("POST", url2, true);
        http2.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
@@ -173,7 +176,7 @@ var cell3 = row.insertCell(2);
  
     }
 }
-http2.send();
+http2.send(params3);
 
 
 
