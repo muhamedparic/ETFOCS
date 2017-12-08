@@ -185,7 +185,9 @@ var myelement3 = document.createElement("BUTTON");
 var t = document.createTextNode("Zadaci");  
 myelement3.appendChild(t);
  myelement3.onclick = function() { 
- alert(this.parentNode.parentNode.cells[1]);
+ alert(this.parentNode.parentNode.rowIndex);
+var cells = document.getElementById('myTable').getElementsByTagName('td');
+alert(cells[3*(this.parentNode.parentNode.rowIndex-2)+2]);
 };
  cell3.appendChild(myelement3);
 
