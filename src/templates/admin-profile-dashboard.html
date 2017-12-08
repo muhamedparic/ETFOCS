@@ -168,10 +168,10 @@ http2.open("POST", url2, true);
 http2.onreadystatechange = function() {//Call a function when the state changes.
     if(http2.readyState == 4 && http2.status == 200) {
 //Uzimanje JSona
-alert("b");
+
               myObj = JSON.parse(this.responseText);
 var ok=myObj.length;
-alert("c");
+
 for(i=0;i<ok;i++)
 {
   var row = table.insertRow(i+2);
@@ -180,7 +180,7 @@ for(i=0;i<ok;i++)
 var cell3 = row.insertCell(2);
     cell1.innerHTML = myObj[i][0];
     cell2.innerHTML = myObj[i][1];
- cell3.innerHTML = document.getElementById("myList").innerHTML;
+ cell3.innerHTML = "<button onclick='myZadaci()'>Zadaci</button>";
 
 }
 
