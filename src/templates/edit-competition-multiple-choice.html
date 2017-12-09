@@ -45,7 +45,7 @@ var http4 = new XMLHttpRequest();
 var url4 = "/api/add_competition";
 var imet2=localStorage.getItem("imetakmicenja");
 
-var params4 = "question_data="+q21+"&answer_data="+a25+"&token="+JSON.stringify(obj4)+"&competition="+imet2+"&type="+"fill";
+var params4 = "question_data="+JSON.stringify(qu21)+"&answer_data="+a25+"&token="+JSON.stringify(obj4)+"&competition="+imet2+"&type="+"mupltiple_choice";
 http4.open("POST", url4, true);
        http4.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
 
