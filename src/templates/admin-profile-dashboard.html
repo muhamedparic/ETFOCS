@@ -188,8 +188,15 @@ myelement3.appendChild(t);
  var tipt=this.parentNode.parentNode.rowIndex;
 var ok=document.getElementById("myTable").rows[tipt].cells[1].innerHTML;
 alert(ok);
-if(ok=="fill")setTimeout(function() {window.location = "/edit_competition_fill" });
-if(ok=="multiple_choice")setTimeout(function() {window.location = "/edit_competition_multiple_choice" });
+if(ok=="fill")
+{setTimeout(function() {window.location = "/edit_competition_fill" });
+alert(document.getElementById("myTable").rows[tipt].cells[0].innerHTML;)
+}
+
+if(ok=="multiple_choice")
+{setTimeout(function() {window.location = "/edit_competition_multiple_choice" });
+alert(document.getElementById("myTable").rows[tipt].cells[0].innerHTML;)
+}
 };
  cell3.appendChild(myelement3);
 
