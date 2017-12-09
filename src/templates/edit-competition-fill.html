@@ -18,8 +18,77 @@
 
   </head>
 
-  <body>
-      
+  <body onload="UcitajZadatke()">
+    
+<div id="div1">
+  <h1 class="my-4"><b>Spisak dosadasnjih zadataka</b>
+</div>
+
+
+<script>
+
+ function UcitajZadatke()
+{
+
+var para = document.createElement("p");
+for(i=0;i<10;i++)
+{
+var node = document.createTextNode("This is new.");
+
+
+para.appendChild(node);
+para.appendChild(document.createElement("br"));
+}
+var element = document.getElementById("div1");
+element.appendChild(para);
+
+
+
+
+var http5 = new XMLHttpRequest();
+var url5 = "/api/competition_questions";
+ 
+var toke5=localStorage.getItem("token");
+var ul5=localStorage.getItem("uloga");  
+var has5=localStorage.getItem("hash");
+var obj = { "hash":has5, "role":ul5, "token":toke5};
+var imet5=localStorage.getItem("imetakmicenja");
+var params5 = "token="+ JSON.stringify(obj)++"&competition="+imet5;
+
+
+http5.open("POST", url5, true);
+       http5.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+http5.onreadystatechange = function() {//Call a function when the state changes.
+    if(http5.readyState == 4 && http5.status == 200) {
+//Uzimanje JSona
+
+              myObj = JSON.parse(this.responseText);
+alert(myObj);
+var ok=myObj.length;
+alert(ok);
+
+            
+ 
+    }
+}
+http5.send(params5);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+}
+
+</script>
 
 <script>
 
@@ -101,7 +170,7 @@ http3.send(params3);
               <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Reiciendis aliquid atque, nulla? Quos cum ex quis soluta, a laboriosam. Dicta expedita corporis animi vero voluptate voluptatibus possimus, veniam magni quis!</p>
               <a href="#" class="btn btn-primary">Read More &rarr;</a>-->
               <h2 class="card-title"><b>Dodavanje zadatka</b></h2>
-              
+              <div id="forma">
                 <div class="input-field">
                     <p>Rečenica koju treba dopuniti: </p><input type="text" id="q1" name="recenica"><br>
                 </div>
@@ -109,7 +178,7 @@ http3.send(params3);
                     <p>Tekst koji treba dodati: </p><input type="text" id="a1" name="odgovor">
                 </div>
                 <input id="subby" type="submit" value="Dodaj pitanje" onclick="SaljiOdg()" class="btn btn-primary">
-             
+             </div>
             </div>
           </div>
         </div>
