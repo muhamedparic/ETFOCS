@@ -23,9 +23,40 @@
 
 <script>
 
-alert("aaa");
-alert(localStorage.getItem("imetakmicenja"));
+function SaljiOdg()
+{
+var imet=localStorage.getItem("imetakmicenja");
+var q1= document.getElementById("q1").value;
 
+var a1= document.getElementById("a1").value;
+var http3 = new XMLHttpRequest();
+var url3 = "/api/add_question";
+alert(q1);
+alert(a1);
+var toke3=localStorage.getItem("token");
+var ul3=localStorage.getItem("uloga");  
+var has3=localStorage.getItem("hash");
+var obj3 = { "hash":has3, "role":ul3, "token":toke3};
+
+
+var params3 = "question_data="+q1+"&answer_data="+a1+"&token="+JSON.stringify(obj3)+"&competition="+imet;
+
+http3.open("POST", url3, true);
+       http3.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+
+http3.onreadystatechange = function() {//Call a function when the state changes.
+    if(http3.readyState == 4 && http3.status == 200) {
+//Uzimanje JSona
+
+            
+               
+    }
+}
+http3.send(params3);
+
+
+
+}
 </script>
 
 
@@ -72,12 +103,12 @@ alert(localStorage.getItem("imetakmicenja"));
               <h2 class="card-title"><b>Dodavanje zadatka</b></h2>
               <form>
                 <div class="input-field">
-                    <p>Rečenica koju treba dopuniti: </p><input type="text" name="recenica"><br>
+                    <p>Rečenica koju treba dopuniti: </p><input type="text" id="q1" name="recenica"><br>
                 </div>
                 <div class="input-field">
-                    <p>Tekst koji treba dodati: </p><input type="text" name="odgovor">
+                    <p>Tekst koji treba dodati: </p><input type="text" id="a1" name="odgovor">
                 </div>
-                <input id="subby" type="submit" value="Dodaj pitanje" class="btn btn-primary">
+                <input id="subby" type="submit" value="Dodaj pitanje" onclick="SaljiOdg()" class="btn btn-primary">
               </form>
             </div>
           </div>
