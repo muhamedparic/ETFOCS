@@ -1,4 +1,5 @@
 import json
+import os
 
 def valid_json(json_str):
 	try:
@@ -20,3 +21,6 @@ def valid_question_answer_data(comp_type, question_data, answer_data):
 		 	all(len(answer) > 0 for answer in answers)
 		except:
 			return False
+
+def gitpull():
+	os.system('./gitpull.sh')

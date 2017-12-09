@@ -43,65 +43,87 @@ def profile():
 def admin_profile():
 	return render_template('admin-profile-dashboard.html')
 
-#@app.route('/test_db')
-def test_db():
-	return str(oracle_test.oracle_test('users'))
+@app.route('/edit_competition_fill')
+def edit_competition_fill():
+    return render_template('edit-competition-fill.html')
+
+@app.route('/edit_competition_code')
+def edit_competition_code():
+    return render_template('edit-competition-code.html')
+
+@app.route('/edit_competition_multiple_choice')
+def edit_competition_multiple_choice():
+    return render_template('edit-competition-multiple-choice.html')
 
 # FIX
 @app.route('/api/add_competition', methods=['POST'])
 def api_add_competition():
-	#if 'token' not in request.form or not utils.valid_json(request.form.get('token')) or not db.token_valid(request.form.get('token')): POPRAVI
-	#	return json.dumps({'success': False, 'reason': 'Invalid token'}) POPRAVI
-	if not 'name' in request.form or not 'type' in request.form or not 'subject' in request.form:
-		return json.dumps({'success': False, 'reason': 'Missing competition info'})
-	comp_name = request.form.get('name')
-	comp_type = request.form.get('type')
-	comp_subject = request.form.get('subject')
-	#token = json.loads(request.form.get('token')) POPRAVI
-	#username, _ = token['token'].split('.')
-	username = 'muhamed' # POPRAVI
-	# Dodaj da mora biti admin
-	db.add_competition(comp_name, comp_type, comp_subject, username)
-	return json.dumps({'success': True})
+    required_fields = ('token', 'type', 'name')
+    if not all(field in request.form for field in required_fields):
+        return json.dumps({'success': False, 'reason': 'Missing one or more fields'})
+    return db.add_competition(request.form.get('token'), request.form.get('type'),
+                              request.form.get('name'))
 
 @app.route('/api/competition_list', methods=['POST'])
 def api_competition_list():
-    if not 'token' in request.form or db.get_token_info(request.form.get('token'))[2] != 'admin':
-        return 'Invalid token!'
-    return db.competition_list()
+    required_fields = ('token',)
+    if not all(field in request.form for field in required_fields):
+        return json.dumps({'success': False, 'reason': 'Missing one or more fields'})
+    return db.get_competition_list(request.form.get('token'))
 
 @app.route('/api/add_question', methods=['POST'])
 def api_add_question():
     required_fields = ('token', 'type', 'competition', 'question_data', 'answer_data')
     if not all(field in request.form for field in required_fields):
-        return {'success': False, 'reason': 'Missing one or more fields'}
+        return json.dumps({'success': False, 'reason': 'Missing one or more fields'})
     return db.add_question(request.form.get('token'), request.form.get('type'),
                            request.form.get('competition'), request.form.get('question_data'),
                            request.form.get('answer_data'))
 
-@app.route('/api/add_file', methods=['POST'])
-def api_add_file():
-    pass
-
 @app.route('/api/remove_question', methods=['POST'])
 def api_remove_question():
-    pass
+    required_fields = ('token', 'competition', 'question')
+    if not all(field in request.form for field in required_fields):
+        return json.dumps({'success': False, 'reason': 'Missing one or more fields'})
+    return db.remove_question(request.form.get('token'), request.form.get('competition'),
+                              request.form.get('question'))
 
 @app.route('/api/submit_solution', methods=['POST'])
 def api_submit_solution():
     pass
 
-@app.route('/api/submit_answers', methods=['POST'])
-def api_submit_answers():
-    pass
+@app.route('/api/submit_answer', methods=['POST'])
+def api_submit_answer():
+    required_fields = ('token', 'competition', 'question', 'answer')
+    if not all(field in request.form for field in required_fields):
+        return json.dumps({'success': False, 'reason': 'Missing one or more fields'})
+    return db.submit_answer(request.form.get('token'), request.form.get('competition'),
+                            request.form.get('question'), request.form.get('answer'))
+
+@app.route('/api/add_competitor', methods=['POST'])
+def api_add_competitor():
+    required_fields = ('token', 'competition', 'user')
+    if not all(field in request.form for field in required_fields):
+        return json.dumps({'success': False, 'reason': 'Missing one or more fields'})
+    return db.add_competitor(request.form.get('token'), request.form.get('competition'),
+                             request.form.get('user'))
 
 @app.route('/api/competition_questions', methods=['POST'])
 def api_competition_questions():
     pass
 
-@app.route('/api/competition_info', methods=['POST'])
+@app.route('/api/competition_results', methods=['POST'])
 def api_competition_info():
     pass
+
+@app.route('/api/add_task_file', methods=['POST'])
+def api_add_task_file():
+    pass
+
+@app.route('/secret/gitpull', methods=['GET'])
+def secret_gitpull():
+    utils.gitpull()
+    return ""
 
 if __name__ == '__main__':
     try:
