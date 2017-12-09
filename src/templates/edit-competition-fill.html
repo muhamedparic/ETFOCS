@@ -39,7 +39,7 @@ var has3=localStorage.getItem("hash");
 var obj3 = { "hash":has3, "role":ul3, "token":toke3};
 
 
-var params3 = "question_data="+q1+"&answer_data="+a1+"&token="+JSON.stringify(obj3)+"&competition="+imet;
+var params3 = "question_data="+q1+"&answer_data="+a1+"&token="+JSON.stringify(obj3)+"&competition="+imet+"&type="+"fill";
 
 http3.open("POST", url3, true);
        http3.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
@@ -47,8 +47,8 @@ http3.open("POST", url3, true);
 http3.onreadystatechange = function() {//Call a function when the state changes.
     if(http3.readyState == 4 && http3.status == 200) {
 //Uzimanje JSona
-
-            
+ alert("sffs"); 
+   alert(this.responseText);         
                
     }
 }
