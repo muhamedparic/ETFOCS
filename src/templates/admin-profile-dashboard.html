@@ -189,7 +189,7 @@ myelement3.appendChild(t);
 var ok=document.getElementById("myTable").rows[tipt].cells[1].innerHTML;
 
 if(ok=="fill")
-setTimeout(function() {window.location = "/edit_competition_fill" ;localStorage.setItem("lastname", "Smith");alert(localStorage.getItem("lastname"));});
+setTimeout(function() {window.location = "/edit_competition_fill" ;localStorage.setItem("lastname", document.getElementById("myTable").rows[tipt].cells[0].innerHTML);});
 
 
 
