@@ -186,8 +186,9 @@ var t = document.createTextNode("Zadaci");
 myelement3.appendChild(t);
  myelement3.onclick = function() { 
  var tipt=this.parentNode.parentNode.rowIndex;
-
-alert(document.getElementById("myTable").rows[tipt].cells[1].innerHTML);
+var ok=document.getElementById("myTable").rows[tipt].cells[1].value
+alert(ok);
+if(ok=="fill")alert("puni");
 };
  cell3.appendChild(myelement3);
 
