@@ -30,17 +30,7 @@
  function UcitajZadatke()
 {
 
-var para = document.createElement("p");
-for(i=0;i<10;i++)
-{
-var node = document.createTextNode("This is new.");
 
-
-para.appendChild(node);
-para.appendChild(document.createElement("br"));
-}
-var element = document.getElementById("div1");
-element.appendChild(para);
 
 
 
@@ -68,7 +58,21 @@ alert(this.responseText);
 var ok=myObj.length;
 alert(myObj);
 alert(Object.keys(myObj).length);
-alert("ok");
+
+
+
+var para = document.createElement("p");
+for(i=0;i<ok;i++)
+{
+var node = document.createTextNode("This is new.");
+alert(myObj[i][0]);
+alert(myObj[i][1]);
+para.appendChild(node);
+para.appendChild(document.createElement("br"));
+}
+var element = document.getElementById("div1");
+element.appendChild(para);
+
 
 
             
