@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>Competition</title>
+
+    <!-- Latest compiled and minified CSS -->
+    <link href="{{ url_for('static', filename='bootstrap.min.css') }}" rel="stylesheet">
+
+    <!-- Custom styles for this template -->
+    <link href="{{ url_for('static', filename='edit-competition.css') }}" rel="stylesheet">
+
+  </head>
+
+  <body>
+      
+     <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
+      <div class="container">
+        <a class="navbar-brand" href="#">ETF Online Competition System</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarResponsive">
+          <ul class="navbar-nav ml-auto">
+            <li class="nav-item active">
+              <a class="nav-link" href="#">Home
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#">About</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+      
+    <!-- Page Content -->
+    <div class="container">
+
+      <div class="row">
+        <!-- Question Column -->
+        <div class="col-md-8">
+
+          <h1 class="my-4"><b>"Mogu ja to u tri linije" contest</b>
+            <small>Code</small>
+          </h1>
+
+          <!-- Question -->
+          <div class="card mb-4">
+            <!--<img class="card-img-top" src="http://placehold.it/750x300" alt="Card image cap">-->
+            <div class="card-body">
+              <!--<h2 class="card-title">Test<br></h2>
+              <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Reiciendis aliquid atque, nulla? Quos cum ex quis soluta, a laboriosam. Dicta expedita corporis animi vero voluptate voluptatibus possimus, veniam magni quis!</p>
+              <a href="#" class="btn btn-primary">Read More &rarr;</a>-->
+              <h2 class="card-title"><b>#1 Napišite program u Pythonu koji ispisuje samo "mrzim PHP i Matlab".</b></h2>
+              <form>
+                <div class="input-field">
+                    <textarea name="rjesenje-zadatka" class="rjesenje"></textarea><br>
+                </div>
+                <input id="subby" type="submit" value="Potvrdi rješenje" class="btn btn-primary">
+              </form>
+            </div>
+          </div>
+        
+          <div class="card mb-4">
+            <!--<img class="card-img-top" src="http://placehold.it/750x300" alt="Card image cap">-->
+            <div class="card-body">
+              <!--<h2 class="card-title">Test<br></h2>
+              <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Reiciendis aliquid atque, nulla? Quos cum ex quis soluta, a laboriosam. Dicta expedita corporis animi vero voluptate voluptatibus possimus, veniam magni quis!</p>
+              <a href="#" class="btn btn-primary">Read More &rarr;</a>-->
+              <h2 class="card-title"><b>#2 Napišite program u Brainfuck jeziku koji ispisuje SVE cifre Pi.</b></h2>
+              <form>
+                <div class="input-field">
+                    <textarea name="rjesenje-zadatka" class="rjesenje"></textarea><br>
+                </div>
+                <input id="subby" type="submit" value="Potvrdi rješenje" class="btn btn-primary">
+              </form>
+            </div>
+          </div>
+            
+        </div>
+
+        <!-- Sidebar Widgets Column -->
+        <div class="col-md-4">
+        <!--
+          <div class="card my-4">
+            <h5 class="card-header"><b>Tip (samo za uvid u tip)</b></h5>
+            <div class="card-body">
+              <div class="row">
+                <div class="col-lg-6">
+                  <ul class="list-unstyled mb-0">
+                    <li>
+                      <input type="radio" name="tip" value="blanks" onclick="return false;"> Dopuni rečenicu
+                    </li>
+                    <li>
+                      <input type="radio" name="tip" value="multiple-choice" checked> Izaberi odgovor
+                    </li>
+                    <li>
+                      <input type="radio" name="tip" value="code" onclick="return false;"> Napiši kod
+                    </li>
+                  </ul>
+                </div>
+                <div class="col-lg-6">
+                  <ul class="list-unstyled mb-0">
+
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+        -->
+          <!-- Side Widget -->
+          <div class="card my-4">
+            <h5 class="card-header"><b>Upute</b></h5>
+            <div class="card-body">
+              1. Sva pitanja u sklopu takmičenja su istog tipa.<br>
+              2. Ne postoji eksplicitan tačan odgovor.<br>
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+      <!-- /.row -->
+
+    </div>
+    <!-- /.container -->
+
+    <!-- Footer -->
+    <footer class="py-5 bg-dark">
+      <div class="container">
+        <p class="m-0 text-center text-white">Copyright &copy; BP TIM X</p>
+      </div>
+      <!-- /.container -->
+    </footer>
+
+  </body>
+
+</html>
