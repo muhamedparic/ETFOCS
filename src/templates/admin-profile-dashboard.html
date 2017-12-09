@@ -189,9 +189,9 @@ myelement3.appendChild(t);
 var ok=document.getElementById("myTable").rows[tipt].cells[1].innerHTML;
 
 if(ok=="fill")
-{setTimeout(function() {window.location = "/edit_competition_fill" ;alert("b");});
-localStorage.setItem("imetakmicenja","aol");
-};
+setTimeout(function() {window.location = "/edit_competition_fill" ;localStorage.setItem("imetakmicenja","aol");});
+
+
 
 if(ok=="multiple_choice")
 {setTimeout(function() {window.location = "/edit_competition_multiple_choice" });
