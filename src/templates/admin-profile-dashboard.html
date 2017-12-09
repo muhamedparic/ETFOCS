@@ -188,7 +188,8 @@ myelement3.appendChild(t);
  var tipt=this.parentNode.parentNode.rowIndex;
 var ok=document.getElementById("myTable").rows[tipt].cells[1].innerHTML;
 alert(ok);
-if(ok=="fill")alert("puni");
+if(ok=="fill")setTimeout(function() {window.location = "/edit_competition_fill" });
+if(ok=="multiple_choice")setTimeout(function() {window.location = "/edit_competition_multiple_choice" });
 };
  cell3.appendChild(myelement3);
 
