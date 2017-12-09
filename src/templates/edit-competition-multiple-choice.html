@@ -37,13 +37,17 @@ var toke4=localStorage.getItem("token");
 var ul4=localStorage.getItem("uloga");  
 var has4=localStorage.getItem("hash");
 var obj4 = { "hash":has4, "role":ul4, "token":toke4};
+
+var qu21 = {q21,a21,a22,a23,a24};
+alert(JSON.stringify(qu21));
+alert(a25);
 var http4 = new XMLHttpRequest();
 var url4 = "/api/add_competition";
 var imet2=localStorage.getItem("imetakmicenja");
 alert(ul4);
 alert(has4);
 alert(toke4);
-var params4 = "question_data="+q21+"&answer_data="+a25+"&token="+JSON.stringify(obj4)+"&competition="+imet2+"&type="+"multiple_choice";
+var params4 = "question_data="+JSON.stringify(qu21)+"&answer_data="+a25+"&token="+JSON.stringify(obj4)+"&competition="+imet2+"&type="+"multiple_choice";
 http4.open("POST", url4, true);
        http4.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
 
