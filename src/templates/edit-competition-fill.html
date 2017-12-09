@@ -29,7 +29,7 @@
 
  function UcitajZadatke()
 {
-
+alert("ok1");
 var para = document.createElement("p");
 for(i=0;i<10;i++)
 {
@@ -51,9 +51,9 @@ var url5 = "/api/competition_questions";
 var toke5=localStorage.getItem("token");
 var ul5=localStorage.getItem("uloga");  
 var has5=localStorage.getItem("hash");
-var obj = { "hash":has5, "role":ul5, "token":toke5};
+var obj5 = { "hash":has5, "role":ul5, "token":toke5};
 var imet5=localStorage.getItem("imetakmicenja");
-var params5 = "token="+ JSON.stringify(obj)++"&competition="+imet5;
+var params5 = "token="+ JSON.stringify(obj5)+"&competition="+imet5;
 
 
 http5.open("POST", url5, true);
@@ -72,19 +72,6 @@ alert(ok);
     }
 }
 http5.send(params5);
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 }
 
