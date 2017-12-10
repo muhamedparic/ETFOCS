@@ -18,7 +18,7 @@
 
   </head>
 
-  <body>
+  <body onload="UcitajZadatke2()" >
       
 
 
@@ -183,6 +183,84 @@ http4.send(params4);
 
     </div>
     <!-- /.container -->
+
+
+
+<div id="div1">
+  <h1 class="my-4"><b>Spisak dosadasnjih zadataka</b>
+</div>
+
+
+
+<script>
+
+ function UcitajZadatke2()
+{
+
+
+
+
+
+var http6 = new XMLHttpRequest();
+var url6 = "/api/competition_questions";
+ 
+var toke6=localStorage.getItem("token");
+var ul6=localStorage.getItem("uloga");  
+var has6=localStorage.getItem("hash");
+var obj5 = { "hash":has6, "role":ul6, "token":toke6};
+var imet6=localStorage.getItem("imetakmicenja");
+
+var params6 = "token="+ JSON.stringify(obj5)+"&competition="+imet6;
+
+http6.open("POST", url6, true);
+       http6.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+http6.onreadystatechange = function() {//Call a function when the state changes.
+    if(http6.readyState == 4 && http6.status == 200) {
+//Uzimanje JSona
+
+     
+alert(this.responseText);
+     myObj = JSON.parse(this.responseText);
+var ok=myObj.length;
+alert(myObj);
+alert(Object.keys(myObj).length);
+
+
+
+var para = document.createElement("p");
+for(i=0;i<ok;i++)
+{
+var node3 = document.createTextNode("Pitanje "+i+": ");
+para.appendChild(node3);
+var node = document.createTextNode(myObj[1]['question_data']['answers'][2]);
+var node4 = document.createTextNode("Odgovor "+i+": ");
+var node2 = document.createTextNode(myObj[i]['answer_data']);
+para.appendChild(node);
+para.appendChild(document.createElement("br"));
+para.appendChild(node4);
+para.appendChild(node2);
+para.appendChild(document.createElement("br"));
+}
+var element = document.getElementById("div1");
+element.appendChild(para);
+
+
+
+            
+ 
+    }
+}
+http5.send(params5);
+
+
+}
+
+</script>
+
+
+
+
+
 
     <!-- Footer -->
     <footer class="py-5 bg-dark">
