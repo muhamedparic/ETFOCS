@@ -233,11 +233,32 @@ for(i=0;i<ok;i++)
 var node3 = document.createTextNode("Pitanje "+i+": ");
 para.appendChild(node3);
 var node = document.createTextNode(myObj[i]['question_data']['question']);
-var node4 = document.createTextNode("Odgovor "+i+": ");
+
+var node5 = document.createTextNode(myObj[i]['question_data']['answers'][0]);
+var node6 = document.createTextNode(myObj[i]['question_data']['answers'][1]);
+var node7 = document.createTextNode(myObj[i]['question_data']['answers'][2]);
+
+var node8 = document.createTextNode(myObj[i]['question_data']['answers'][3]);
+
 var node2 = document.createTextNode(myObj[i]['answer_data']);
 para.appendChild(node);
 para.appendChild(document.createElement("br"));
-para.appendChild(node4);
+
+alert(myObj[i]['question_data']['answers'][0]);
+para.appendChild(node5);
+para.appendChild(document.createElement("br"));
+
+
+para.appendChild(node6);
+para.appendChild(document.createElement("br"));
+
+
+para.appendChild(node7);
+para.appendChild(document.createElement("br"));
+
+para.appendChild(node8);
+para.appendChild(document.createElement("br"));
+
 para.appendChild(node2);
 para.appendChild(document.createElement("br"));
 }
