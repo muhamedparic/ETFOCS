@@ -37,7 +37,7 @@ var pdff=document.getElementById("myFile");
     var fileInput = document.getElementById("myFile");   
 var filename = fileInput.files[0].name;
 alert("ok");
-var params9 = "filedata="+encodeURIComponent(pdff)+"&answer_data="+a1+"&token="+JSON.stringify(obj9)+"&competition="+imet9+"&type="+"code";
+var params9 = "filedata="+encodeURIComponent(pdff)+"&token="+JSON.stringify(obj9)+"&competition="+imet9+"&type="+"code";
 http9.open("POST", url9, true);
        http9.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
 
