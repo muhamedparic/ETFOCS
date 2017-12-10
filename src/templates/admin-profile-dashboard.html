@@ -125,21 +125,20 @@ var obj7 = { "hash":has7, "role":ul7, "token":toke7};
 var http7 = new XMLHttpRequest();
 var url7 = "/api/add_competition";
 var params7 = "name="+T11+"&type="+T22+"&token="+ JSON.stringify(obj7);
-alert(params7);
+
 http7.open("POST", url7, true);
        http7.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
 
 http7.onreadystatechange = function() {//Call a function when the state changes.
     if(http7.readyState == 4 && http7.status == 200) {
 //Uzimanje JSona
-alert("ok");
-alert(this.responseText);
+
               
     }
 }
 http7.send(params7);
 
-alert("c");
+
 location.reload();
 }
 
