@@ -32,25 +32,28 @@ var ul9=localStorage.getItem("uloga");
 var has9=localStorage.getItem("hash");
 var obj9 = { "hash":has9, "role":ul9, "token":toke9};
 var imet9=localStorage.getItem("imetakmicenja");
-var name9= document.getElementById("nz1").value;
-var pdff=document.getElementById("myFile").files[0];
-    var fileInput = document.getElementById("myFile");   
-var filename = fileInput.files[0].name;
+var que9= document.getElementById("nz1").value;
+var answ9= document.getElementById("ta").value;
+alert(que9);
+alert(answ9);
 
-var params9 = "filedata="+encodeURIComponent(pdff)+"&token="+JSON.stringify(obj9)+"&competition="+imet9+"&name="+name9;
+var params9 = "question_data="+que9+"&answer_data="+answ9+"&token="+JSON.stringify(obj9)+"&competition="+imet9+"&type="+"code";
+
 http9.open("POST", url9, true);
        http9.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
 
-alert("ok");
 http9.onreadystatechange = function() {//Call a function when the state changes.
     if(http9.readyState == 4 && http9.status == 200) {
 //Uzimanje JSona
-alert("ok");
-       alert(this.responseText);
+       alert("ok");
+alert(this.responseText);
                
     }
 }
 http9.send(params9);
+
+
+
 
 
 }
@@ -101,7 +104,9 @@ http9.send(params9);
                 </div>
                 <div class="input-field">
                     <p>Upload postavke zadatka:</p>
-                    <input type="file" id="myFile" value="Upload .pdf postavke" accept="application/pdf">
+              <textarea id="ta" rows="40" cols="50">
+</textarea>
+
                 </div>
                 <input id="subby" onclick="Dodajzad()" type="submit" value="Dodaj zadatak" class="btn btn-primary">
               </div>
