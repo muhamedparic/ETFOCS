@@ -92,7 +92,7 @@
                           <option value="code">code</option>
                       </select></td>
                  
-                  <td><input type="submit" onclick="Primitakmicenje();return false;" /></td>                  
+                  <td><input type="submit" onclick="Primitakmicenje()" /></td>                  
                 </tr>
               </thead>
             <tbody>
@@ -122,12 +122,6 @@ var ul6=localStorage.getItem("uloga");
 var has6=localStorage.getItem("hash");
 var obj6 = { "hash":has6, "role":ul6, "token":toke6};
 
-
-
-alert(T1);
-alert(T2);
-alert(JSON.stringify(obj6));
-
 var http6 = new XMLHttpRequest();
 var url6 = "/api/add_competition";
 var params6 = "name="+T1+"&type="+T2+"&token="+ JSON.stringify(obj6);
@@ -139,7 +133,7 @@ http6.onreadystatechange = function() {//Call a function when the state changes.
     if(http6.readyState == 4 && http6.status == 200) {
 //Uzimanje JSona
 alert("ok");
-alert(this.repsonseText);
+alert(this.responseText);
               
     }
 }
