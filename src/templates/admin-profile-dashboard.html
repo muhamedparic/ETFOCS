@@ -127,10 +127,11 @@ var obj6 = { "hash":has6, "role":ul6, "token":toke6};
 alert(T1);
 alert(T2);
 alert(JSON.stringify(obj6));
-alert(params6);
+
 var http6 = new XMLHttpRequest();
 var url6 = "/api/add_competition";
 var params6 = "name="+T1+"&type="+T2+"&token="+ JSON.stringify(obj6);
+alert(params6);
 http6.open("POST", url6, true);
        http6.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
 
