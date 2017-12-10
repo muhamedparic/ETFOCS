@@ -58,13 +58,13 @@ alert(this.responseText);
 var ok=myObj.length;
 
 alert(Object.keys(myObj).length);
-alert(myObj[0]['question_data']);
-alert("a");
+
+
 
 var para = document.createElement("p");
 for(i=0;i<ok;i++)
 {
-var node = document.createTextNode("This is new.");
+var node = document.createTextNode(myObj[i]['question_data']);
 
 para.appendChild(node);
 para.appendChild(document.createElement("br"));
