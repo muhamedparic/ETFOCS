@@ -233,8 +233,8 @@ for(i=0;i<ok;i++)
 var node3 = document.createTextNode("Pitanje "+i+": ");
 para.appendChild(node3);
 var node = document.createTextNode(myObj[i]['question_data']['question']);
-
-var node5 = document.createTextNode(myObj[i]['question_data']['answers'][0]);
+var br1="1. ";
+var node5 = document.createTextNode(br1+myObj[i]['question_data']['answers'][0]);
 var node6 = document.createTextNode(myObj[i]['question_data']['answers'][1]);
 var node7 = document.createTextNode(myObj[i]['question_data']['answers'][2]);
 
