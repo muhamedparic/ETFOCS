@@ -207,10 +207,10 @@ var url6 = "/api/competition_questions";
 var toke6=localStorage.getItem("token");
 var ul6=localStorage.getItem("uloga");  
 var has6=localStorage.getItem("hash");
-var obj5 = { "hash":has6, "role":ul6, "token":toke6};
+var obj6 = { "hash":has6, "role":ul6, "token":toke6};
 var imet6=localStorage.getItem("imetakmicenja");
 
-var params6 = "token="+ JSON.stringify(obj5)+"&competition="+imet6;
+var params6 = "token="+ JSON.stringify(obj6)+"&competition="+imet6;
 
 http6.open("POST", url6, true);
        http6.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
@@ -250,7 +250,7 @@ element.appendChild(para);
  
     }
 }
-http5.send(params5);
+http6.send(params6);
 
 
 }
