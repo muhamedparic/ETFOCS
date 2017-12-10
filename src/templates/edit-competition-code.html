@@ -24,22 +24,21 @@
 <script>
 function Dodajzad()
 {
+var imet=localStorage.getItem("imetakmicenja");
+var q9= document.getElementById("nz1").value;
+
+var a9= document.getElementById("ta").value;
+
 var http9 = new XMLHttpRequest();
 var url9 = "/api/add_question";
- 
+
 var toke9=localStorage.getItem("token");
 var ul9=localStorage.getItem("uloga");  
 var has9=localStorage.getItem("hash");
 var obj9 = { "hash":has9, "role":ul9, "token":toke9};
-var imet9=localStorage.getItem("imetakmicenja");
-var que9= document.getElementById("nz1").value;
-var answ9= document.getElementById("ta").value;
-alert(que9);
-alert(answ9);
-alert(imet9);
-alert(JSON.stringify(obj9));
 
-var params9 = "question_data="+que9+"&answer_data="+answ9+"&token="+JSON.stringify(obj9)+"&competition="+imet9+"&type="+"code";
+
+var params9 = "question_data="+q9+"&answer_data="+a9+"&token="+JSON.stringify(obj9)+"&competition="+imet9+"&type="+"code";
 
 http9.open("POST", url9, true);
        http9.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
@@ -47,14 +46,11 @@ http9.open("POST", url9, true);
 http9.onreadystatechange = function() {//Call a function when the state changes.
     if(http9.readyState == 4 && http9.status == 200) {
 //Uzimanje JSona
-       alert("ok");
-alert(this.responseText);
-alert("c");
+       
                
     }
 }
 http9.send(params9);
-
 
 
 
