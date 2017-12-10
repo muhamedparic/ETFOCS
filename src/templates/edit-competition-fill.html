@@ -66,7 +66,10 @@ for(i=0;i<ok;i++)
 {
 var node = document.createTextNode(myObj[i]['question_data']);
 
+var node2 = document.createTextNode(myObj[i]['answer_data']);
 para.appendChild(node);
+para.appendChild(document.createElement("br"));
+para.appendChild(node2);
 para.appendChild(document.createElement("br"));
 }
 var element = document.getElementById("div1");
