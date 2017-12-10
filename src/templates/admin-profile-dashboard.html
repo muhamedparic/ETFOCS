@@ -137,14 +137,12 @@ http6.open("POST", url6, true);
 http6.onreadystatechange = function() {//Call a function when the state changes.
     if(http6.readyState == 4 && http6.status == 200) {
 //Uzimanje JSona
-alert("ccc");
-alert(this.responseText);
-    alert("uspjeh");
+
               
     }
 }
 http6.send(params6);
-alert(params6);
+
 
 location.reload();
 }
