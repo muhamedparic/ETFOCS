@@ -87,9 +87,9 @@
                 <tr>
                   <td><input type="text" id="name" /></td>
                   <td><select name="cars" id="type">
-                          <option value="multiple-choice">Odabir odgovora</option>
-                          <option value="fill">Dopuna rečenica</option>
-                          <option value="code">Pisanje koda</option>
+                          <option value="multiple-choice">multiple_choice</option>
+                          <option value="fill">fill</option>
+                          <option value="code">code</option>
                       </select></td>
                  
                   <td><input type="submit" onclick="Primitakmicenje();return false;" /></td>                  
@@ -123,9 +123,10 @@ var has=localStorage.getItem("hash");
 var obj = { "hash":has, "role":ul, "token":toke};
 
 
+alert("a");
 
-
-
+alert(T1);
+alert(T2);
 
 var http = new XMLHttpRequest();
 var url = "/api/add_competition";
@@ -137,8 +138,8 @@ http.onreadystatechange = function() {//Call a function when the state changes.
     if(http.readyState == 4 && http.status == 200) {
 //Uzimanje JSona
 alert(this.responseText);
-            
-               
+    alert("uspjeh");
+              
     }
 }
 http.send(params);
