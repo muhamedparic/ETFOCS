@@ -232,7 +232,7 @@ for(i=0;i<ok;i++)
 {
 var node3 = document.createTextNode("Pitanje "+i+": ");
 para.appendChild(node3);
-var node = document.createTextNode(myObj[1]['question_data']['answers'][2]);
+var node = document.createTextNode(myObj[i]['question_data']['question']);
 var node4 = document.createTextNode("Odgovor "+i+": ");
 var node2 = document.createTextNode(myObj[i]['answer_data']);
 para.appendChild(node);
