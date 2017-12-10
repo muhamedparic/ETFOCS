@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 
   <head>
@@ -20,6 +20,28 @@
 
   <body>
       
+
+<script>
+function Dodajzad()
+{
+var http9 = new XMLHttpRequest();
+var url9 = "/api/add_task_file";
+ 
+var toke9=localStorage.getItem("token");
+var ul9=localStorage.getItem("uloga");  
+var has9=localStorage.getItem("hash");
+var obj9 = { "hash":has9, "role":ul9, "token":toke9};
+var imet9=localStorage.getItem("imetakmicenja");
+var name9= document.getElementById("nz1").value;
+var pdff=document.getElementById("myFile");
+    var fileInput = document.getElementById("myFile");   
+var filename = fileInput.files[0].name;
+
+alert(filename);
+
+
+}
+</script>
     <!-- Navigation -->
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
       <div class="container">
@@ -60,16 +82,16 @@
               <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Reiciendis aliquid atque, nulla? Quos cum ex quis soluta, a laboriosam. Dicta expedita corporis animi vero voluptate voluptatibus possimus, veniam magni quis!</p>
               <a href="#" class="btn btn-primary">Read More &rarr;</a>-->
               <h2 class="card-title"><b>Dodavanje zadatka</b></h2>
-              <form>
+              <div>
                 <div class="input-field">
-                    <p>Naziv zadatka: </p><input type="text" name="naziv-zadatka"><br>
+                    <p>Naziv zadatka: </p><input type="text" id="nz1" name="naziv-zadatka"><br>
                 </div>
                 <div class="input-field">
                     <p>Upload postavke zadatka:</p>
-                    <input type="submit" value="Upload .pdf postavke">
+                    <input type="file" id="myFile" value="Upload .pdf postavke" accept="application/pdf">
                 </div>
-                <input id="subby" type="submit" value="Dodaj zadatak" class="btn btn-primary">
-              </form>
+                <input id="subby" onclick="Dodajzad()" type="submit" value="Dodaj zadatak" class="btn btn-primary">
+              </div>
             </div>
           </div>
         </div>
