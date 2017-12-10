@@ -114,32 +114,32 @@
 function Primitakmicenje()
 {
 var t1= document.getElementById("name");
-    var T1 = document.getElementById("name").value;
+    var T11 = document.getElementById("name").value;
 var t2 = document.getElementById("type");
-var T2 = document.getElementById("type").value;
-var toke6=localStorage.getItem("token");
-var ul6=localStorage.getItem("uloga");  
-var has6=localStorage.getItem("hash");
-var obj6 = { "hash":has6, "role":ul6, "token":toke6};
+var T22 = document.getElementById("type").value;
+var toke7=localStorage.getItem("token");
+var ul7=localStorage.getItem("uloga");  
+var has7=localStorage.getItem("hash");
+var obj7 = { "hash":has7, "role":ul7, "token":toke7};
 
 var http6 = new XMLHttpRequest();
 var url6 = "/api/add_competition";
-var params6 = "name="+T1+"&type="+T2+"&token="+ JSON.stringify(obj6);
-alert(params6);
-http6.open("POST", url6, true);
-       http6.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+var params6 = "name="+T11+"&type="+T22+"&token="+ JSON.stringify(obj7);
+alert(params7);
+http7.open("POST", url7, true);
+       http7.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
 
-http6.onreadystatechange = function() {//Call a function when the state changes.
-    if(http6.readyState == 4 && http6.status == 200) {
+http7.onreadystatechange = function() {//Call a function when the state changes.
+    if(http7.readyState == 4 && http7.status == 200) {
 //Uzimanje JSona
 alert("ok");
 alert(this.responseText);
               
     }
 }
-http6.send(params6);
+http7.send(params7);
 
-
+alert("c");
 location.reload();
 }
 
