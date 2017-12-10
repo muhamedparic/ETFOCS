@@ -24,16 +24,16 @@
 <script>
 function Dodajzad()
 {
-var http9 = new XMLHttpRequest();
-var url9 = "/api/add_task_file";
+var http10 = new XMLHttpRequest();
+var url10 = "/api/add_task_file";
  
-var toke9=localStorage.getItem("token");
-var ul9=localStorage.getItem("uloga");  
-var has9=localStorage.getItem("hash");
-var obj9 = { "hash":has9, "role":ul9, "token":toke9};
+var toke10=localStorage.getItem("token");
+var ul10=localStorage.getItem("uloga");  
+var has10=localStorage.getItem("hash");
+var obj10 = { "hash":has10, "role":ul10, "token":toke9};
 var imet9=localStorage.getItem("imetakmicenja");
 var name9= document.getElementById("nz1").value;
-var pdff=document.getElementById("myFile");
+var pdff=document.getElementById("myFile").files[0];
     var fileInput = document.getElementById("myFile");   
 var filename = fileInput.files[0].name;
 alert(name9);
