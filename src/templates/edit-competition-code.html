@@ -36,8 +36,10 @@ var name9= document.getElementById("nz1").value;
 var pdff=document.getElementById("myFile");
     var fileInput = document.getElementById("myFile");   
 var filename = fileInput.files[0].name;
-alert("ok");
-var params9 = "filedata="+encodeURIComponent(pdff)+"&token="+JSON.stringify(obj9)+"&competition="+imet9+"&type="+"code";
+alert(name9);
+alert(imet9);
+alert(JSON.stringify(obj9));
+var params9 = "filedata="+encodeURIComponent(pdff)+"&token="+JSON.stringify(obj9)+"&competition="+imet9+"&name="+name9;
 http9.open("POST", url9, true);
        http9.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
 
