@@ -58,8 +58,8 @@ alert(this.responseText);
 var ok=myObj.length;
 
 alert(Object.keys(myObj).length);
-alert(myobj[1]['question_data']);
-alert(myobj[1]['answer_data']);
+alert(myobj['question_data'][1]);
+alert(myobj['answer_data'][1]);
 
 var para = document.createElement("p");
 for(i=0;i<ok;i++)
