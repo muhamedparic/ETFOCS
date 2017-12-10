@@ -82,16 +82,16 @@
                 <tr>
                   <th>Naziv takmičenja</th>
                   <th>Tip takmičenja</th>
-                  <th>Predmet</th>
+                  
                 </tr>
                 <tr>
                   <td><input type="text" id="name" /></td>
-                  <td><select name="cars">
+                  <td><select name="cars" id="type">
                           <option value="multiple-choice">Odabir odgovora</option>
                           <option value="fill">Dopuna rečenica</option>
                           <option value="code">Pisanje koda</option>
                       </select></td>
-                  <td><input type="text" id="subject"/></td>
+                 
                   <td><input type="submit" onclick="Primitakmicenje();return false;" /></td>                  
                 </tr>
               </thead>
@@ -117,8 +117,11 @@ var t1= document.getElementById("name");
     var T1 = document.getElementById("name").value;
 var t2 = document.getElementById("type");
 var T2 = document.getElementById("type").value;
-var t3 = document.getElementById("subject");
-var T3 = document.getElementById("subject").value;
+var toke=localStorage.getItem("token");
+var ul=localStorage.getItem("uloga");  
+var has=localStorage.getItem("hash");
+var obj = { "hash":has, "role":ul, "token":toke};
+
 
 
 
@@ -126,14 +129,14 @@ var T3 = document.getElementById("subject").value;
 
 var http = new XMLHttpRequest();
 var url = "/api/add_competition";
-var params = "name="+T1+"&type="+T2+"&subject="+T3;
+var params = "name="+T1+"&type="+T2+"&token="+ JSON.stringify(obj);
 http.open("POST", url, true);
        http.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
 
 http.onreadystatechange = function() {//Call a function when the state changes.
     if(http.readyState == 4 && http.status == 200) {
 //Uzimanje JSona
-
+alert(this.responseText);
             
                
     }
