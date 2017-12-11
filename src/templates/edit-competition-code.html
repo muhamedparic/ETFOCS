@@ -91,6 +91,25 @@ alert(ok);
 
 
 
+
+var para = document.createElement("p");
+for(i=0;i<ok;i++)
+{
+var node3 = document.createTextNode("Pitanje "+i+": ");
+para.appendChild(node3);
+var node = document.createTextNode(myObj[i]['question_data']);
+var node4 = document.createTextNode("Odgovor "+i+": ");
+var node2 = document.createTextNode(myObj[i]['answer_data']);
+para.appendChild(node);
+para.appendChild(document.createElement("br"));
+para.appendChild(node4);
+para.appendChild(node2);
+para.appendChild(document.createElement("br"));
+}
+var element = document.getElementById("div1");
+element.appendChild(para);
+
+
             
  
     }
