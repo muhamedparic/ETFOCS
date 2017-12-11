@@ -65,21 +65,21 @@ http9.send(params9);
 function Ucitajzad()
 {
 alert("poziva se");
-var http10 = new XMLHttpRequest();
-var url10 = "/api/competition_questions";
+var http20 = new XMLHttpRequest();
+var url20 = "/api/competition_questions";
  
-var toke10=localStorage.getItem("token");
-var ul10=localStorage.getItem("uloga");  
-var has10=localStorage.getItem("hash");
-var obj10 = { "hash":has10, "role":ul10, "token":toke10};
-var imet10=localStorage.getItem("imetakmicenja");
+var toke20=localStorage.getItem("token");
+var ul20=localStorage.getItem("uloga");  
+var has20=localStorage.getItem("hash");
+var obj20 = { "hash":has20, "role":ul20, "token":toke20};
+var imet20=localStorage.getItem("imetakmicenja");
 
-var params10 = "token="+ JSON.stringify(obj10)+"&competition="+imet10;
+var params20 = "token="+ JSON.stringify(obj20)+"&competition="+imet20;
 alert("k");
-http10.open("POST", url10, true);
-       http10.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-http10.onreadystatechange = function() {//Call a function when the state changes.
-    if(http10.readyState == 4 && http10.status == 200) {
+http20.open("POST", url20, true);
+       http20.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+http20.onreadystatechange = function() {//Call a function when the state changes.
+    if(http20.readyState == 4 && http20.status == 200) {
 //Uzimanje JSona
 alert("a");
      
@@ -91,30 +91,11 @@ alert(ok);
 
 
 
-var para = document.createElement("p");
-for(i=0;i<ok;i++)
-{
-var node3 = document.createTextNode("Pitanje "+i+": ");
-para.appendChild(node3);
-var node = document.createTextNode(myObj[i]['question_data']);
-var node4 = document.createTextNode("Odgovor "+i+": ");
-var node2 = document.createTextNode(myObj[i]['answer_data']);
-para.appendChild(node);
-para.appendChild(document.createElement("br"));
-para.appendChild(node4);
-para.appendChild(node2);
-para.appendChild(document.createElement("br"));
-}
-var element = document.getElementById("div1");
-element.appendChild(para);
-
-
-
             
  
     }
 }
-http10.send(params10);
+http20.send(params20);
 }
 
 
