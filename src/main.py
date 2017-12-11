@@ -128,7 +128,10 @@ def api_competition_questions():
 
 @app.route('/api/competition_results', methods=['POST'])
 def api_competition_info():
-    pass
+    required_fields = ('token', 'competition')
+    if not all(field in request.form for field in required_fields):
+        return json.dumps({'success': False, 'reason': 'Missing one or more fields'})
+    return db.get_competition_results(request.form.get('token'), request.form.get('competition'))
 
 @app.route('/api/add_task_file', methods=['POST'])
 def api_add_task_file():

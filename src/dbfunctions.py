@@ -345,3 +345,32 @@ def get_task_list(token, comp_name):
                            """, (comp_name,))
             result = [row[0] for row in cur.fetchall()]
             return json.dumps(result)
+
+def get_competition_results(token, competition):
+    token_info = get_token_info(token)
+    if not token_info[0]:
+        return json.dumps({'success': False, 'reason': 'Invalid token'})
+    with conn.cursor() as cur:
+        cur.execute("""SELECT u.username, CAST(SUM(a.points) AS SIGNED) AS p
+                       FROM
+                       users AS u
+                       INNER JOIN
+                       answers AS a
+                       ON
+                       u.id=a.user_fk
+                       INNER JOIN
+                       questions AS q
+                       ON
+                       a.question_fk=q.id
+                       INNER JOIN
+                       competitions AS c
+                       ON
+                       q.competition_fk=c.id
+                       WHERE
+                       c.name=%s
+                       GROUP BY
+                       u.username
+                       ORDER BY p DESC
+                       """, (competition,))
+        results = [(row[0], row[1]) for row in cur.fetchall()]
+        return json.dumps(results)
