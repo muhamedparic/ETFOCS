@@ -18,7 +18,7 @@
 
   </head>
 
-  <body onload="UcitajZadatke()">
+  <body onload="UcitajZadatke();Takmicari();">
     
 
 
@@ -83,6 +83,56 @@ element.appendChild(para);
     }
 }
 http5.send(params5);
+
+}
+
+
+
+
+function Takmicari()
+{
+alert("ok");
+
+var http11 = new XMLHttpRequest();
+var url11 = "/api/competition_results";
+  var table = document.getElementById("myTable2");
+var toke11=localStorage.getItem("token");
+var ul11=localStorage.getItem("uloga");  
+var has11=localStorage.getItem("hash");
+var obj11 = { "hash":has11, "role":ul11, "token":toke11};
+var imet11=localStorage.getItem("imetakmicenja");
+var params11 = "token="+ JSON.stringify(obj)+"&competition="+imet11;
+alert("aaad");
+
+http11.open("POST", url11, true);
+       http11.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+http11.onreadystatechange = function() {//Call a function when the state changes.
+    if(http11.readyState == 4 && http11.status == 200) {
+//Uzimanje JSona
+
+              myObj = JSON.parse(this.responseText);
+var ok=myObj.length;
+alert("aad");
+for(i=0;i<ok;i++)
+{
+  var row = table.insertRow(i+1);
+    var cell1 = row.insertCell(0);
+    var cell2 = row.insertCell(1);
+    cell1.innerHTML = myObj[i][0];
+    cell2.innerHTML = myObj[i][1];
+
+}
+
+
+
+            
+ 
+    }
+}
+http11.send(params11);
+
+
+
 
 }
 
@@ -229,6 +279,32 @@ http3.send(params3);
 <div id="div1">
   <h1 class="my-4"><b>Spisak dosadasnjih zadataka</b>
 </div>
+
+
+
+
+
+<div id="div2">
+  <h1 class="my-4"><b>Spisak takmičara i bodova</b>
+</div>
+
+
+  <table class="table table-striped" id="myTable2">
+              <thead>
+                <tr>
+                  <th>Takmicar</th>
+                  <th>Bodovi</th>
+                  
+                </tr>
+              
+              </thead>
+            <tbody>
+            
+              </tbody>
+            </table>
+
+
+
 
 
     <!-- Footer -->
