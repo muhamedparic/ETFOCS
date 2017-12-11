@@ -55,7 +55,18 @@ def edit_competition_code():
 def edit_competition_multiple_choice():
     return render_template('edit-competition-multiple-choice.html')
 
-# FIX
+@app.route('/competition_fill')
+def competition_fill():
+    return render_template('competition-fill.html')
+
+@app.route('/competition_multiple_choice')
+def competition_multiple_choice():
+    return render_template('competition-multiple-choice.html')
+
+@app.route('/competition_code')
+def competition_code():
+    return render_template('competition-code.html')
+
 @app.route('/api/add_competition', methods=['POST'])
 def api_add_competition():
     required_fields = ('token', 'type', 'name')
@@ -110,7 +121,10 @@ def api_add_competitor():
 
 @app.route('/api/competition_questions', methods=['POST'])
 def api_competition_questions():
-    pass
+    required_fields = ('token', 'competition')
+    if not all(field in request.form for field in required_fields):
+        return json.dumps({'success': False, 'reason': 'Missing one or more fields'})
+    return db.get_competition_questions(request.form.get('token'), request.form.get('competition'))
 
 @app.route('/api/competition_results', methods=['POST'])
 def api_competition_info():
@@ -118,7 +132,28 @@ def api_competition_info():
 
 @app.route('/api/add_task_file', methods=['POST'])
 def api_add_task_file():
-    pass
+    required_fields = ('token', 'competition', 'name')
+    if not all(field in request.form for field in required_fields):
+        return json.dumps({'success': False, 'reason': 'Missing one or more fields'})
+    file_data = request.files.get('filedata')
+    filename = request.form.get('name') + '.pdf'
+    return db.add_task_file(request.form.get('token'), request.form.get('competition'),
+                            request.form.get('name'), file_data, filename)
+
+@app.route('/api/download_task_file', methods=['POST'])
+def api_download_task_file():
+    required_fields = ('token', 'competition', 'name')
+    if not all(field in request.form for field in required_fields):
+        return json.dumps({'success': False, 'reason': 'Missing one or more fields'})
+    return db.download_task_file(request.form.get('token'), request.form.get('competition'),
+                                 request.form.get('name'))
+
+@app.route('/api/task_list', methods=['POST'])
+def api_get_task_list():
+    required_fields = ('token', 'competition')
+    if not all(field in request.form for field in required_fields):
+        return json.dumps({'success': False, 'reason': 'Missing one or more fields'})
+    return db.get_task_list(request.form.get('token'), request.form.get('competition'))
 
 @app.route('/secret/gitpull', methods=['GET'])
 def secret_gitpull():
