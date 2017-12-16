@@ -23,7 +23,7 @@
 <script>
 function Takmicenja()
 {
-alert("aaf");
+
 var http52 = new XMLHttpRequest();
 var url52 = "/api/user_competitions";
   var table52 = document.getElementById("takmicenja");
@@ -41,7 +41,7 @@ http52.onreadystatechange = function() {//Call a function when the state changes
  myObj52 = JSON.parse(this.responseText);
 
 var ok52=myObj52.length;
-alert(myObj52);
+
 for(i=0;i<ok52;i++)
 {
 var row52 = table52.insertRow(i+1);
