@@ -171,7 +171,7 @@ def api_search_users():
 
 @app.route('/api/user_competitions', methods=['POST'])
 def api_user_competitions():
-    required_fields = ('token', 'usename')
+    required_fields = ('token', 'username')
     if not all(field in request.form for field in required_fields):
         return json.dumps({'success': False, 'reason': 'Missing one or more fields'})
     return db.get_user_competitions(request.form.get('token'), request.form.get('username'))
