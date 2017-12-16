@@ -23,7 +23,20 @@
 <script>
 function Takmicenja()
 {
+
+var http52 = new XMLHttpRequest();
+var url52 = "/api/competition_results";
+  var table52 = document.getElementById("takmicenja");
+var toke52=localStorage.getItem("token");
+var ul52=localStorage.getItem("uloga");  
+var has52=localStorage.getItem("hash");
+var obj52 = { "hash":has52, "role":ul52, "token":toke52};
+
+var params52 = "token="+ JSON.stringify(obj52)+"&user="+localStorage.getItem("korisnik"));
+
+
 alert(localStorage.getItem("korisnik"));
+alert(params52);
 }
 </script>
 
@@ -76,35 +89,16 @@ alert(localStorage.getItem("korisnik"));
 
           <h2 class="sub-header">Rezultati</h2>
           <div class="table-responsive">
-            <table class="table table-striped">
+            <table class="table table-striped" id="takmicenja">
               <thead>
                 <tr>
-                  <th>Ranking</th>
+                  
                   <th>Takmičenje</th>
-                  <th>Predmet</th>
+                  
                 </tr>
               </thead>
               <tbody>
-                <tr>
-                  <td>1</td>
-                  <td>/</td>
-                  <td>Web tehnologije</td>
-                </tr>
-                <tr>
-                  <td>4</td>
-                  <td>/</td>
-                  <td>Operaciona istraživanja</td>
-                </tr>
-                <tr>
-                  <td>2</td>
-                  <td>/</td>
-                  <td>Tehnike programiranja</td>
-                </tr>
-                <tr>
-                  <td>2</td>
-                  <td>/</td>
-                  <td>Inženjerska matematika 2</td>
-                </tr>
+               
               </tbody>
             </table>
           </div>
