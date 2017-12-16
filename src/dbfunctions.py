@@ -374,3 +374,15 @@ def get_competition_results(token, competition):
                        """, (competition,))
         results = [(row[0], row[1]) for row in cur.fetchall()]
         return json.dumps(results)
+
+def search_users(token, username):
+    if get_token_info(token)[2] != 'admin':
+        return json.dumps({'success': False, 'reason': 'Invalid token'})
+    with conn.cursor() as cur:
+        cur.execute("""SELECT username
+                       FROM users
+                       WHERE
+                       username LIKE %s
+                       """, ('%' + username + '%',))
+        results = [row[0] for row in cur.fetchall()]
+        return json.dumps(results)

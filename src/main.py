@@ -158,6 +158,13 @@ def api_get_task_list():
         return json.dumps({'success': False, 'reason': 'Missing one or more fields'})
     return db.get_task_list(request.form.get('token'), request.form.get('competition'))
 
+@app.route('/api/search_users', methods=['POST'])
+def api_search_users():
+    required_fields = ('token', 'username')
+    if not all(field in request.form for field in required_fields):
+        return json.dumps({'success': False, 'reason': 'Missing one or more fields'})
+    return db.search_users(request.form.get('token'), request.form.get('username'))
+
 @app.route('/secret/gitpull', methods=['GET'])
 def secret_gitpull():
     utils.gitpull()
@@ -165,6 +172,6 @@ def secret_gitpull():
 
 if __name__ == '__main__':
     try:
-    	app.run(host='192.168.0.19', port=8000, processes=4)
+    	app.run(host='192.168.0.21', port=8000, processes=4)
     except OSError:
     	app.run(host='localhost', port=8000, processes=4)
