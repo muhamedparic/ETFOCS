@@ -39,7 +39,7 @@ http52.onreadystatechange = function() {//Call a function when the state changes
     if(http52.readyState == 4 && http52.status == 200) {
 
  myObj52 = JSON.parse(this.responseText);
-
+alert(myObj52);
 var ok52=myObj52.length;
 alert(ok52);
 
