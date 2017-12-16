@@ -209,8 +209,8 @@ var t4 = document.createTextNode("Ucesnici");
 myelement4.appendChild(t4);
  myelement4.onclick = function() { 
  var tipt4=this.parentNode.parentNode.rowIndex;
-alert("sf");
-
+alert(tipt4);
+alert(document.getElementById("myTable").rows[tipt].cells[0].innerHTML);
 };
  cell4.appendChild(myelement4);
 
