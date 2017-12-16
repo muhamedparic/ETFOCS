@@ -172,7 +172,7 @@ var user=document.getElementById("tabela-rezultata").rows[tipt33].cells[0].inner
 var http33 = new XMLHttpRequest();
 var url33 = "/api/add_competitor";
 var imet33=localStorage.getItem("imetakmicenja");
-var params33 = "username="+user+"&token="+JSON.stringify(obj31)+"&competition="+imet33;
+var params33 = "user="+user+"&token="+JSON.stringify(obj31)+"&competition="+imet33;
 alert(params33);
 http33.open("POST", url33, true);
        http33.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
