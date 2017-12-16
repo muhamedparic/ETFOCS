@@ -211,6 +211,8 @@ myelement4.appendChild(t4);
  var tipt4=this.parentNode.parentNode.rowIndex;
 alert(tipt4);
 alert(document.getElementById("myTable").rows[tipt4].cells[0].innerHTML);
+localStorage.setItem("imetakmicenja", document.getElementById("myTable").rows[tipt4].cells[0].innerHTML);
+window.location = "/edit_competition_multiple_choice"; 
 };
  cell4.appendChild(myelement4);
 
