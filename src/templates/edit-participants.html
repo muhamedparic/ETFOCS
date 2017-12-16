@@ -59,7 +59,7 @@
               <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Reiciendis aliquid atque, nulla? Quos cum ex quis soluta, a laboriosam. Dicta expedita corporis animi vero voluptate voluptatibus possimus, veniam magni quis!</p>
               <a href="#" class="btn btn-primary">Read More &rarr;</a>-->
               <h2 class="card-title"><b>Dodavanje takmičara</b></h2>
-              <form>
+              
                 <div class="input-field">
                     <p>Pretraga: </p><input type="text" id="user" name="search-bar"><br>
                 </div>
@@ -72,7 +72,7 @@
                   </tr>
                  
                 </table>
-              </form>
+              
             </div>
           </div>
         </div>
@@ -131,7 +131,7 @@ var has31=localStorage.getItem("hash");
 var obj31 = { "hash":has31, "role":ul31, "token":toke31};
 var table = document.getElementById("tabela-rezultata");
 alert(ul31);
-var params31 = "username="+a31+JSON.stringify(obj31);
+var params31 = "username="+a31+"&token="JSON.stringify(obj31);
 
 http31.open("POST", url31, true);
        http31.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
