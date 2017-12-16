@@ -139,27 +139,9 @@ http31.open("POST", url31, true);
 http31.onreadystatechange = function() {//Call a function when the state changes.
     if(http31.readyState == 4 && http31.status == 200) {
 //Uzimanje JSona
-   myObj = JSON.parse(this.responseText);
-var ok=myObj.length;
+   myObj31 = JSON.parse(this.responseText);
+var ok=myObj31.length;
 alert(this.responseText);
-
-for(i=0;i<ok;i++)
-{
-  var row = table.insertRow(i+1);
-    var cell1 = row.insertCell(0);
-  
-    cell1.innerHTML = myObj[i];
-   
-
-
-}
-
-
-
-
-
-
-
                
     }
 }
