@@ -168,7 +168,7 @@ var t32 = document.createTextNode("Dodaj");
 myelement32.appendChild(t32);
 myelement32.onclick = function() { 
  var tipt32=this.parentNode.parentNode.rowIndex;
-alert(tipt32);
+alert(JSON.stringify(obj31));
 alert(document.getElementById("tabela-rezultata").rows[tipt32].cells[0].innerHTML);
 
 };
