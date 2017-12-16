@@ -161,15 +161,21 @@ for(i=0;i<ok;i++)
     cell1.innerHTML = myObj[i];
    
 
-var cell32 = row.insertCell(1);
+var cell33 = row.insertCell(1);
 
-var myelement32 = document.createElement("BUTTON");
-var t32 = document.createTextNode("Dodaj");  
-myelement32.appendChild(t32);
-myelement32.onclick = function() { 
- var tipt32=this.parentNode.parentNode.rowIndex;
-alert(JSON.stringify(obj31));
-alert(document.getElementById("tabela-rezultata").rows[tipt32].cells[0].innerHTML);
+var myelement33 = document.createElement("BUTTON");
+var t33 = document.createTextNode("Dodaj");  
+myelement33.appendChild(t33);
+myelement33.onclick = function() { 
+ var tipt33=this.parentNode.parentNode.rowIndex;
+var user=document.getElementById("tabela-rezultata").rows[tipt33].cells[0].innerHTML;
+var http33 = new XMLHttpRequest();
+var url33 = "/api/add_competitor";
+var imet33=localStorage.getItem("imetakmicenja");
+var params33 = "username="+a31+"&token="+JSON.stringify(obj31)+"&competition="+imet33;
+alert(params33);
+
+
 
 };
  cell32.appendChild(myelement32);
