@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 
   <head>
@@ -61,20 +61,16 @@
               <h2 class="card-title"><b>Dodavanje takmičara</b></h2>
               <form>
                 <div class="input-field">
-                    <p>Pretraga: </p><input type="text" name="search-bar"><br>
+                    <p>Pretraga: </p><input type="text" id="user" name="search-bar"><br>
                 </div>
-                <input id="subby" type="submit" value="Traži" class="btn btn-primary"><br><br><br>
+                <input id="subby" onclick="Trazi()" type="submit" value="Traži" class="btn btn-primary"><br><br><br>
                 <h3>Rezultati:</h3>
                 <table id="tabela-rezultata">
                   <tr>
                     <th>Takmičar</th>
-                    <th>Username</th>
+                  
                   </tr>
-                  <tr>
-                    <td></td>
-                    <td></td>
-                    <td><input type="submit" value="Dodaj" class="btn btn-primary"></td>
-                  </tr>
+                 
                 </table>
               </form>
             </div>
@@ -95,26 +91,12 @@
           <div class="card my-4">
             <h5 class="card-header"><b>Prijavljeni takmičari</b></h5>
             <div class="card-body">
-                <table>
+                <table id="takmicari">
                   <tr>
                     <th>Takmičar</th>
-                    <th>Username</th>
+                    
                   </tr>
-                  <tr>
-                    <td>Genji Shimada</td>
-                    <td>sparrow</td>
-                    <td><input type="submit" value="Izbriši" class="btn btn-primary"></td>
-                  </tr>
-                  <tr>
-                    <td>Amélie Lacroix</td>
-                    <td>spiderqueen</td>
-                    <td><input type="submit" value="Izbriši" class="btn btn-primary"></td>
-                  </tr>
-                  <tr>
-                    <td>Lena Oxton</td>
-                    <td>zippyzip</td>
-                    <td><input type="submit" value="Izbriši" class="btn btn-primary"></td>
-                  </tr>
+                  
                 </table>
             </div>
           </div>
@@ -135,6 +117,91 @@
       <!-- /.container -->
     </footer>
 
+<script>
+function Trazi()
+{
+var a31= document.getElementById("user").value;
+alert(a31);
+var http31 = new XMLHttpRequest();
+var url31 = "/api/search_users";
+alert(a31);
+var toke31=localStorage.getItem("token");
+var ul31=localStorage.getItem("uloga");  
+var has31=localStorage.getItem("hash");
+var obj31 = { "hash":has31, "role":ul31, "token":toke31};
+var table = document.getElementById("tabela-rezultata");
+
+var params31 = "username="+a31+JSON.stringify(obj31);
+
+http31.open("POST", url31, true);
+       http31.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+
+http31.onreadystatechange = function() {//Call a function when the state changes.
+    if(http31.readyState == 4 && http31.status == 200) {
+//Uzimanje JSona
+   myObj = JSON.parse(this.responseText);
+var ok=myObj.length;
+alert(this.responseText);
+
+for(i=0;i<ok;i++)
+{
+  var row = table.insertRow(i+1);
+    var cell1 = row.insertCell(0);
+  
+    cell1.innerHTML = myObj[i];
+   
+
+
+}
+
+
+
+
+
+
+
+               
+    }
+}
+http31.send(params31);
+
+}
+
+
+function ucitajtakmicare()
+{var http32 = new XMLHttpRequest();
+var url32 = "/api/get_users";
+  var table32 = document.getElementById("takmicari");
+var toke32=localStorage.getItem("token");
+var ul32=localStorage.getItem("uloga");  
+var has32=localStorage.getItem("hash");
+var obj32 = { "hash":has32, "role":ul32, "token":toke32};
+var imet32=localStorage.getItem("imetakmicenja");
+var params32 = "token="+ JSON.stringify(obj)+"&competition="+imet32;
+
+http32.open("POST", url32, true);
+       http32.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+http32.onreadystatechange = function() {//Call a function when the state changes.
+    if(http32.readyState == 4 && http32.status == 200) {
+
+ myObj32 = JSON.parse(this.responseText);
+var ok32=myObj32.length;
+for(i=0;i<ok32;i++)
+{ var row32 = table.insertRow(i+1);
+ var cell1 = row32.insertCell(0);
+cell1.innerHTML = myObj[i];
+
+}
+}
+}
+}
+
+
+
+
+
+
+</script>
   </body>
 
 </html>
