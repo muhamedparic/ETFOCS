@@ -31,8 +31,9 @@ var toke52=localStorage.getItem("token");
 var ul52=localStorage.getItem("uloga");  
 var has52=localStorage.getItem("hash");
 var obj52 = { "hash":has52, "role":ul52, "token":toke52};
+var user=localStorage.getItem("korisnik");
+var params52="token="+JSON.stringify(obj52)+"&user="+user;
 
-var params52 = "token="+ JSON.stringify(obj52)+"&user="+localStorage.getItem("korisnik"));
 
 
 alert(localStorage.getItem("korisnik"));
