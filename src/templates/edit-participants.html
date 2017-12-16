@@ -195,7 +195,7 @@ alert("psg");
  myObj32 = JSON.parse(this.responseText);
 alert(this.responseText);
 var ok32=myObj32.length;
-alert(ok32);
+alert(myObj32[0][0]);
 for(i=0;i<ok32;i++)
 { var row32 = table.insertRow(i+1);
  var cell1 = row32.insertCell(0);
