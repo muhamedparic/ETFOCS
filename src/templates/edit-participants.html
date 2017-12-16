@@ -18,7 +18,7 @@
 
   </head>
 
-  <body>
+  <body onload="ucitajtakmicare();">
       
     <!-- Navigation -->
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
@@ -124,7 +124,7 @@ var a31= document.getElementById("user").value;
 
 var http31 = new XMLHttpRequest();
 var url31 = "/api/search_users";
-alert(localStorage.getItem("imetakmicenja"));
+
 var toke31=localStorage.getItem("token");
 var ul31=localStorage.getItem("uloga");  
 var has31=localStorage.getItem("hash");
@@ -177,7 +177,7 @@ http31.send(params31);
 
 function ucitajtakmicare()
 {var http32 = new XMLHttpRequest();
-var url32 = "/api/get_users";
+var url32 = "/api/get_competition_results";
   var table32 = document.getElementById("takmicari");
 var toke32=localStorage.getItem("token");
 var ul32=localStorage.getItem("uloga");  
@@ -185,18 +185,19 @@ var has32=localStorage.getItem("hash");
 var obj32 = { "hash":has32, "role":ul32, "token":toke32};
 var imet32=localStorage.getItem("imetakmicenja");
 var params32 = "token="+ JSON.stringify(obj)+"&competition="+imet32;
-
+alert("ok");
 http32.open("POST", url32, true);
        http32.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
 http32.onreadystatechange = function() {//Call a function when the state changes.
     if(http32.readyState == 4 && http32.status == 200) {
 
  myObj32 = JSON.parse(this.responseText);
+alert(this.responseText);
 var ok32=myObj32.length;
 for(i=0;i<ok32;i++)
 { var row32 = table.insertRow(i+1);
  var cell1 = row32.insertCell(0);
-cell1.innerHTML = myObj[i];
+cell1.innerHTML = myObj[i][0];
 
 }
 }
