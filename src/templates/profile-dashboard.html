@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
   <head>
     <meta charset="utf-8">
@@ -18,7 +18,16 @@
     <link href="{{ url_for('static', filename='dashboard.css') }}" rel="stylesheet">
   </head>
 
-  <body>
+  <body onload="Takmicenja()">
+
+<script>
+function Takmicenja()
+{
+alert(localStorage.getItem("uloga"));
+}
+</script>
+
+
 
     <nav class="navbar navbar-inverse navbar-fixed-top">
       <div class="container-fluid">
