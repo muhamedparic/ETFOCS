@@ -124,13 +124,13 @@ var a31= document.getElementById("user").value;
 alert(a31);
 var http31 = new XMLHttpRequest();
 var url31 = "/api/search_users";
-alert(a31);
+
 var toke31=localStorage.getItem("token");
 var ul31=localStorage.getItem("uloga");  
 var has31=localStorage.getItem("hash");
 var obj31 = { "hash":has31, "role":ul31, "token":toke31};
 var table = document.getElementById("tabela-rezultata");
-
+alert(ul31);
 var params31 = "username="+a31+JSON.stringify(obj31);
 
 http31.open("POST", url31, true);
