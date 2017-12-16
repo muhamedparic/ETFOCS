@@ -131,6 +131,16 @@ var has31=localStorage.getItem("hash");
 var obj31 = { "hash":has31, "role":ul31, "token":toke31};
 var table = document.getElementById("tabela-rezultata");
 
+
+    var table = document.getElementById("tabela-rezultata");
+   
+    for(var i = table.rows.length - 1; i > 0; i--)
+    {
+        table.deleteRow(i);
+    }
+
+
+
 var params31 = "username="+a31+"&token="+JSON.stringify(obj31);
 
 http31.open("POST", url31, true);
