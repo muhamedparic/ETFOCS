@@ -175,6 +175,21 @@ var imet33=localStorage.getItem("imetakmicenja");
 var params33 = "username="+user+"&token="+JSON.stringify(obj31)+"&competition="+imet33;
 alert(params33);
 
+http33.onreadystatechange = function() {//Call a function when the state changes.
+    if(http33.readyState == 4 && http33.status == 200) {
+
+alert("ok");
+alert(this.responseText);
+
+
+
+
+}
+
+
+}
+http33.send(params33);
+
 };
  cell33.appendChild(myelement33);
 
