@@ -55,6 +55,10 @@ def edit_competition_code():
 def edit_competition_multiple_choice():
     return render_template('edit-competition-multiple-choice.html')
 
+@app.route('/edit_participants')
+def edit_participants():
+    return render_template('edit-participants.html')
+
 @app.route('/competition_fill')
 def competition_fill():
     return render_template('competition-fill.html')
@@ -127,7 +131,7 @@ def api_competition_questions():
     return db.get_competition_questions(request.form.get('token'), request.form.get('competition'))
 
 @app.route('/api/competition_results', methods=['POST'])
-def api_competition_info():
+def api_competition_results():
     required_fields = ('token', 'competition')
     if not all(field in request.form for field in required_fields):
         return json.dumps({'success': False, 'reason': 'Missing one or more fields'})
@@ -164,6 +168,13 @@ def api_search_users():
     if not all(field in request.form for field in required_fields):
         return json.dumps({'success': False, 'reason': 'Missing one or more fields'})
     return db.search_users(request.form.get('token'), request.form.get('username'))
+
+@app.route('/api/user_competitions', methods=['POST'])
+def api_user_competitions():
+    required_fields = ('token', 'usename')
+    if not all(field in request.form for field in required_fields):
+        return json.dumps({'success': False, 'reason': 'Missing one or more fields'})
+    return db.get_user_competitions(request.form.get('token'), request.form.get('username'))
 
 @app.route('/secret/gitpull', methods=['GET'])
 def secret_gitpull():

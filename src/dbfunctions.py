@@ -383,6 +383,29 @@ def search_users(token, username):
                        FROM users
                        WHERE
                        username LIKE %s
+                       AND
+                       role='user'
                        """, ('%' + username + '%',))
         results = [row[0] for row in cur.fetchall()]
         return json.dumps(results)
+
+def get_user_competitions(token, username):
+    token_info = get_token_info(token)
+    if token_info[2] == 'admin' or token_info[1] == username:
+        with conn.cursor() as cur:
+            cur.execute("""SELECT c.name
+                           FROM
+                           competitions AS c
+                           JOIN participations AS p
+                           ON
+                           c.id=p.competition_fk
+                           JOIN users AS u
+                           ON
+                           p.user_fk=u.id
+                           WHERE
+                           u.username=%s
+                           """, (username,))
+            results = [row[0] for row in cur.fetchall()]
+            return json.dumps(results)
+    else:
+        return json.dumps({'success': False, 'reason': 'Invalid token'})
