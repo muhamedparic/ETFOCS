@@ -110,17 +110,27 @@ var t33 = document.createTextNode("Posalji");
 myelement33.appendChild(t33);
 myelement33.onclick = function() { 
 var odgovori=[];
+var c=localStorage.getItem("korisnik");
 for(i=0;i<ok;i++)
 {
 var d=document.getElementById("mySelect"+i).value;
 odgovori.push(d);
 
-
 }
 
-alert(odgovori);
+var http7 = new XMLHttpRequest();
+var url7 = "/api/competition_questions";
+ 
+var toke7=localStorage.getItem("token");
+var ul7=localStorage.getItem("uloga");  
+var has7=localStorage.getItem("hash");
+var obj7 = { "hash":has7, "role":ul7, "token":toke7};
+var imet7=localStorage.getItem("imetakmicenja");
 
-var c=localStorage.getItem("korisnik");
+
+var params7 = "token="+ JSON.stringify(obj7)+"&competition="+imet7+"&answers="+odgovori+"&user="+c;
+
+alert(params7);
 
 }
 
