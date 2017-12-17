@@ -65,6 +65,7 @@ for(i=0;i<ok;i++)
 var node3 = document.createTextNode("Pitanje "+i+": ");
 para.appendChild(node3);
 var node = document.createTextNode(myObj[i]['question_data']['question']);
+node.setAttribute("id","Pitanje"+i);
 var br1="1. ";
 var br2="2. ";
 var br3="3. ";
@@ -106,10 +107,10 @@ var t33 = document.createTextNode("Posalji");
  
 myelement33.appendChild(t33);
 myelement33.onclick = function() { 
-alert("aaa");
-alert(brojac);
-var c=document.getElementById("mySelect0").value;
+
+var c=document.getElementById("Pitanje0").value;
 alert(c);
+
 var d=document.getElementById("mySelect1").value;
 alert(d);
 }
