@@ -37,6 +37,7 @@ var ul5=localStorage.getItem("uloga");
 var has5=localStorage.getItem("hash");
 var obj5 = { "hash":has5, "role":ul5, "token":toke5};
 var imet5=localStorage.getItem("imetakmicenja");
+    document.getElementById("imet").innerHTML = imet5;
 
 var params5 = "token="+ JSON.stringify(obj5)+"&competition="+imet5;
 
@@ -115,7 +116,7 @@ http5.send(params5);
         <!-- Question Column -->
         <div class="col-md-8">
 
-          <h1 class="my-4"><b>"Znam učiti samo napamet" contest</b>
+          <h1 class="my-4" id="imet"><b>"Znam učiti samo napamet" contest</b>
             <small>Fill</small>
           </h1>
 
