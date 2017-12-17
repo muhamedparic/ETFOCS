@@ -55,7 +55,7 @@ http6.onreadystatechange = function() {//Call a function when the state changes.
 
      myObj = JSON.parse(this.responseText);
 var ok=myObj.length;
-brojac=ok;
+brojac=myObj.length;
 
 
 
@@ -110,7 +110,11 @@ var t33 = document.createTextNode("Posalji");
 myelement33.appendChild(t33);
 myelement33.onclick = function() { 
 
+for(i=0;i<ok;i++)
+{
 
+alert(i);
+}
 
 
 var d=document.getElementById("mySelect1").value;
