@@ -104,43 +104,7 @@ para.appendChild(document.createElement("br"));
 var element = document.getElementById("div1");
 element.appendChild(para);
 
-var myelement33 = document.createElement("BUTTON");
-var t33 = document.createTextNode("Posalji");
- 
-myelement33.appendChild(t33);
-myelement33.onclick = function() { 
-var odgovori=[];
-var c=localStorage.getItem("korisnik");
-for(i=0;i<ok;i++)
-{
-var d=document.getElementById("mySelect"+i).value;
-odgovori.push(d);
 
-}
-
-var http7 = new XMLHttpRequest();
-var url7 = "/api/submit_answer";
- 
-var toke7=localStorage.getItem("token");
-var ul7=localStorage.getItem("uloga");  
-var has7=localStorage.getItem("hash");
-var obj7 = { "hash":has7, "role":ul7, "token":toke7};
-var imet7=localStorage.getItem("imetakmicenja");
-
-
-var params7 = "token="+ JSON.stringify(obj7)+"&competition="+imet7+"&answers="+JSON.stringify(odgovori);
-
-
-
-
-
-
-
-}
-
-
-
-element.appendChild(myelement33);
 
             
  
