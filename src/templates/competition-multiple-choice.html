@@ -28,7 +28,7 @@
 {
 
 
-
+alert("fs");
 
 
 var http6 = new XMLHttpRequest();
@@ -39,7 +39,7 @@ var ul6=localStorage.getItem("uloga");
 var has6=localStorage.getItem("hash");
 var obj6 = { "hash":has6, "role":ul6, "token":toke6};
 var imet6=localStorage.getItem("imetakmicenja");
-
+alert("ok");
 var params6 = "token="+ JSON.stringify(obj6)+"&competition="+imet6;
 
 http6.open("POST", url6, true);
@@ -48,7 +48,7 @@ http6.onreadystatechange = function() {//Call a function when the state changes.
     if(http6.readyState == 4 && http6.status == 200) {
 //Uzimanje JSona
 
-   
+     alert("ok");
 
      myObj = JSON.parse(this.responseText);
 var ok=myObj.length;
@@ -56,14 +56,11 @@ var ok=myObj.length;
 
 
 
-var para = document.createElement("div");
-para.className = "card-body";
+var para = document.createElement("p");
 for(i=0;i<ok;i++)
 {
-var node8=document.createElement("H4");
 var node3 = document.createTextNode("Pitanje "+i+": ");
-node8.appendChild(node3);
-para.appendChild(node8);
+para.appendChild(node3);
 var node = document.createTextNode(myObj[i]['question_data']['question']);
 var br1="1. ";
 var br2="2. ";
@@ -157,7 +154,24 @@ http6.send(params6);
               <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Reiciendis aliquid atque, nulla? Quos cum ex quis soluta, a laboriosam. Dicta expedita corporis animi vero voluptate voluptatibus possimus, veniam magni quis!</p>
               <a href="#" class="btn btn-primary">Read More &rarr;</a>-->
               <h2 class="card-title"><b>#1 Why don't you like sand?</b></h2>
-                <div id="div1"></div1>
+              <form>
+                <ol type="1">
+                    <li>It's rough</li>
+                    <li>It's coarse</li>
+                    <li>It gets everywhere</li>
+                    <li>It's irritating</li>
+                </ol>
+                <div class="input-field">
+                    <p>Tačan odgovor se nalazi pod brojem </p>
+                    <select name="odgovori">
+                          <option value="1">1</option>
+                          <option value="2">2</option>
+                          <option value="3">3</option>
+                          <option value="4">4</option>
+                    </select>
+                </div>
+                <input id="subby" type="submit" value="Potvrdi odgovor" class="btn btn-primary">
+              </form>
             </div>
           </div>
             
@@ -168,7 +182,24 @@ http6.send(params6);
               <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Reiciendis aliquid atque, nulla? Quos cum ex quis soluta, a laboriosam. Dicta expedita corporis animi vero voluptate voluptatibus possimus, veniam magni quis!</p>
               <a href="#" class="btn btn-primary">Read More &rarr;</a>-->
               <h2 class="card-title"><b>#2 Who's the most cancerous Overwatch hero?</b></h2>
-            <div id="div1"></div1>
+              <form>
+                <ol type="1">
+                    <li>Symmetra</li>
+                    <li>Torbjorn</li>
+                    <li>Mei</li>
+                    <li>Junkrat</li>
+                </ol>
+                <div class="input-field">
+                    <p>Tačan odgovor se nalazi pod brojem </p>
+                    <select name="odgovori">
+                          <option value="1">1</option>
+                          <option value="2">2</option>
+                          <option value="3">3</option>
+                          <option value="4">4</option>
+                    </select>
+                </div>
+                <input id="subby" type="submit" value="Potvrdi odgovor" class="btn btn-primary">
+              </form>
             </div>
           </div>
             
@@ -219,7 +250,7 @@ http6.send(params6);
     </div>
     <!-- /.container -->
 
-
+<div id="div1"></div1>
 
 
     <!-- Footer -->
