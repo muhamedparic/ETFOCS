@@ -39,7 +39,7 @@ var ul6=localStorage.getItem("uloga");
 var has6=localStorage.getItem("hash");
 var obj6 = { "hash":has6, "role":ul6, "token":toke6};
 var imet6=localStorage.getItem("imetakmicenja");
-alert("ok");
+document.getElementById("imet").innerHTML = imet6;
 var params6 = "token="+ JSON.stringify(obj6)+"&competition="+imet6;
 
 http6.open("POST", url6, true);
@@ -153,7 +153,7 @@ http6.send(params6);
               <!--<h2 class="card-title">Test<br></h2>
               <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Reiciendis aliquid atque, nulla? Quos cum ex quis soluta, a laboriosam. Dicta expedita corporis animi vero voluptate voluptatibus possimus, veniam magni quis!</p>
               <a href="#" class="btn btn-primary">Read More &rarr;</a>-->
-              <h2 class="card-title"><b>#1 Why don't you like sand?</b></h2>
+              <h2 class="card-title" id="imet"><b>Why don't you like sand?</b></h2>
            <div id="div1"></div>
             </div>
           </div>
