@@ -176,6 +176,13 @@ def api_user_competitions():
         return json.dumps({'success': False, 'reason': 'Missing one or more fields'})
     return db.get_user_competitions(request.form.get('token'), request.form.get('username'))
 
+@app.route('/api/competition_participants', methods=['POST'])
+def api_competition_participants():
+    required_fields = ('token', 'competition')
+    if not all(field in request.form for field in required_fields):
+        return json.dumps({'success': False, 'reason': 'Missing one or more fields'})
+    return db.get_competition_participants(request.form.get('token'), request.form.get('competition'))
+
 @app.route('/secret/gitpull', methods=['GET'])
 def secret_gitpull():
     utils.gitpull()

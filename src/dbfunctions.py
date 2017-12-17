@@ -247,11 +247,26 @@ def get_competition_questions(token, competition):
                            """, (competition,))
             if cur.rowcount == 0:
                 return json.dumps({})
-            result_list = [{'question_data': (row[0] if row[2] in ('fill', 'code') else json.loads(row[0]))}\
+            result_list = [{'question_data': (row[0] if row[1] in ('fill', 'code') else json.loads(row[0]))}\
                           for row in cur.fetchall()]
             return json.dumps(result_list)
     else:
         return json.dumps({'success': False, 'reason': 'Invalid token'})
+
+def is_correct_answer(comp_name, question, answer):
+    with conn.cursor() as cur:
+        cur.execute("""SELECT q.answer_data
+                       FROM
+                       questions AS q
+                       JOIN competitions AS c
+                       ON
+                       q.competition_fk=c.id
+                       WHERE
+                       c.name=%s
+                       AND
+
+                    """)
+# DO NOT USE FUNCTION
 
 def submit_answer(token, comp_name, question, answer):
     token_info = get_token_info(token)
@@ -393,7 +408,7 @@ def get_user_competitions(token, username):
     token_info = get_token_info(token)
     if token_info[2] == 'admin' or token_info[1] == username:
         with conn.cursor() as cur:
-            cur.execute("""SELECT c.name
+            cur.execute("""SELECT c.name, ct.description
                            FROM
                            competitions AS c
                            JOIN participations AS p
@@ -402,10 +417,32 @@ def get_user_competitions(token, username):
                            JOIN users AS u
                            ON
                            p.user_fk=u.id
+                           JOIN competition_types AS ct
+                           ON c.type_fk=ct.id
                            WHERE
                            u.username=%s
                            """, (username,))
-            results = [row[0] for row in cur.fetchall()]
+            results = [(row[0], row[1]) for row in cur.fetchall()]
             return json.dumps(results)
     else:
         return json.dumps({'success': False, 'reason': 'Invalid token'})
+
+def get_competition_participants(token, competition):
+    token_info = get_token_info(token)
+    if token_info[2] != 'admin':
+        return json.dumps({'success': False, 'reason': 'Invalid token'})
+    with conn.cursor() as cur:
+        cur.execute("""SELECT u.username
+                       FROM
+                       users AS u
+                       JOIN participations AS p
+                       ON
+                       u.id=p.user_fk
+                       JOIN competitions AS c
+                       ON
+                       p.competition_fk=c.id
+                       WHERE
+                       c.name=%s
+                       """, (competition,))
+        results = [row[0] for row in cur.fetchall()]
+        return json.dumps(results)
