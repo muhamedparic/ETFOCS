@@ -59,9 +59,10 @@ var ok=myObj.length;
 var para = document.createElement("div");
 for(i=0;i<ok;i++)
 {
-
+var node8=document.createElement("H1");
 var node3 = document.createTextNode("Pitanje "+i+": ");
-para.appendChild(node3);
+h.appendChild(node3);
+para.appendChild(h);
 var node = document.createTextNode(myObj[i]['question_data']);
 var node4 = document.createTextNode("Odgovor "+i+": ");
 var node2 = document.createTextNode(myObj[i]['answer_data']);
