@@ -23,7 +23,7 @@
 
 
 <script>
-
+var brojac=0;
  function UcitajZadatke2()
 {
 
@@ -54,7 +54,7 @@ http6.onreadystatechange = function() {//Call a function when the state changes.
 
      myObj = JSON.parse(this.responseText);
 var ok=myObj.length;
-
+brojac=ok;
 
 
 
@@ -107,7 +107,7 @@ var t33 = document.createTextNode("Posalji");
 myelement33.appendChild(t33);
 myelement33.onclick = function() { 
 alert("aaa");
-
+alert(brojac);
 }
 
 
