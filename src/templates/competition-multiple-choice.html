@@ -61,6 +61,7 @@ var ok=myObj.length;
 var para = document.createElement("p");
 for(i=0;i<ok;i++)
 {
+
 var node3 = document.createTextNode("Pitanje "+i+": ");
 para.appendChild(node3);
 var node = document.createTextNode(myObj[i]['question_data']['question']);
@@ -95,7 +96,7 @@ para.appendChild(document.createElement("br"));
 
 para.appendChild(node2);
 para.appendChild(document.createElement("br"));
-para.appendChild(izbor);
+para.appendChild(izbor.cloneNode(true));
 }
 var element = document.getElementById("div1");
 element.appendChild(para);
