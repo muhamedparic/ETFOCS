@@ -24,12 +24,13 @@
 
 <script>
 var brojac=0;
+var pitanjca=[];
  function UcitajZadatke2()
 {
 
 
 var izbor = document.getElementById("mySelect");
-
+var pitanje = document.getElementById("Pitanje");
 
 
 var http6 = new XMLHttpRequest();
@@ -65,7 +66,7 @@ for(i=0;i<ok;i++)
 var node3 = document.createTextNode("Pitanje "+i+": ");
 para.appendChild(node3);
 var node = document.createTextNode(myObj[i]['question_data']['question']);
-
+pitanjca.push(myObj[i]['question_data']['question']);
 var br1="1. ";
 var br2="2. ";
 var br3="3. ";
@@ -94,6 +95,7 @@ para.appendChild(document.createElement("br"));
 
 para.appendChild(node8);
 para.appendChild(document.createElement("br"));
+pitanje.setAttribute("id","pitanje"+i);
 izbor.setAttribute("id","mySelect"+i);
 para.appendChild(izbor.cloneNode(true));
 para.appendChild(document.createElement("br"));
@@ -109,7 +111,7 @@ myelement33.appendChild(t33);
 myelement33.onclick = function() { 
 
 
-
+alert(pitanjca[0]);
 
 var d=document.getElementById("mySelect1").value;
 alert(d);
@@ -246,7 +248,7 @@ http6.send(params6);
     <option>4</option>
   </select>
 </form>
-
+<p id="Pitanje"  >ako</p>
 
   </body>
 
