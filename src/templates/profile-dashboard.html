@@ -60,8 +60,21 @@ var t54 = document.createTextNode("Pokreni");
 myelement54.appendChild(t54);
 myelement54.onclick = function() {
  var tipt54=this.parentNode.parentNode.rowIndex;
-alert("as");
-alert(document.getElementById("takmicenja").rows[tipt54].cells[1].innerHTML);
+var imetakmicenja=document.getElementById("takmicenja").rows[tipt54].cells[0].innerHTML;
+var tiptakmicenja=document.getElementById("takmicenja").rows[tipt54].cells[1].innerHTML;
+
+if(tiptakmicenja=="fill")
+setTimeout(function() {window.location = "/competition_fill" ;localStorage.setItem("imetakmicenja",imetakmicenja);});
+
+
+if(tiptakmicenja=="code")
+setTimeout(function() {window.location = "/competition_code" ;localStorage.setItem("imetakmicenja",imetakmicenja);});
+
+
+if(tiptakmicenja=="multiple_choice")
+{setTimeout(function() {window.location = "/competition_multiple_choice" });
+localStorage.setItem("imetakmicenja",imetakmicenja);
+};
 
 
 } 
