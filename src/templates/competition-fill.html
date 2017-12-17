@@ -56,10 +56,10 @@ var ok=myObj.length;
 
 
 
-var para = document.createElement("p");
+var para = document.createElement("div");
 for(i=0;i<ok;i++)
 {
-alert(myObj[i]['answer_data']);
+
 var node3 = document.createTextNode("Pitanje "+i+": ");
 para.appendChild(node3);
 var node = document.createTextNode(myObj[i]['question_data']);
