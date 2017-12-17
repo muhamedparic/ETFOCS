@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 
   <head>
@@ -18,8 +18,102 @@
 
   </head>
 
-  <body>
+  <body onload="UcitajZadatke2">
       
+
+
+<script>
+
+ function UcitajZadatke2()
+{
+
+
+
+
+
+var http6 = new XMLHttpRequest();
+var url6 = "/api/competition_questions";
+ 
+var toke6=localStorage.getItem("token");
+var ul6=localStorage.getItem("uloga");  
+var has6=localStorage.getItem("hash");
+var obj6 = { "hash":has6, "role":ul6, "token":toke6};
+var imet6=localStorage.getItem("imetakmicenja");
+alert("ok");
+var params6 = "token="+ JSON.stringify(obj6)+"&competition="+imet6;
+
+http6.open("POST", url6, true);
+       http6.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+http6.onreadystatechange = function() {//Call a function when the state changes.
+    if(http6.readyState == 4 && http6.status == 200) {
+//Uzimanje JSona
+
+     alert("ok");
+
+     myObj = JSON.parse(this.responseText);
+var ok=myObj.length;
+
+
+
+
+var para = document.createElement("p");
+for(i=0;i<ok;i++)
+{
+var node3 = document.createTextNode("Pitanje "+i+": ");
+para.appendChild(node3);
+var node = document.createTextNode(myObj[i]['question_data']['question']);
+var br1="1. ";
+var br2="2. ";
+var br3="3. ";
+var br4="4. ";
+var node5 = document.createTextNode(br1+myObj[i]['question_data']['answers'][0]);
+var node6 = document.createTextNode(br2+myObj[i]['question_data']['answers'][1]);
+var node7 = document.createTextNode(br3+myObj[i]['question_data']['answers'][2]);
+
+var node8 = document.createTextNode(br4+myObj[i]['question_data']['answers'][3]);
+
+var node2 = document.createTextNode(myObj[i]['answer_data']);
+para.appendChild(node);
+para.appendChild(document.createElement("br"));
+
+
+para.appendChild(node5);
+para.appendChild(document.createElement("br"));
+
+
+para.appendChild(node6);
+para.appendChild(document.createElement("br"));
+
+
+para.appendChild(node7);
+para.appendChild(document.createElement("br"));
+
+para.appendChild(node8);
+para.appendChild(document.createElement("br"));
+
+para.appendChild(node2);
+para.appendChild(document.createElement("br"));
+}
+var element = document.getElementById("div1");
+element.appendChild(para);
+
+
+
+            
+ 
+    }
+}
+http6.send(params6);
+
+
+}
+
+</script>
+
+
+
+
+
      <!-- Navigation -->
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
       <div class="container">
@@ -133,7 +227,6 @@
                 </div>
                 <div class="col-lg-6">
                   <ul class="list-unstyled mb-0">
-
                   </ul>
                 </div>
               </div>
@@ -156,6 +249,9 @@
 
     </div>
     <!-- /.container -->
+
+<div id="div1"></div1>
+
 
     <!-- Footer -->
     <footer class="py-5 bg-dark">
