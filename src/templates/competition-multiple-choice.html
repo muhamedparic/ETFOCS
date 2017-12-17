@@ -109,10 +109,11 @@ var t33 = document.createTextNode("Posalji");
  
 myelement33.appendChild(t33);
 myelement33.onclick = function() { 
-
+var odgovori=[];
 for(i=0;i<ok;i++)
 {
 var d=document.getElementById("mySelect"+i).value;
+odgovori.push(d);
 alert(d);
 
 }
