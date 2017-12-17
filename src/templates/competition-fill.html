@@ -18,13 +18,66 @@
 
   </head>
 
-  <body>
+  <body onload="Zadaci()">
       
 
 
 <script>
-alert("ok");
-alert(localStorage.getItem("imetakmicenja"));
+
+function Zadaci()
+{alert("a");
+var http5 = new XMLHttpRequest();
+var url5 = "/api/competition_questions";
+ 
+var toke5=localStorage.getItem("token");
+var ul5=localStorage.getItem("uloga");  
+var has5=localStorage.getItem("hash");
+var obj5 = { "hash":has5, "role":ul5, "token":toke5};
+var imet5=localStorage.getItem("imetakmicenja");
+
+var params5 = "token="+ JSON.stringify(obj5)+"&competition="+imet5;
+
+http5.open("POST", url5, true);
+       http5.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+http5.onreadystatechange = function() {//Call a function when the state changes.
+    if(http5.readyState == 4 && http5.status == 200) {
+//Uzimanje JSona
+
+     
+
+     myObj = JSON.parse(this.responseText);
+var ok=myObj.length;
+
+
+
+
+
+var para = document.createElement("p");
+for(i=0;i<ok;i++)
+{
+var node3 = document.createTextNode("Pitanje "+i+": ");
+para.appendChild(node3);
+var node = document.createTextNode(myObj[i]['question_data']);
+var node4 = document.createTextNode("Odgovor "+i+": ");
+var node2 = document.createTextNode(myObj[i]['answer_data']);
+para.appendChild(node);
+para.appendChild(document.createElement("br"));
+para.appendChild(node4);
+para.appendChild(node2);
+para.appendChild(document.createElement("br"));
+}
+var element = document.getElementById("div1");
+element.appendChild(para);
+
+
+
+            
+ 
+    }
+}
+http5.send(params5);
+
+}
 </script>
 
 
@@ -125,6 +178,13 @@ alert(localStorage.getItem("imetakmicenja"));
             </div>
           </div>
         -->
+
+<div id="div1">
+
+</div>
+
+
+
           <!-- Side Widget -->
           <div class="card my-4">
             <h5 class="card-header"><b>Upute</b></h5>
