@@ -28,7 +28,8 @@
 {
 
 
-alert("fs");
+var izbor = document.getElementById("mySelect");
+
 
 
 var http6 = new XMLHttpRequest();
@@ -40,6 +41,7 @@ var has6=localStorage.getItem("hash");
 var obj6 = { "hash":has6, "role":ul6, "token":toke6};
 var imet6=localStorage.getItem("imetakmicenja");
 document.getElementById("imet").innerHTML = imet6;
+
 var params6 = "token="+ JSON.stringify(obj6)+"&competition="+imet6;
 
 http6.open("POST", url6, true);
@@ -48,7 +50,7 @@ http6.onreadystatechange = function() {//Call a function when the state changes.
     if(http6.readyState == 4 && http6.status == 200) {
 //Uzimanje JSona
 
-     alert("ok");
+     
 
      myObj = JSON.parse(this.responseText);
 var ok=myObj.length;
@@ -93,6 +95,7 @@ para.appendChild(document.createElement("br"));
 
 para.appendChild(node2);
 para.appendChild(document.createElement("br"));
+para.appendChild(izbor);
 }
 var element = document.getElementById("div1");
 element.appendChild(para);
@@ -142,8 +145,8 @@ http6.send(params6);
         <!-- Question Column -->
         <div class="col-md-8">
 
-          <h1 class="my-4"><b>Whiny baby contest</b>
-            <small>Multiple choice</small>
+          <h1 class="my-4" id="korisnik"><b>Sretno!</b>
+            
           </h1>
 
           <!-- Question -->
@@ -217,6 +220,16 @@ http6.send(params6);
       </div>
       <!-- /.container -->
     </footer>
+
+<form hidden>
+  <select id="mySelect">
+    <option>1</option>
+    <option>2</option>
+    <option>3</option>
+    <option>4</option>
+  </select>
+</form>
+
 
   </body>
 
