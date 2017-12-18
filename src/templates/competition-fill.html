@@ -116,7 +116,7 @@ http7.open("POST", url7, true);
 
 http7.onreadystatechange = function() {//Call a function when the state changes.
     if(http7.readyState == 4 && http7.status == 200) {
-alert("ok");
+
 alert(this.responseText);
 }
 }
