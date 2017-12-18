@@ -109,11 +109,11 @@ def api_submit_solution():
 
 @app.route('/api/submit_answers', methods=['POST'])
 def api_submit_answer():
-    required_fields = ('token', 'competition', 'question', 'answer')
+    required_fields = ('token', 'competition', 'answers')
     if not all(field in request.form for field in required_fields):
         return json.dumps({'success': False, 'reason': 'Missing one or more fields'})
     return db.submit_answers(request.form.get('token'), request.form.get('competition'),
-                            request.form.get('question'), request.form.get('answer'))
+                            request.form.get('answers'))
 
 @app.route('/api/add_competitor', methods=['POST'])
 def api_add_competitor():

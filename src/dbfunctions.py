@@ -10,8 +10,7 @@ from flask import send_from_directory
 
 import utils
 
-conn = MySQLdb.connect(host='localhost', user='admin', password='root', db='ETFOCS')
-char_set = string.ascii_letters + string.digits + string.punctuation
+conn = MySQLdb.connect(host='localhost', user='admin', password='root', db='TEST')
 secret_key = '7725b1b3d5aa1b7af2f102463e12740519c50112a370e74fce3340c96e54b979'
 upload_folder = '/home/fajik/Desktop/ETFOCS/src/static/task_files'
 
@@ -124,7 +123,7 @@ def add_competition(token, comp_type, comp_name):
 
 def get_next_question_index(comp_name):
     with conn.cursor() as cur:
-        cur.execute("""SELECT MAX(q.question_index + 1)
+        cur.execute("""SELECT MAX(q.question_index)
                        FROM questions AS q
                        JOIN
                        competitions AS c
@@ -133,7 +132,11 @@ def get_next_question_index(comp_name):
                        WHERE
                        c.name=%s
                        """, (comp_name,))
-        return cur.fetchone()[0]
+        result = cur.fetchone()[0]
+        if result is None:
+            return 1
+        else:
+            return result + 1
 
 def add_question(token, comp_type, comp_name, question_data, answer_data):
     token_info = get_token_info(token)
@@ -145,6 +148,7 @@ def add_question(token, comp_type, comp_name, question_data, answer_data):
         question_text = None
         answer_list = None
         try:
+            question_data = json.loads(question_data)
             question_text = question_data['question']
             answer_list = question_data['answers']
         except:
@@ -152,7 +156,7 @@ def add_question(token, comp_type, comp_name, question_data, answer_data):
         question_index = get_next_question_index(comp_name)
         if answer_data not in ('1', '2', '3', '4'):
             return json.dumps({'success': False, 'reason': 'Invalid answer'})
-        answer_text = answer_index
+        answer_text = answer_data
         with conn.cursor() as cur:
             cur.execute("""INSERT INTO
                            questions(competition_fk, question_index, question_text)
@@ -220,6 +224,8 @@ def add_question(token, comp_type, comp_name, question_data, answer_data):
                            %s)
                            """, (comp_name, question_index, question_text))
         conn.commit()
+    return json.dumps({'success': True})
+
 
 def get_competition_list(token):
     if get_token_info(token)[2] != 'admin':
@@ -291,45 +297,87 @@ def is_participant(competition, user):
                        """, (user, competition))
         return cur.rowcount == 1
 
-#FIX
+def get_competition_questions_admin(comp_name):
+    comp_type = get_competition_type(comp_name)
+    with conn.cursor() as cur:
+        if comp_type in ('fill', 'code'):
+            cur.execute("""SELECT q.question_text, ca.answer_text
+                           FROM
+                           questions AS q
+                           JOIN
+                           correct_answers AS ca
+                           ON
+                           q.id=ca.question_fk
+                           JOIN
+                           competitions AS c
+                           ON
+                           q.competition_fk=c.id
+                           WHERE
+                           c.name=%s
+                           ORDER BY
+                           q.question_index ASC
+                           """, (comp_name,))
+            result_list = [{'question_data': row[0], 'answer_data': row[1]}
+                           for row in cur.fetchall()]
+            return result_list
+        elif comp_type == 'multiple_choice':
+            question_ids = []
+            question_texts = []
+            answer_texts = [] # List of tuples
+            correct_answers = []
+            cur.execute("""SELECT q.id, q.question_text
+                           FROM
+                           questions AS q
+                           JOIN
+                           competitions AS c
+                           ON
+                           q.competition_fk=c.id
+                           WHERE
+                           c.name=%s
+                           ORDER BY
+                           q.question_index ASC
+                           """, (comp_name,))
+            for question_id, question_text in cur.fetchall():
+                question_ids.append(question_id)
+                question_texts.append(question_text)
+            for question_id in question_ids:
+                cur.execute("""SELECT mca.answer_text
+                               FROM multiple_choice_answers AS mca
+                               JOIN
+                               questions AS q
+                               ON
+                               mca.question_fk=q.id
+                               WHERE
+                               q.id=%s
+                               ORDER BY
+                               mca.answer_index ASC
+                               """, (question_id,))
+                answer_texts.append(tuple(answer for answer in cur.fetchall()))
+            for question_id in question_ids:
+                cur.execute("""SELECT ca.answer_text
+                               FROM
+                               correct_answers AS ca
+                               JOIN
+                               questions AS q
+                               ON
+                               ca.question_fk=q.id
+                               WHERE
+                               q.id=%s
+                               """, (question_id,))
+                correct_answers.append(str(cur.fetchone()[0]))
+            print(question_texts, answer_texts, correct_answers)
+            result_list = [{'question_data': {'question': question_texts[i], 'answers': answer_texts[i]},\
+                           'answer_data': correct_answers[i]} for i in range(len(question_texts))]
+            return result_list
+
 def get_competition_questions(token, competition):
     token_info = get_token_info(token)
     if token_info[2] == 'admin':
-        with conn.cursor() as cur:
-            cur.execute("""SELECT q.question_data, q.answer_data, ct.description
-                           FROM questions AS q
-                           INNER JOIN competitions AS c
-                           ON q.competition_fk=c.id
-                           INNER JOIN competition_types AS ct
-                           ON c.type_fk=ct.id
-                           WHERE c.name=%s
-                           ORDER BY q.id
-                           """, (competition,))
-            if cur.rowcount == 0:
-                return json.dumps({})
-            result_list = [{'question_data': (row[0] if row[2] in ('fill', 'code') else json.loads(row[0])),\
-                            'answer_data': row[1]} for row in cur.fetchall()]
-            return json.dumps(result_list)
+        return json.dumps(get_competition_questions_admin(competition))
     elif token_info[2] == 'user':
-        if not is_participant(competition, token_info[1]):
-            return json.dumps({'success': False, 'reason': 'User not participating'})
-        with conn.cursor() as cur:
-            cur.execute("""SELECT q.question_data, ct.description
-                           FROM questions AS q
-                           INNER JOIN competitions AS c
-                           ON q.competition_fk=c.id
-                           INNER JOIN competition_types AS ct
-                           ON c.type_fk=ct.id
-                           WHERE c.name=%s
-                           ORDER BY q.id
-                           """, (competition,))
-            if cur.rowcount == 0:
-                return json.dumps({})
-            result_list = [{'question_data': (row[0] if row[1] in ('fill', 'code') else json.loads(row[0]))}\
-                          for row in cur.fetchall()]
-            return json.dumps(result_list)
-    else:
-        return json.dumps({'success': False, 'reason': 'Invalid token'})
+        result_list = get_competition_questions_admin(competition)
+        user_result_list = [{'question_data': result['question_data']} for result in result_list]
+        return json.dumps(user_result_list)
 
 def get_competition_type(comp_name):
     with conn.cursor() as cur:
@@ -360,41 +408,74 @@ def get_question_id(comp_name, question):
                        """, (question, comp_name))
         return cur.fetchone()[0]
 
-def is_correct_answer(comp_name, question, answer):
+def is_correct_answer(comp_name, question, answer, question_index = None):
     with conn.cursor() as cur:
-        question_id = get_question_id(comp_name, question)
-        cur.execute("""SELECT ca.answer_text
-                       FROM
-                       questions AS q
-                       JOIN
-                       correct_answers AS ca
-                       ON
-                       q.id=ca.question_fk
-                       WHERE
-                       q.id=%s
-                       """, (question_id,))
+        if question_index is None:
+            question_id = get_question_id(comp_name, question)
+            cur.execute("""SELECT ca.answer_text
+                           FROM
+                           questions AS q
+                           JOIN
+                           correct_answers AS ca
+                           ON
+                           q.id=ca.question_fk
+                           JOIN
+                           competitions AS c
+                           ON
+                           q.competition_fk=c.id
+                           WHERE
+                           q.id=%s
+                           AND
+                           c.name=%s
+                           """, (question_id, comp_name))
+        else:
+            cur.execute("""SELECT ca.answer_text
+                           FROM
+                           questions AS q
+                           JOIN
+                           correct_answers AS ca
+                           ON
+                           q.id=ca.question_fk
+                           JOIN
+                           competitions AS c
+                           ON
+                           q.competition_fk=c.id
+                           WHERE
+                           q.question_index=%s
+                           AND
+                           c.name=%s
+                           """, (question_index, comp_name))
         return cur.fetchone()[0] == answer
 
-#FIX
 def submit_answers(token, comp_name, answers):
-    pass
-
-#FIX
-def submit_answer(token, comp_name, question, answer):
     token_info = get_token_info(token)
-    if not token_info[0]:
-        return json.dumps({'success': False, 'reason': 'Invalid token'})
     username = token_info[1]
     if not is_participant(comp_name, username):
         return json.dumps({'success': False, 'reason': 'User not participating'})
+    answers = json.loads(answers)
+    for i, answer_text in enumerate(answers):
+        submit_answer(comp_name, username, i + 1, answer_text)
+    return json.dumps({'success': True})
+
+def submit_answer(comp_name, username, question_index, answer_text):
     with conn.cursor() as cur:
         cur.execute("""REPLACE INTO
-                       answers(user_fk, question_fk, answer)
+                       user_answers(user_fk, question_fk, answer_text, correct)
                        VALUES
                        ((SELECT id FROM users WHERE username=%s),
-                       (SELECT id FROM questions WHERE question_data=%s),
+                       (SELECT q.id
+                       FROM questions AS q
+                       JOIN
+                       competitions AS c
+                       ON
+                       q.competition_fk=c.id
+                       WHERE question_index=%s
+                       AND
+                       c.name=%s),
+                       %s,
                        %s)
-                       """, (username, question_data, answer))
+                       """, (username, question_index, comp_name, answer_text,
+                             is_correct_answer(comp_name, None, answer_text, question_index)))
         conn.commit()
         if cur.rowcount == 0:
             return {'success': False}
@@ -474,34 +555,52 @@ def get_task_list(token, comp_name):
             return json.dumps(result)
 
 #FIX
-def get_competition_results(token, competition):
+def get_competition_results(token, comp_name):
     token_info = get_token_info(token)
-    if not token_info[0]:
+    if token_info[2] != 'admin':
         return json.dumps({'success': False, 'reason': 'Invalid token'})
     with conn.cursor() as cur:
-        cur.execute("""SELECT u.username, CAST(SUM(a.points) AS SIGNED) AS p
-                       FROM
-                       users AS u
-                       INNER JOIN
-                       answers AS a
+        user_list = []
+        cur.execute("""SELECT u.username
+                       FROM users AS u
+                       JOIN
+                       participations AS p
                        ON
-                       u.id=a.user_fk
-                       INNER JOIN
-                       questions AS q
-                       ON
-                       a.question_fk=q.id
-                       INNER JOIN
+                       u.id=p.user_fk
+                       JOIN
                        competitions AS c
                        ON
-                       q.competition_fk=c.id
+                       p.competition_fk=c.id
                        WHERE
                        c.name=%s
-                       GROUP BY
-                       u.username
-                       ORDER BY p DESC
-                       """, (competition,))
-        results = [(row[0], row[1]) for row in cur.fetchall()]
-        return json.dumps(results)
+                       """, (comp_name,))
+        user_list = [row[0] for row in cur.fetchall()]
+        points_list = []
+        for username in user_list:
+            cur.execute("""SELECT CAST(SUM(ua.correct) AS SIGNED)
+                           FROM user_answers AS ua
+                           JOIN
+                           users AS u
+                           ON
+                           ua.user_fk=u.id
+                           JOIN
+                           questions AS q
+                           ON
+                           ua.question_fk=q.id
+                           JOIN
+                           competitions AS c
+                           ON
+                           q.competition_fk=c.id
+                           WHERE
+                           u.username=%s
+                           AND
+                           c.name=%s
+                           """, (username, comp_name))
+            points = cur.fetchone()[0]
+            if points is None:
+                points = '0'
+            points_list.append(points)
+        return json.dumps(list(zip(user_list, points_list)))
 
 def search_users(token, username):
     if get_token_info(token)[2] != 'admin':
