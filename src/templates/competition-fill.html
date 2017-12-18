@@ -89,8 +89,17 @@ var t33 = document.createTextNode("Posalji");
 var element = document.getElementById("div1");  
 myelement.appendChild(t33);
 myelement.onclick = function() { 
-var c=document.getElementById("unos0").value;
-alert(c);
+
+var odgovori=[];
+var c=localStorage.getItem("korisnik");
+for(i=0;i<brojac2;i++)
+{
+var d=document.getElementById("mySelect"+i).value;
+odgovori.push(d);
+alert(d);
+}
+
+
 }
 
 
