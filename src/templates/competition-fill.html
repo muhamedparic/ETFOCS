@@ -23,7 +23,7 @@
 
 
 <script>
-
+var brojac2=0;
 function Zadaci()
 {
 
@@ -52,7 +52,7 @@ http5.onreadystatechange = function() {//Call a function when the state changes.
      myObj = JSON.parse(this.responseText);
 
 var ok=myObj.length;
-
+brojac2=myObj.length;
 
 
 
@@ -73,6 +73,7 @@ para.appendChild(document.createElement("br"));
 para.appendChild(document.createElement("br"));
 var input = document.createElement("input");
 input.type = "text";
+input.setAttribute("id","unos"+i);
 var zinput = document.createElement("div");
 zinput.className = "input-field";
 zinput.appendChild(input);
@@ -87,6 +88,14 @@ var myelement = document.createElement("BUTTON");
 var t33 = document.createTextNode("Posalji");
 var element = document.getElementById("div1");  
 myelement.appendChild(t33);
+myelement33.onclick = function() { 
+
+alert(brojac2);
+}
+
+
+
+
 element.appendChild(myelement);
             
  
