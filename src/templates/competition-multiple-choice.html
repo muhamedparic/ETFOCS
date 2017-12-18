@@ -129,6 +129,7 @@ var imet7=localStorage.getItem("imetakmicenja");
 
 
 var params7 = "token="+ JSON.stringify(obj7)+"&competition="+imet7+"&answers="+JSON.stringify(odgovori);
+alert(params7);
 http7.open("POST", url7, true);
        http7.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
 
