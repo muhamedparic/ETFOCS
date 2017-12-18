@@ -107,12 +107,12 @@ def api_remove_question():
 def api_submit_solution():
     pass
 
-@app.route('/api/submit_answer', methods=['POST'])
+@app.route('/api/submit_answers', methods=['POST'])
 def api_submit_answer():
     required_fields = ('token', 'competition', 'question', 'answer')
     if not all(field in request.form for field in required_fields):
         return json.dumps({'success': False, 'reason': 'Missing one or more fields'})
-    return db.submit_answer(request.form.get('token'), request.form.get('competition'),
+    return db.submit_answers(request.form.get('token'), request.form.get('competition'),
                             request.form.get('question'), request.form.get('answer'))
 
 @app.route('/api/add_competitor', methods=['POST'])
