@@ -91,7 +91,6 @@ http5.send(params5);
 
 function Takmicari()
 {
-alert("ok");
 
 var http11 = new XMLHttpRequest();
 var url11 = "/api/competition_results";
@@ -102,7 +101,7 @@ var has11=localStorage.getItem("hash");
 var obj11 = { "hash":has11, "role":ul11, "token":toke11};
 var imet11=localStorage.getItem("imetakmicenja");
 var params11 = "token="+ JSON.stringify(obj11)+"&competition="+imet11;
-alert("aaad");
+
 
 http11.open("POST", url11, true);
        http11.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
@@ -112,7 +111,7 @@ http11.onreadystatechange = function() {//Call a function when the state changes
 
               myObj = JSON.parse(this.responseText);
 var ok=myObj.length;
-alert("aad");
+
 for(i=0;i<ok;i++)
 {
   var row = table.insertRow(i+1);
@@ -124,7 +123,7 @@ for(i=0;i<ok;i++)
 }
 
 
-
+setTimeout(function () { location.reload();});
             
  
     }
@@ -163,7 +162,7 @@ http3.open("POST", url3, true);
 http3.onreadystatechange = function() {//Call a function when the state changes.
     if(http3.readyState == 4 && http3.status == 200) {
 //Uzimanje JSona
-       
+    setTimeout(function () { location.reload();});   
                
     }
 }
