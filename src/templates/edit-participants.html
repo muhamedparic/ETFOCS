@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 
   <head>
@@ -18,7 +18,7 @@
 
   </head>
 
-  <body>
+  <body onload="ucitajtakmicare()">
       
     <!-- Navigation -->
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
@@ -30,7 +30,7 @@
         <div class="collapse navbar-collapse" id="navbarResponsive">
           <ul class="navbar-nav ml-auto">
             <li class="nav-item active">
-              <a class="nav-link" href="#">Home
+              <a class="nav-link" href="/home">Home
               </a>
             </li>
             <li class="nav-item">
@@ -59,24 +59,20 @@
               <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Reiciendis aliquid atque, nulla? Quos cum ex quis soluta, a laboriosam. Dicta expedita corporis animi vero voluptate voluptatibus possimus, veniam magni quis!</p>
               <a href="#" class="btn btn-primary">Read More &rarr;</a>-->
               <h2 class="card-title"><b>Dodavanje takmičara</b></h2>
-              <form>
+              <div>
                 <div class="input-field">
-                    <p>Pretraga: </p><input type="text" name="search-bar"><br>
+                    <p>Pretraga: </p><input type="text" id="user" name="search-bar"><br>
                 </div>
-                <input id="subby" type="submit" value="Traži" class="btn btn-primary"><br><br><br>
+                <input id="subby" onclick="Trazi()" type="submit" value="Traži" class="btn btn-primary"><br><br><br>
                 <h3>Rezultati:</h3>
                 <table id="tabela-rezultata">
                   <tr>
                     <th>Takmičar</th>
-                    <th>Username</th>
+                  
                   </tr>
-                  <tr>
-                    <td></td>
-                    <td></td>
-                    <td><input type="submit" value="Dodaj" class="btn btn-primary"></td>
-                  </tr>
+                 
                 </table>
-              </form>
+              </div>
             </div>
           </div>
         </div>
@@ -95,26 +91,12 @@
           <div class="card my-4">
             <h5 class="card-header"><b>Prijavljeni takmičari</b></h5>
             <div class="card-body">
-                <table>
+                <table id="takmicari">
                   <tr>
                     <th>Takmičar</th>
-                    <th>Username</th>
+                    
                   </tr>
-                  <tr>
-                    <td>Genji Shimada</td>
-                    <td>sparrow</td>
-                    <td><input type="submit" value="Izbriši" class="btn btn-primary"></td>
-                  </tr>
-                  <tr>
-                    <td>Amélie Lacroix</td>
-                    <td>spiderqueen</td>
-                    <td><input type="submit" value="Izbriši" class="btn btn-primary"></td>
-                  </tr>
-                  <tr>
-                    <td>Lena Oxton</td>
-                    <td>zippyzip</td>
-                    <td><input type="submit" value="Izbriši" class="btn btn-primary"></td>
-                  </tr>
+                  
                 </table>
             </div>
           </div>
@@ -135,6 +117,146 @@
       <!-- /.container -->
     </footer>
 
+<script>
+function Trazi()
+{
+var a31= document.getElementById("user").value;
+
+var http31 = new XMLHttpRequest();
+var url31 = "/api/search_users";
+
+var toke31=localStorage.getItem("token");
+var ul31=localStorage.getItem("uloga");  
+var has31=localStorage.getItem("hash");
+var obj31 = { "hash":has31, "role":ul31, "token":toke31};
+var table = document.getElementById("tabela-rezultata");
+
+
+    var table = document.getElementById("tabela-rezultata");
+   
+    for(var i = table.rows.length - 1; i > 0; i--)
+    {
+        table.deleteRow(i);
+    }
+
+
+
+var params31 = "username="+a31+"&token="+JSON.stringify(obj31);
+
+http31.open("POST", url31, true);
+       http31.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+
+http31.onreadystatechange = function() {//Call a function when the state changes.
+    if(http31.readyState == 4 && http31.status == 200) {
+//Uzimanje JSona
+   myObj = JSON.parse(this.responseText);
+var ok=myObj.length;
+
+
+for(i=0;i<ok;i++)
+{
+  var row = table.insertRow(i+1);
+    var cell1 = row.insertCell(0);
+  
+    cell1.innerHTML = myObj[i];
+   
+
+var cell33 = row.insertCell(1);
+
+var myelement33 = document.createElement("BUTTON");
+var t33 = document.createTextNode("Dodaj");  
+myelement33.appendChild(t33);
+myelement33.onclick = function() { 
+ var tipt33=this.parentNode.parentNode.rowIndex;
+var user=document.getElementById("tabela-rezultata").rows[tipt33].cells[0].innerHTML;
+var http33 = new XMLHttpRequest();
+var url33 = "/api/add_competitor";
+var imet33=localStorage.getItem("imetakmicenja");
+var params33 = "user="+user+"&token="+JSON.stringify(obj31)+"&competition="+imet33;
+
+http33.open("POST", url33, true);
+       http33.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+http33.onreadystatechange = function() {//Call a function when the state changes.
+    if(http33.readyState == 4 && http33.status == 200) {
+
+
+
+
+
+
+}
+
+
+}
+http33.send(params33);
+
+};
+ cell33.appendChild(myelement33);
+
+
+
+
+
+
+}
+
+
+
+
+
+               
+    }
+}
+http31.send(params31);
+
+}
+
+
+function ucitajtakmicare()
+{
+var http32 = new XMLHttpRequest();
+var url32 = "/api/competition_participants";
+  var table32 = document.getElementById("takmicari");
+var toke32=localStorage.getItem("token");
+var ul32=localStorage.getItem("uloga");  
+var has32=localStorage.getItem("hash");
+var obj32 = { "hash":has32, "role":ul32, "token":toke32};
+var imet32=localStorage.getItem("imetakmicenja");
+var params32 = "token="+ JSON.stringify(obj32)+"&competition="+imet32;
+
+http32.open("POST", url32, true);
+       http32.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+http32.onreadystatechange = function() {//Call a function when the state changes.
+    if(http32.readyState == 4 && http32.status == 200) {
+
+ myObj32 = JSON.parse(this.responseText);
+
+var ok32=myObj32.length;
+
+for(i=0;i<ok32;i++)
+{
+var row32 = table32.insertRow(i+1);
+
+ var cell32 = row32.insertCell(0);
+cell32.innerHTML = myObj32[i];
+
+
+
+
+
+
+}
+}
+}
+http32.send(params32);
+}
+
+
+
+
+
+
+</script>
   </body>
 
 </html>

@@ -18,83 +18,102 @@
 
   </head>
 
-  <body onload="Zadaci()">
+  <body onload="UcitajZadatke2()">
       
 
 
 <script>
-var brojac2=0;
-function Zadaci()
+var brojac=0;
+var pitanjca=[];
+ function UcitajZadatke2()
 {
 
 
+var izbor = document.getElementById("mySelect");
+var pitanje = document.getElementById("Pitanje");
 
-var http5 = new XMLHttpRequest();
-var url5 = "/api/competition_questions";
+
+var http6 = new XMLHttpRequest();
+var url6 = "/api/competition_questions";
  
-var toke5=localStorage.getItem("token");
-var ul5=localStorage.getItem("uloga");  
-var has5=localStorage.getItem("hash");
-var obj5 = { "hash":has5, "role":ul5, "token":toke5};
-var imet5=localStorage.getItem("imetakmicenja");
-    document.getElementById("imet").innerHTML = imet5;
+var toke6=localStorage.getItem("token");
+var ul6=localStorage.getItem("uloga");  
+var has6=localStorage.getItem("hash");
+var obj6 = { "hash":has6, "role":ul6, "token":toke6};
+var imet6=localStorage.getItem("imetakmicenja");
+document.getElementById("imet").innerHTML = imet6;
 
-var params5 = "token="+ JSON.stringify(obj5)+"&competition="+imet5;
+var params6 = "token="+ JSON.stringify(obj6)+"&competition="+imet6;
 
-http5.open("POST", url5, true);
-       http5.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-http5.onreadystatechange = function() {//Call a function when the state changes.
-    if(http5.readyState == 4 && http5.status == 200) {
+http6.open("POST", url6, true);
+       http6.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+http6.onreadystatechange = function() {//Call a function when the state changes.
+    if(http6.readyState == 4 && http6.status == 200) {
 //Uzimanje JSona
 
      
 
      myObj = JSON.parse(this.responseText);
-
 var ok=myObj.length;
-brojac2=myObj.length;
+brojac=myObj.length;
 
 
 
-
-var para = document.createElement("div");
-para.className = "card-body";
+var para = document.createElement("p");
 for(i=0;i<ok;i++)
 {
-var node8=document.createElement("H4");
-var node3 = document.createTextNode("Pitanje "+i+": ");
-node8.appendChild(node3);
-para.appendChild(node8);
-var node = document.createTextNode(myObj[i]['question_data']);
 
+var node3 = document.createTextNode("Pitanje "+i+": ");
+para.appendChild(node3);
+var node = document.createTextNode(myObj[i]['question_data']['question']);
+pitanjca.push(myObj[i]['question_data']['question']);
+var br1="1. ";
+var br2="2. ";
+var br3="3. ";
+var br4="4. ";
+var node5 = document.createTextNode(br1+myObj[i]['question_data']['answers'][0]);
+var node6 = document.createTextNode(br2+myObj[i]['question_data']['answers'][1]);
+var node7 = document.createTextNode(br3+myObj[i]['question_data']['answers'][2]);
+
+var node8 = document.createTextNode(br4+myObj[i]['question_data']['answers'][3]);
+
+var node2 = document.createTextNode(myObj[i]['answer_data']);
 para.appendChild(node);
 para.appendChild(document.createElement("br"));
 
+
+para.appendChild(node5);
 para.appendChild(document.createElement("br"));
-var input = document.createElement("input");
-input.type = "text";
-input.setAttribute("id","unos"+i);
-var zinput = document.createElement("div");
-zinput.className = "input-field";
-zinput.appendChild(input);
-para.appendChild(zinput);
+
+
+para.appendChild(node6);
+para.appendChild(document.createElement("br"));
+
+
+para.appendChild(node7);
+para.appendChild(document.createElement("br"));
+
+para.appendChild(node8);
+para.appendChild(document.createElement("br"));
+pitanje.setAttribute("id","pitanje"+i);
+izbor.setAttribute("id","mySelect"+i);
+para.appendChild(izbor.cloneNode(true));
+para.appendChild(document.createElement("br"));
+
+}
 var element = document.getElementById("div1");
 element.appendChild(para);
 
-
-}
-
-var myelement = document.createElement("BUTTON");
+var myelement33 = document.createElement("BUTTON");
 var t33 = document.createTextNode("Posalji");
-var element = document.getElementById("div1");  
-myelement.appendChild(t33);
-myelement.onclick = function() { 
-
+ 
+myelement33.appendChild(t33);
+myelement33.onclick = function() { 
 var odgovori=[];
 var c=localStorage.getItem("korisnik");
 for(i=0;i<ok;i++)
 {
-var d=document.getElementById("unos"+i).value;
+var d=document.getElementById("mySelect"+i).value;
 odgovori.push(d);
 
 }
@@ -127,26 +146,23 @@ http7.send(params7);
 
 
 
+}
 
 
 
+element.appendChild(myelement33);
 
-
-
-                              }
-
-
-
-
-element.appendChild(myelement);
             
  
     }
 }
-http5.send(params5);
+http6.send(params6);
+
 
 }
+
 </script>
+
 
 
 
@@ -161,7 +177,7 @@ http5.send(params5);
         <div class="collapse navbar-collapse" id="navbarResponsive">
           <ul class="navbar-nav ml-auto">
             <li class="nav-item active">
-              <a class="nav-link" href="/home">Home
+              <a class="nav-link" href="#">Home
               </a>
             </li>
             <li class="nav-item">
@@ -179,27 +195,24 @@ http5.send(params5);
         <!-- Question Column -->
         <div class="col-md-8">
 
-          <h1 class="my-4" id="imet"><b>"Znam učiti samo napamet" contest</b>
-            <small>Fill</small>
+          <h1 class="my-4" id="korisnik"><b>Sretno!</b>
+            
           </h1>
 
           <!-- Question -->
-        
-            
           <div class="card mb-4">
             <!--<img class="card-img-top" src="http://placehold.it/750x300" alt="Card image cap">-->
             <div class="card-body">
               <!--<h2 class="card-title">Test<br></h2>
               <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Reiciendis aliquid atque, nulla? Quos cum ex quis soluta, a laboriosam. Dicta expedita corporis animi vero voluptate voluptatibus possimus, veniam magni quis!</p>
               <a href="#" class="btn btn-primary">Read More &rarr;</a>-->
-            <div id="div1"></div>             
-
-
-
-
+              <h2 class="card-title" id="imet"><b>Why don't you like sand?</b></h2>
+           <div id="div1"></div>
             </div>
           </div>
-                    
+            
+        
+            
         </div>
 
         <!-- Sidebar Widgets Column -->
@@ -234,8 +247,8 @@ http5.send(params5);
           <div class="card my-4">
             <h5 class="card-header"><b>Upute</b></h5>
             <div class="card-body">
-              1. Odgovori se dodaju na kraj rečenice.<br>
-              2. Postoji samo jedan tačan odgovor.<br>
+              1. Samo jedan od ponuđenih odgovora je tačan.<br>
+              2. Sva pitanja u sklopu takmičenja su istog tipa.<br>
             </div>
           </div>
 
@@ -246,7 +259,6 @@ http5.send(params5);
 
     </div>
     <!-- /.container -->
-
 
 
 <h2 id="demo"></h2>
@@ -290,8 +302,6 @@ alert("Isteklo vrijeme,niste poslali nista");
 </script>
 
 
-
-
     <!-- Footer -->
     <footer class="py-5 bg-dark">
       <div class="container">
@@ -300,8 +310,15 @@ alert("Isteklo vrijeme,niste poslali nista");
       <!-- /.container -->
     </footer>
 
-
-
+<form hidden>
+  <select id="mySelect">
+    <option>1</option>
+    <option>2</option>
+    <option>3</option>
+    <option>4</option>
+  </select>
+</form>
+<p id="Pitanje"  >ako</p>
 
   </body>
 

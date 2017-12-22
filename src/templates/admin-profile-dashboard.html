@@ -117,29 +117,29 @@ var t1= document.getElementById("name");
     var T11 = document.getElementById("name").value;
 var t2 = document.getElementById("type");
 var T22 = document.getElementById("type").value;
-var toke7=localStorage.getItem("token");
-var ul7=localStorage.getItem("uloga");  
-var has7=localStorage.getItem("hash");
-var obj7 = { "hash":has7, "role":ul7, "token":toke7};
+var toke55=localStorage.getItem("token");
+var ul55=localStorage.getItem("uloga");  
+var has55=localStorage.getItem("hash");
+var obj55 = { "hash":has55, "role":ul55, "token":toke55};
 
-var http7 = new XMLHttpRequest();
-var url7 = "/api/add_competition";
-var params7 = "name="+T11+"&type="+T22+"&token="+ JSON.stringify(obj7);
+var http55 = new XMLHttpRequest();
+var url55 = "/api/add_competition";
+var params55 = "name="+T11+"&type="+T22+"&token="+ JSON.stringify(obj55);
+alert(params55);
+http55.open("POST", url55, true);
+       http55.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
 
-http7.open("POST", url7, true);
-       http7.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-
-http7.onreadystatechange = function() {//Call a function when the state changes.
-    if(http7.readyState == 4 && http7.status == 200) {
+http55.onreadystatechange = function() {//Call a function when the state changes.
+    if(http55.readyState == 4 && http55.status == 200) {
 //Uzimanje JSona
-
+alert(this.responseText);
               
     }
 }
-http7.send(params7);
+http55.send(params55);
 
 
-location.reload();
+
 }
 
 
@@ -201,6 +201,23 @@ localStorage.setItem("imetakmicenja",document.getElementById("myTable").rows[tip
 };
 };
  cell3.appendChild(myelement3);
+
+var cell4 = row.insertCell(3);
+
+var myelement4 = document.createElement("BUTTON");
+var t4 = document.createTextNode("Ucesnici");  
+myelement4.appendChild(t4);
+ myelement4.onclick = function() { 
+ var tipt4=this.parentNode.parentNode.rowIndex;
+
+localStorage.setItem("imetakmicenja", document.getElementById("myTable").rows[tipt4].cells[0].innerHTML);
+window.location = "/edit_participants"; 
+};
+ cell4.appendChild(myelement4);
+
+
+
+
 
 
 
