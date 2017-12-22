@@ -145,6 +145,37 @@ http52.send(params52);
             </div>
           </div>
 
+
+
+
+         <h2 class="sub-header">Lista svih takmičenja</h2>
+          <div class="table-responsive">
+            <table class="table table-striped" id="myTable">
+              <thead>
+                <tr>
+                  <th>Naziv takmičenja</th>
+                  <th>Tip takmičenja</th>
+                  
+                </tr>
+                <tr>
+                  <td><input type="text" id="name" /></td>
+                  <td><select name="cars" id="type">
+                          <option value="multiple_choice">multiple_choice</option>
+                          <option value="fill">fill</option>
+                          <option value="code">code</option>
+                      </select></td>
+                 
+                  <td><input type="submit" onclick="Primitakmicenje()" /></td>                  
+                </tr>
+              </thead>
+            <tbody>
+            
+              </tbody>
+            </table>
+          </div>
+
+
+
           <h2 class="sub-header">Rezultati</h2>
           <div class="table-responsive">
             <table class="table table-striped" id="takmicenja">
