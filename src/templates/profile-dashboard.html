@@ -18,7 +18,7 @@
     <link href="{{ url_for('static', filename='dashboard.css') }}" rel="stylesheet">
   </head>
 
-  <body onload="Takmicenja()">
+  <body onload="Takmicenja();a2();">
 
 <script>
 function Takmicenja()
@@ -96,6 +96,16 @@ http52.send(params52);
 
 
 }
+
+function a2()
+{
+
+var c=localStorage.getItem("korisnik");
+alert(c);
+}
+
+
+
 </script>
 
 
