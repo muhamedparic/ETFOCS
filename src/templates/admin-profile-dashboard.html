@@ -283,8 +283,17 @@ for(i=0;i<ok;i++)
 var cell3 = row.insertCell(2);
 
 var myelement3 = document.createElement("BUTTON");
-var t = document.createTextNode("Zadaci");  
+var t = document.createTextNode("Prihvati");  
 myelement3.appendChild(t);
+
+myelement3.onclick = function() { 
+ var tipt=this.parentNode.parentNode.rowIndex;
+var ok=document.getElementById("myTable2").rows[tipt].cells[0].innerHTML;
+
+}
+
+
+
 cell3.appendChild(myelement3);
 
 
