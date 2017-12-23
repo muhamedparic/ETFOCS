@@ -23,7 +23,6 @@
 <script>
 function Takmicenja()
 {
-
 var http52 = new XMLHttpRequest();
 var url52 = "/api/user_competitions";
   var table52 = document.getElementById("takmicenja");
@@ -37,24 +36,16 @@ http52.open("POST", url52, true);
        http52.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
 http52.onreadystatechange = function() {//Call a function when the state changes.
     if(http52.readyState == 4 && http52.status == 200) {
-
  myObj52 = JSON.parse(this.responseText);
-
 var ok52=myObj52.length;
-
 for(i=0;i<ok52;i++)
 {
 var row52 = table52.insertRow(i+1);
-
  var cell52 = row52.insertCell(0);
 cell52.innerHTML = myObj52[i][0];
 var cell53 = row52.insertCell(1);
 cell53.innerHTML = myObj52[i][1];
-
-
-
 var cell54 = row52.insertCell(2);
-
 var myelement54 = document.createElement("BUTTON");
 var t54 = document.createTextNode("Pokreni");  
 myelement54.appendChild(t54);
@@ -62,39 +53,20 @@ myelement54.onclick = function() {
  var tipt54=this.parentNode.parentNode.rowIndex;
 var imetakmicenja=document.getElementById("takmicenja").rows[tipt54].cells[0].innerHTML;
 var tiptakmicenja=document.getElementById("takmicenja").rows[tipt54].cells[1].innerHTML;
-
 if(tiptakmicenja=="fill")
 setTimeout(function() {window.location = "/competition_fill" ;localStorage.setItem("imetakmicenja",imetakmicenja);});
-
-
 if(tiptakmicenja=="code")
 setTimeout(function() {window.location = "/competition_code" ;localStorage.setItem("imetakmicenja",imetakmicenja);});
-
-
 if(tiptakmicenja=="multiple_choice")
 {setTimeout(function() {window.location = "/competition_multiple_choice" });
 localStorage.setItem("imetakmicenja",imetakmicenja);
 };
-
-
 } 
  cell54.appendChild(myelement54);
-
-
-
-
-
 }
-
-
-
-
 }
 }
 http52.send(params52);
-
-
-
 }
 
 function a2()
