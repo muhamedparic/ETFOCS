@@ -127,7 +127,7 @@ var ul4=localStorage.getItem("uloga");
 var has4=localStorage.getItem("hash");
 var obj4 = { "hash":has, "role":ul, "token":toke};
 var params4 = "token="+ JSON.stringify(obj)+"&competition="+imetakm;
-
+alert(params4);
 var http4 = new XMLHttpRequest();
 var url4 = "/api/apply_for_competition";
 
@@ -137,7 +137,7 @@ http4.open("POST", url4, true);
 http4.onreadystatechange = function() {//Call a function when the state changes.
     if(http4.readyState == 4 && http4.status == 200) {
 
-alert(this.responsetext);
+alert(this.responseText);
 setTimeout(function () { location.reload();});
 
 
