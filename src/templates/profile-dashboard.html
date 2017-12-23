@@ -102,13 +102,13 @@ function a2()
 
 var c=localStorage.getItem("korisnik");
 var http2 = new XMLHttpRequest();
-var url2 = "/api/user_competitions";
+var url2 = "/api/available_competition_list";
   var table = document.getElementById("myTable");
 var toke=localStorage.getItem("token");
 var ul=localStorage.getItem("uloga");  
 var has=localStorage.getItem("hash");
 var obj = { "hash":has, "role":ul, "token":toke};
-var params3 = "token="+ JSON.stringify(obj)+"&username="+c;
+var params3 = "token="+ JSON.stringify(obj);
 
 
 http2.open("POST", url2, true);
