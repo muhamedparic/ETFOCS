@@ -47,7 +47,7 @@ var cell53 = row52.insertCell(1);
 cell53.innerHTML = myObj52[i][1];
 var cell54 = row52.insertCell(2);
 var myelement54 = document.createElement("BUTTON");
-var t54 = document.createTextNode("Prijavi se");  
+var t54 = document.createTextNode("Pokreni");  
 myelement54.appendChild(t54);
 myelement54.onclick = function() {
  var tipt54=this.parentNode.parentNode.rowIndex;
@@ -116,15 +116,13 @@ cell53.innerHTML = myObj[i][1];
 var cell54 = row.insertCell(2);
 
 var myelement54 = document.createElement("BUTTON");
-var t54 = document.createTextNode("Pokreni");  
-myelement54.appendChild(t54);
-var myelement54 = document.createElement("BUTTON");
-var t54 = document.createTextNode("Pokreni");  
+var t54 = document.createTextNode("Prijavi se!");  
+
 myelement54.appendChild(t54);
  cell54.appendChild(myelement54);
 }
 
-
+location.reload();
 
 
 
