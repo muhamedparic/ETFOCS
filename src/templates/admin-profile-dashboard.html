@@ -288,8 +288,10 @@ myelement3.appendChild(t);
 
 myelement3.onclick = function() { 
  var tipt=this.parentNode.parentNode.rowIndex;
-var ok=document.getElementById("myTable2").rows[tipt].cells[0].innerHTML;
-alert(ok);
+var user=document.getElementById("myTable2").rows[tipt].cells[0].innerHTML;
+var takmicenje=document.getElementById("myTable2").rows[tipt].cells[1].innerHTML;
+var params = "user="+user+"&token="+JSON.stringify(obj)+"&competition="+takmicenje;
+alert(params);
 }
 
 
