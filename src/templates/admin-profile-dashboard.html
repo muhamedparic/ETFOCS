@@ -268,8 +268,22 @@ http3.open("POST", url3, true);
        http3.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
 http3.onreadystatechange = function() {//Call a function when the state changes.
     if(http3.readyState == 4 && http3.status == 200) {
-alert("k");
-alert(this.responseText);
+
+
+              myObj = JSON.parse(this.responseText);
+var ok=myObj.length;
+for(i=0;i<ok;i++)
+{
+  var row = table.insertRow(i+1);
+    var cell1 = row.insertCell(0);
+    var cell2 = row.insertCell(1);
+
+    cell1.innerHTML = myObj[i][0];
+    cell2.innerHTML = myObj[i][1];
+
+}
+
+
 }
 }
 http3.send(params3);
