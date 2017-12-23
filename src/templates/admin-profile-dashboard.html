@@ -269,7 +269,7 @@ http3.open("POST", url3, true);
 http3.onreadystatechange = function() {//Call a function when the state changes.
     if(http3.readyState == 4 && http3.status == 200) {
 alert("k");
-alert(this.responsetext);
+alert(this.responseText);
 }
 }
 http3.send(params3);
