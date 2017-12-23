@@ -123,7 +123,17 @@ myelement54.appendChild(t54);
  var tipt4=this.parentNode.parentNode.rowIndex;
 
 var imetakm=document.getElementById("myTable").rows[tipt4].cells[0].innerHTML;
-alert(imetakm);
+var ul4=localStorage.getItem("uloga");  
+var has4=localStorage.getItem("hash");
+var obj4 = { "hash":has, "role":ul, "token":toke};
+var params4 = "token="+ JSON.stringify(obj)+"&competition="+imetakm;
+alert(params4);
+
+
+
+
+
+
 
 };
 
