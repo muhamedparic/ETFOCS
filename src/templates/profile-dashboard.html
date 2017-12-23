@@ -81,7 +81,7 @@ http52.send(params52);
 function a2()
 {
 
-var c=localStorage.getItem("korisnik");
+
 var http2 = new XMLHttpRequest();
 var url2 = "/api/available_competition_list";
   var table = document.getElementById("myTable");
@@ -100,7 +100,7 @@ http2.onreadystatechange = function() {//Call a function when the state changes.
 
               myObj = JSON.parse(this.responseText);
 var ok=myObj.length;
-
+alert(myObj);
 
 for(i=0;i<ok;i++)
 {
