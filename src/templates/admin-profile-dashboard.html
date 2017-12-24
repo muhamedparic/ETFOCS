@@ -122,10 +122,10 @@ function drawChart() {
 var http60 = new XMLHttpRequest();
 var url60 = "/api/number_of_competitors";
   
-var toke=localStorage.getItem("token");
-var ul=localStorage.getItem("uloga");  
-var has=localStorage.getItem("hash");
-var obj = { "hash":has, "role":ul, "token":toke};
+var toke60=localStorage.getItem("token");
+var ul60=localStorage.getItem("uloga");  
+var has60=localStorage.getItem("hash");
+var obj60 = { "hash":has60, "role":ul60, "token":toke60};
 var params60 = "token="+ JSON.stringify(obj);
 alert(params60);
 http60.open("POST", url60, true);
