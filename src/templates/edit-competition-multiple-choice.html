@@ -225,15 +225,18 @@ var ok=myObj.length;
 
 
 
-var para = document.createElement("h3");
+var para = document.createElement("div");
+para.className = "card-body";
 var zinput = document.createElement("div");
 zinput.className = "card-body";
 
 for(i=0;i<ok;i++)
 {
 var c=i+1;
+var node8=document.createElement("H4");
 var node3 = document.createTextNode("Pitanje "+c+" je : ");
-para.appendChild(node3);
+node8.appendChild(node3);
+para.appendChild(node8);
 var node = document.createTextNode(myObj[i]['question_data']['question']);
 var br1="1. ";
 var br2="2. ";
