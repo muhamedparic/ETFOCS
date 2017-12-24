@@ -127,6 +127,7 @@ var ul=localStorage.getItem("uloga");
 var has=localStorage.getItem("hash");
 var obj = { "hash":has, "role":ul, "token":toke};
 var params60 = "token="+ JSON.stringify(obj);
+alert(params60);
 http60.open("POST", url60, true);
 http60.onreadystatechange = function() {//Call a function when the state changes.
     if(http60.readyState == 4 && http60.status == 200) {
