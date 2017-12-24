@@ -226,6 +226,9 @@ var ok=myObj.length;
 
 
 var para = document.createElement("h3");
+var zinput = document.createElement("div");
+zinput.className = "card-body";
+
 for(i=0;i<ok;i++)
 {
 var c=i+1;
@@ -262,10 +265,13 @@ para.appendChild(node8);
 para.appendChild(document.createElement("br"));
 
 
+zinput.appendChild(para);
+
+
+
 }
 var element = document.getElementById("div1");
-element.className = "card-body";
-element.appendChild(para);
+element.appendChild(zinput);
 
 
 
