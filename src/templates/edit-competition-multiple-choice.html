@@ -259,25 +259,32 @@ para.appendChild(document.createElement("br"));
 
 var node16=document.createElement("p");
 node16.appendChild(node5);
-node16.style.color="red";
+
 para.appendChild(node16);
 para.appendChild(document.createElement("br"));
 
+var node17=document.createElement("p");
+node17.appendChild(node6);
+para.appendChild(node17);
+para.appendChild(document.createElement("br"));
 
-para.appendChild(node6);
+var node18=document.createElement("p");
+node18.appendChild(node7);
+
+para.appendChild(node18);
 para.appendChild(document.createElement("br"));
 
 
-para.appendChild(node7);
-para.appendChild(document.createElement("br"));
+var node19=document.createElement("p");
+node19.appendChild(node8);
 
-para.appendChild(node8);
+para.appendChild(node19);
 para.appendChild(document.createElement("br"));
 alert(myObj[i]['answer_data']);
-if(myObj[i]['answer_data']=="1")alert("sf");
-if(myObj[i]['answer_data']=="2")alert("s");
-if(myObj[i]['answer_data']=="3")alert("sfa");
-if(myObj[i]['answer_data']=="4")alert("sfg");
+if(myObj[i]['answer_data']=="1")node16.style.color="blue";
+if(myObj[i]['answer_data']=="2")node17.style.color="blue";
+if(myObj[i]['answer_data']=="3")node18.style.color="blue";
+if(myObj[i]['answer_data']=="4")node19.style.color="blue";
 
 zinput.appendChild(para);
 
