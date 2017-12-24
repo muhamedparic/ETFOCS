@@ -174,8 +174,21 @@ http60.onreadystatechange = function() {//Call a function when the state changes
 
     myObj = JSON.parse(this.responseText);
 var ok=myObj.length;
+var dataArray = [['Takmicenje','Count']];
+ for (var n =0; n < ok; n++)
+ {
+  dataArray.push ([myObj[n][0], parseInt(myObj[n][1])]) }
 
-alert(myObj);
+
+
+ var data = new google.visualization.arrayToDataTable(dataArray);
+
+  // Optional; add a title and set the width and height of the chart
+  var options = {'title':'Sva takmicenja', 'width':550, 'height':400};
+
+  // Display the chart inside the <div> element with id="piechart"
+  var chart = new google.visualization.PieChart(document.getElementById('piechart'));
+  chart.draw(data, options);
 
 
 }
@@ -186,21 +199,7 @@ http60.send(params60);
 
 
 
-  var data = google.visualization.arrayToDataTable([
-  ['Task', 'Hours per Day'],
-  ['Work', 8],
-  ['Eat', 2],
-  ['TV', 4],
-  ['Gym', 2],
-  ['Sleep', 8]
-]);
-
-  // Optional; add a title and set the width and height of the chart
-  var options = {'title':'Sva takmicenja', 'width':550, 'height':400};
-
-  // Display the chart inside the <div> element with id="piechart"
-  var chart = new google.visualization.PieChart(document.getElementById('piechart'));
-  chart.draw(data, options);
+ 
 }
 </script>
 
