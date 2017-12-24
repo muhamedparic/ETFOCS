@@ -229,7 +229,7 @@ var para = document.createElement("h3");
 for(i=0;i<ok;i++)
 {
 var c=i+1;
-var node3 = document.createTextNode("Pitanje "+c+": ");
+var node3 = document.createTextNode("Pitanje "+c+" je : ");
 para.appendChild(node3);
 var node = document.createTextNode(myObj[i]['question_data']['question']);
 var br1="1. ";
@@ -261,8 +261,7 @@ para.appendChild(document.createElement("br"));
 para.appendChild(node8);
 para.appendChild(document.createElement("br"));
 
-para.appendChild(node2);
-para.appendChild(document.createElement("br"));
+
 }
 var element = document.getElementById("div1");
 element.appendChild(para);
