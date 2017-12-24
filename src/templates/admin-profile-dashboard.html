@@ -25,7 +25,7 @@
 
  </head>
 
-  <body onload="Ucitajtakicenje();a3();">
+  <body onload="Ucitajtakicenje();a3();VratiNiz();">
 
 
 
@@ -109,19 +109,14 @@
 
 <div id="piechart"></div>
 
-<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
 
-<script type="text/javascript">
-// Load google charts
-google.charts.load('current', {'packages':['corechart']});
-google.charts.setOnLoadCallback(drawChart);
 
-// Draw the chart and set the chart values
-function drawChart() {
+<script >
+function VratiNiz() {
 
 var http60 = new XMLHttpRequest();
 var url60 = "/api/number_of_competitors";
-  
+alert("ok");
 var toke60=localStorage.getItem("token");
 var ul60=localStorage.getItem("uloga");  
 var has60=localStorage.getItem("hash");
@@ -138,28 +133,8 @@ alert(this.responseText);
 http60.send(params60);
 
 
-
-
-var cars = ["Saab", "Volvo", "BMW"];
-var arr=[5,15,20];
-var dataArray = [['Date','Count']];
- for (var n =0; n < arr.length; n++)
- {
-  dataArray.push ([cars[n], parseInt(arr[n])]) }
-
-
-alert(dataArray[1]);
-
-
-var data = new google.visualization.arrayToDataTable(dataArray);
-
-  // Optional; add a title and set the width and height of the chart
-  var options = {'title':'My Average Day', 'width':550, 'height':400};
-
-  // Display the chart inside the <div> element with id="piechart"
-  var chart = new google.visualization.PieChart(document.getElementById('piechart'));
-  chart.draw(data, options);
 }
+
 </script>
 
 
