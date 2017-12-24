@@ -225,10 +225,11 @@ var ok=myObj.length;
 
 
 
-var para = document.createElement("p");
+var para = document.createElement("h3");
 for(i=0;i<ok;i++)
 {
-var node3 = document.createTextNode("Pitanje "+i+": ");
+var c=i+1;
+var node3 = document.createTextNode("Pitanje "+c+": ");
 para.appendChild(node3);
 var node = document.createTextNode(myObj[i]['question_data']['question']);
 var br1="1. ";
