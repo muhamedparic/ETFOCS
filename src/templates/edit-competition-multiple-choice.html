@@ -257,8 +257,10 @@ node15.style.color="red";
 para.appendChild(node15);
 para.appendChild(document.createElement("br"));
 
-
-para.appendChild(node5);
+var node16=document.createElement("p");
+node16.appendChild(node5);
+node16.style.color="red";
+para.appendChild(node16);
 para.appendChild(document.createElement("br"));
 
 
@@ -272,10 +274,10 @@ para.appendChild(document.createElement("br"));
 para.appendChild(node8);
 para.appendChild(document.createElement("br"));
 alert(myObj[i]['answer_data']);
-if(myObj[i]['answer_data']=="0")alert("sf");
-if(myObj[i]['answer_data']=="1")alert("s");
-if(myObj[i]['answer_data']=="2")alert("sfa");
-if(myObj[i]['answer_data']=="3")alert("sfg");
+if(myObj[i]['answer_data']=="1")alert("sf");
+if(myObj[i]['answer_data']=="2")alert("s");
+if(myObj[i]['answer_data']=="3")alert("sfa");
+if(myObj[i]['answer_data']=="4")alert("sfg");
 
 zinput.appendChild(para);
 
