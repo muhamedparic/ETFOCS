@@ -228,7 +228,7 @@ def add_question(token, comp_type, comp_name, question_data, answer_data):
 
 
 def get_competition_list(token):
-    if get_token_info(token)[2] != 'admin':
+    if get_token_info(token)[2] == None:
         return json.dumps({'success': False, 'reason': 'Invalid token'})
     with conn.cursor() as cur:
         cur.execute("""SELECT c.name, ct.description FROM
@@ -365,7 +365,6 @@ def get_competition_questions_admin(comp_name):
                                q.id=%s
                                """, (question_id,))
                 correct_answers.append(str(cur.fetchone()[0]))
-            print(question_texts, answer_texts, correct_answers)
             result_list = [{'question_data': {'question': question_texts[i], 'answers': answer_texts[i]},\
                            'answer_data': correct_answers[i]} for i in range(len(question_texts))]
             return result_list
@@ -554,7 +553,6 @@ def get_task_list(token, comp_name):
             result = [row[0] for row in cur.fetchall()]
             return json.dumps(result)
 
-#FIX
 def get_competition_results(token, comp_name):
     token_info = get_token_info(token)
     if token_info[2] != 'admin':
@@ -657,4 +655,113 @@ def get_competition_participants(token, competition):
                        c.name=%s
                        """, (competition,))
         results = [row[0] for row in cur.fetchall()]
+        return json.dumps(results)
+
+def get_available_competition_list(token):
+    token_info = get_token_info(token)
+    username = token_info[1]
+    if username is None:
+        return json.dumps({'success': False, 'reason': 'Invalid token'})
+    with conn.cursor() as cur:
+        cur.execute("""SELECT c.name, ct.description
+                       FROM
+                       competitions AS c
+                       JOIN competition_types AS ct
+                       ON
+                       c.type_fk=ct.id
+                       WHERE
+                       (SELECT COUNT(*)
+                       FROM participations AS p
+                       WHERE
+                       p.user_fk=(SELECT id FROM users WHERE username=%s)
+                       AND
+                       p.competition_fk=c.id)=0
+                       """, (username,))
+        results = [(row[0], row[1]) for row in cur.fetchall()]
+        return json.dumps(results)
+
+def user_applied(username, competition):
+    with conn.cursor() as cur:
+        cur.execute("""SELECT COUNT(*)
+                       FROM applications AS a
+                       JOIN users AS u
+                       ON a.user_fk=u.id
+                       JOIN competitions AS c
+                       ON a.competition_fk=c.id
+                       WHERE
+                       u.username=%s
+                       AND
+                       c.name=%s
+                       """, (username, competition))
+        return str(cur.fetchone()[0]) == '1'
+
+def apply_for_competition(token, competition):
+    token_info = get_token_info(token)
+    username = token_info[1]
+    if username is None:
+        return json.dumps({'success': False, 'reason': 'Invalid token'})
+    if user_applied(username, competition):
+        return json.dumps({'success': False, 'reason': 'User already applied'})
+    with conn.cursor() as cur:
+        cur.execute("""INSERT INTO
+                       applications(user_fk, competition_fk)
+                       VALUES
+                       ((SELECT id FROM users WHERE username=%s),
+                       (SELECT id FROM competitions WHERE name=%s))
+                       """, (username, competition))
+        conn.commit()
+        return json.dumps({'success': True})
+
+def application_list_admin(token, competition):
+    token_info = get_token_info(token)
+    if token_info[2] != 'admin':
+        return json.dumps({'success': False, 'reason': 'Invalid token'})
+    with conn.cursor() as cur:
+        cur.execute("""SELECT u.username
+                       FROM users AS u
+                       JOIN applications AS a
+                       ON
+                       u.id=a.user_fk
+                       JOIN competitions AS c
+                       ON
+                       a.competition_fk=c.id
+                       WHERE
+                       c.name=%s
+                       """, (competition,))
+        results = [row[0] for row in cur.fetchall()]
+        return json.dumps(results)
+
+def application_list_all(token):
+    token_info = get_token_info(token)
+    if token_info[2] != 'admin':
+        return json.dumps({'success': False, 'reason': 'Invalid token'})
+    with conn.cursor() as cur:
+        cur.execute("""SELECT c.name, u.username
+                       FROM users AS u
+                       JOIN applications AS a
+                       ON
+                       u.id=a.user_fk
+                       JOIN competitions AS c
+                       ON
+                       a.competition_fk=c.id
+                       """)
+        results = [(row[0], row[1]) for row in cur.fetchall()]
+        return json.dumps(results)
+
+def number_of_competitors(token):
+    token_info = get_token_info(token)
+    if token_info[2] != 'admin':
+        return json.dumps({'success': False, 'reason': 'Invalid token'})
+    with conn.cursor() as cur:
+        cur.execute("""SELECT c.name, COUNT(u.id)
+                       FROM competitions AS c
+                       JOIN participations AS p
+                       ON
+                       c.id=p.competition_fk
+                       JOIN users AS u
+                       ON
+                       p.user_fk=u.id
+                       GROUP BY c.id
+                       """)
+        results = [(row[0], int(row[1])) for row in cur.fetchall()]
         return json.dumps(results)

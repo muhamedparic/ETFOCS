@@ -183,6 +183,41 @@ def api_competition_participants():
         return json.dumps({'success': False, 'reason': 'Missing one or more fields'})
     return db.get_competition_participants(request.form.get('token'), request.form.get('competition'))
 
+@app.route('/api/available_competition_list', methods=['POST'])
+def api_available_competition_list():
+    required_fields = ('token',)
+    if not all(field in request.form for field in required_fields):
+        return json.dumps({'success': False, 'reason': 'Missing one or more fields'})
+    return db.get_available_competition_list(request.form.get('token'))
+
+@app.route('/api/apply_for_competition', methods=['POST'])
+def api_apply_for_competition():
+    required_fields = ('token', 'competition')
+    if not all(field in request.form for field in required_fields):
+        return json.dumps({'success': False, 'reason': 'Missing one or more fields'})
+    return db.apply_for_competition(request.form.get('token'), request.form.get('competition'))
+
+@app.route('/api/application_list_admin', methods=['POST'])
+def api_application_list_admin():
+    required_fields = ('token', 'competition')
+    if not all(field in request.form for field in required_fields):
+        return json.dumps({'success': False, 'reason': 'Missing one or more fields'})
+    return db.application_list_admin(request.form.get('token'), request.form.get('competition'))
+
+@app.route('/api/application_list_all', methods=['POST'])
+def api_application_list_all():
+    required_fields = ('token',)
+    if not all(field in request.form for field in required_fields):
+        return json.dumps({'success': False, 'reason': 'Missing one or more fields'})
+    return db.application_list_all(request.form.get('token'))
+
+@app.route('/api/number_of_competitors', methods=['POST'])
+def api_number_of_competitors():
+    required_fields = ('token',)
+    if not all(field in request.form for field in required_fields):
+        return json.dumps({'success': False, 'reason': 'Missing one or more fields'})
+    return db.number_of_competitors(request.form.get('token'))
+
 @app.route('/secret/gitpull', methods=['GET'])
 def secret_gitpull():
     utils.gitpull()
@@ -190,6 +225,6 @@ def secret_gitpull():
 
 if __name__ == '__main__':
     try:
-    	app.run(host='192.168.0.21', port=8000, processes=4)
+    	app.run(host='192.168.0.31', port=8000, processes=4)
     except OSError:
     	app.run(host='localhost', port=8000, processes=4)
