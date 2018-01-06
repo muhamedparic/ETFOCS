@@ -117,7 +117,6 @@ http7.open("POST", url7, true);
 http7.onreadystatechange = function() {//Call a function when the state changes.
     if(http7.readyState == 4 && http7.status == 200) {
 
-setTimeout(function () { location.reload();});
 }
 }
 http7.send(params7);
@@ -259,7 +258,7 @@ http5.send(params5);
 
 <script>
 // Set the date we're counting down to
-var countDownDate = new Date("Dec 27, 2017 15:37:25").getTime();
+var countDownDate = new Date("Jan 8, 2018 15:37:25").getTime();
 
 // Update the count down every 1 second
 var x = setInterval(function() {
@@ -288,7 +287,7 @@ alert("Isteklo vrijeme,niste poslali nista");
     }
 }, 1000);
 </script>
-
+<p style="color:red;" id="ob">okok</p>
 
 
 
