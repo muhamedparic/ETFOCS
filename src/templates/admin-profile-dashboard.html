@@ -43,12 +43,12 @@
         </div>
         <div id="navbar" class="navbar-collapse collapse">
           <ul class="nav navbar-nav navbar-right">
-            <li role="presentation" ><a href="#">Home</a></li>
-            <li role="presentation" class="active" onclick="b()"><a href="#">Profile</a></li>
+            <li role="presentation" onclick="window.location = '/home'"><a href="#">Home</a></li>
+            <li role="presentation" class="active" onclick="window.location.reload()"><a href="#">Profile</a></li>
             <li role="presentation" onclick="a()"><a href="#">Log out</a></li>
           </ul>
           <form class="navbar-form navbar-right">
-            <input type="text" class="form-control" placeholder="Searcc...">
+            <input type="text" class="form-control" placeholder="Search...">
           </form>
         </div>
       </div>
