@@ -78,6 +78,16 @@ http52.send(params52);
 
 <script>
 
+function a() {
+	localStorage.clear();
+	setTimeout(function() { window.location = "/main"; });
+}
+
+
+
+
+
+
 function a2()
 {
 
@@ -198,7 +208,7 @@ http2.send(params3);
         <div id="navbar" class="navbar-collapse collapse">
           <ul class="nav navbar-nav navbar-right">
             <li><a href="/home">Home</a></li>
-            <li><a href="#">Help</a></li>
+            <li onclick="a()"><a href="#">Log out</a></li>
           </ul>
           <form class="navbar-form navbar-right">
             <input type="text" class="form-control" placeholder="Search...">
