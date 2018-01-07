@@ -155,8 +155,8 @@ http57.open("POST", url57, true);
 
 http57.onreadystatechange = function() {//Call a function when the state changes.
     if(http57.readyState == 4 && http57.status == 200) {
-alert("ok");
-alert(this.responseText);
+
+document.getElementById("ob").innerHTML = "Poslali ste  odgovore broj bodova je: "+this.responseText;
 }
 }
 http57.send(params57);
