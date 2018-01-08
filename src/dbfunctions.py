@@ -280,9 +280,14 @@ def add_competitor(token, competition, user):
                            ((SELECT id FROM competitions WHERE name=%s),
                            (SELECT id FROM users WHERE username=%s))
                            """, (competition, user))
-            conn.commit()
         except:
             return json.dumps({'success': False, 'reason': 'User already added'})
+        cur.execute("""DELETE FROM applications
+                       WHERE
+                       user_fk=(SELECT id FROM users WHERE username=%s),
+                       competition_fk=(SELECT id FROM competitions WHERE name=%s)
+                       """, (user, competition))
+        conn.commit()
     return json.dumps({'success': True})
 
 def is_participant(competition, user):
@@ -300,7 +305,7 @@ def is_participant(competition, user):
 def get_competition_questions_admin(comp_name):
     comp_type = get_competition_type(comp_name)
     with conn.cursor() as cur:
-        if comp_type in ('fill', 'code'):
+        if comp_type == 'fill':
             cur.execute("""SELECT q.question_text, ca.answer_text
                            FROM
                            questions AS q
@@ -320,6 +325,19 @@ def get_competition_questions_admin(comp_name):
             result_list = [{'question_data': row[0], 'answer_data': row[1]}
                            for row in cur.fetchall()]
             return result_list
+        elif comp_type == 'code':
+            cur.execute("""SELECT q.question_text
+                           FROM
+                           questions AS q
+                           JOIN
+                           competitions AS c
+                           ON
+                           q.competition_fk=c.id
+                           WHERE
+                           c.name=%s
+                           ORDER BY
+                           q.question_index ASC
+                           """, (comp_name,))
         elif comp_type == 'multiple_choice':
             question_ids = []
             question_texts = []
@@ -753,7 +771,7 @@ def number_of_competitors(token):
     if token_info[2] != 'admin':
         return json.dumps({'success': False, 'reason': 'Invalid token'})
     with conn.cursor() as cur:
-        cur.execute("""SELECT c.name, COUNT(u.id)
+        cur.execute("""SELECT c.name, CAST(COUNT(u.id) AS SIGNED)
                        FROM competitions AS c
                        JOIN participations AS p
                        ON
@@ -765,3 +783,31 @@ def number_of_competitors(token):
                        """)
         results = [(row[0], int(row[1])) for row in cur.fetchall()]
         return json.dumps(results)
+
+def competition_points(token, competition):
+    token_info = get_token_info(token)
+    username = token_info[1]
+    if username is None:
+        return json.dumps({'success': False, 'reason': 'Invalid token'})
+    with conn.cursor() as cur:
+        cur.execute("""SELECT CAST(SUM(ua.correct) AS SIGNED)
+                       FROM user_answers AS ua
+                       JOIN
+                       users AS u
+                       ON
+                       ua.user_fk=u.id
+                       JOIN
+                       questions AS q
+                       ON
+                       ua.question_fk=q.id
+                       JOIN
+                       competitions AS c
+                       ON
+                       q.competition_fk=c.id
+                       WHERE
+                       u.username=%s
+                       AND
+                       c.name=%s
+                       """, (username, competition))
+        points = cur.fetchone()[0]
+        return str(points) if points is not None else '0'

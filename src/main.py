@@ -88,12 +88,17 @@ def api_competition_list():
 
 @app.route('/api/add_question', methods=['POST'])
 def api_add_question():
-    required_fields = ('token', 'type', 'competition', 'question_data', 'answer_data')
+    required_fields = ('token', 'type', 'competition', 'question_data')
+    answer_data = None
     if not all(field in request.form for field in required_fields):
         return json.dumps({'success': False, 'reason': 'Missing one or more fields'})
+    if request.form.get('type') != 'type' and 'answer_data' not in request.form:
+        return json.dumps({'success': False, 'reason': 'Missing one or more fields'})
+    if request.form.get('type') != 'code':
+        answer_data = request.form.get('answer_data')
     return db.add_question(request.form.get('token'), request.form.get('type'),
                            request.form.get('competition'), request.form.get('question_data'),
-                           request.form.get('answer_data'))
+                           answer_data)
 
 @app.route('/api/remove_question', methods=['POST'])
 def api_remove_question():
@@ -218,6 +223,13 @@ def api_number_of_competitors():
         return json.dumps({'success': False, 'reason': 'Missing one or more fields'})
     return db.number_of_competitors(request.form.get('token'))
 
+@app.route('/api/competition_points', methods=['POST'])
+def api_competition_points():
+    required_fields = ('token', 'competition')
+    if not all(field in request.form for field in required_fields):
+        return json.dumps({'success': False, 'reason': 'Missing one or more fields'})
+    return db.competition_points(request.form.get('token'), request.form.get('competition'))
+
 @app.route('/secret/gitpull', methods=['GET'])
 def secret_gitpull():
     utils.gitpull()
@@ -225,6 +237,6 @@ def secret_gitpull():
 
 if __name__ == '__main__':
     try:
-    	app.run(host='192.168.0.31', port=8000, processes=4)
+    	app.run(host='192.168.0.31', port=8000, processes=1)
     except OSError:
-    	app.run(host='localhost', port=8000, processes=4)
+    	app.run(host='localhost', port=8000, processes=1)
