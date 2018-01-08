@@ -46,7 +46,7 @@ http9.open("POST", url9, true);
 http9.onreadystatechange = function() {//Call a function when the state changes.
     if(http9.readyState == 4 && http9.status == 200) {
 //Uzimanje JSona
- 
+ location.reload(); 
                
     }
 }
@@ -82,32 +82,13 @@ http20.onreadystatechange = function() {//Call a function when the state changes
     if(http20.readyState == 4 && http20.status == 200) {
 //Uzimanje JSona
 
-     
+    alert("aaa");
 
-     myObj = JSON.parse(this.responseText);
-var ok=myObj.length;
-
+alert(this.responseText);
 
 
 
 
-
-var para = document.createElement("p");
-for(i=0;i<ok;i++)
-{
-var node3 = document.createTextNode("Pitanje "+i+": ");
-para.appendChild(node3);
-var node = document.createTextNode(myObj[i]['question_data']);
-var node4 = document.createTextNode("Odgovor "+i+": ");
-var node2 = document.createTextNode(myObj[i]['answer_data']);
-para.appendChild(node);
-para.appendChild(document.createElement("br"));
-para.appendChild(node4);
-para.appendChild(node2);
-para.appendChild(document.createElement("br"));
-}
-var element = document.getElementById("div1");
-element.appendChild(para);
 
 
             
